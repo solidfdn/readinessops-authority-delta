@@ -9,7 +9,7 @@
 [Implementation](docs/IMPLEMENTATION.md) ·
 [Acceptance evidence contract](docs/INTEGRATED_ACCEPTANCE_EVIDENCE.md)
 
-![The complete ReadinessOps workspace: business objects, evidence, cited assessment, human decisions, actions, outcomes and history](docs/product-screens/viewport-01-overview.jpg)
+[![The complete ReadinessOps workspace: business objects, evidence, cited assessment, human decisions, actions, outcomes and history](docs/product-screens/journey/previews/00-overview.png)](docs/product-screens/journey/00-overview.png)
 
 ReadinessOps is a shared operating record for consequential AI work. It keeps the
 business question, versioned evidence, cited agent analysis, human judgment,
@@ -43,20 +43,23 @@ These are live screens from one completed VendorPayment acceptance—not mockups
 Each screen preserves the full workspace context: the business-object portfolio,
 the seven-stage workflow and the current published state.
 
+The previews keep the README readable. Select any image to inspect the complete,
+cursor-free capture at its original resolution.
+
 | 1. Versioned evidence | 2. Cited agent assessment |
 | --- | --- |
 | Originals and extracted text are retained; a new version never rewrites the evidence used by an earlier assessment. | A Strands agent returns gaps, risks and next actions tied to the fixed evidence snapshot. |
-| [![Evidence workspace](docs/product-screens/viewport-02-evidence-v2.jpg)](docs/product-screens/readinessops-02-evidence-clean.jpg) | [![Assessment with cited gaps and risks](docs/product-screens/viewport-03-assessment.jpg)](docs/product-screens/03-assessment-v2.jpg) |
+| [![Evidence workspace](docs/product-screens/journey/previews/01-versioned-evidence.png)](docs/product-screens/journey/01-versioned-evidence.png) | [![Assessment with cited gaps and risks](docs/product-screens/journey/previews/02-cited-agent-assessment.png)](docs/product-screens/journey/02-cited-agent-assessment.png) |
 
 | 3. Human review and publication | 4. Accountable actions |
 | --- | --- |
-| A signed-in reviewer edits the proposal, records judgment and publishes an official revision explicitly. | Published actions receive an owner, due date, status and new resolution evidence before completion. |
-| [![Human review and publish workspace](docs/product-screens/viewport-04-review-v2.jpg)](docs/product-screens/readinessops-04-review-and-publish-clean.jpg) | [![Accountable actions workspace](docs/product-screens/viewport-05-actions.jpg)](docs/product-screens/readinessops-05-actions-clean.jpg) |
+| A signed-in reviewer edits the proposal and records judgment without publishing or changing AWS permissions. Publication and AWS delegation remain separate explicit actions. | Published actions receive an owner, due date, status and new resolution evidence before completion. |
+| [![Human review, approval and explicit publication](docs/product-screens/journey/previews/03-human-review-and-publication.png)](docs/product-screens/journey/03-human-review-and-publication.png) | [![Accountable actions workspace](docs/product-screens/journey/previews/04-accountable-actions.png)](docs/product-screens/journey/04-accountable-actions.png) |
 
 | 5. Outcomes and exchange | 6. Retained history |
 | --- | --- |
 | Outcomes attach to the official decision or completed AWS application; unmeasured metrics remain explicit and external packs are immutable references. | Evidence, assessments, human decisions, publications and AWS lifecycle events remain downloadable and reviewable. |
-| [![Outcome recording and fixed-version exchange](docs/product-screens/viewport-06-outcomes-v2.jpg)](docs/product-screens/06-outcomes-v2.jpg) | [![Retained decision and authority history](docs/product-screens/viewport-07-history.jpg)](docs/product-screens/07-history-v2.jpg) |
+| [![Outcome recording and fixed-version exchange](docs/product-screens/journey/previews/05-outcomes-and-exchange.png)](docs/product-screens/journey/05-outcomes-and-exchange.png) | [![Retained decision and authority history](docs/product-screens/journey/previews/06-retained-history.png)](docs/product-screens/journey/06-retained-history.png) |
 
 ## Authority Delta — finite AWS authority with proof
 
