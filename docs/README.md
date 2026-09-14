@@ -1,27 +1,34 @@
-# Documentation map
+# Documentation
 
-Use the following documents as the current product definition:
+## Review the product
 
-1. [Repository overview](../README.md) — product purpose, complete user journey
-   and evidence-backed status.
-2. [Architecture](ARCHITECTURE.md) — account-neutral product core, optional
-   connector boundary and the distinct-account RO-07 topology.
-3. [Implementation](IMPLEMENTATION.md) — current service boundaries, execution
-   paths and stop invariant.
-4. [RO-07 live acceptance](RO07_LIVE_ACCEPTANCE.md) — scoped evidence for the
-   optional VendorPayment connector deployed across two AWS accounts.
-5. [Integrated acceptance evidence](INTEGRATED_ACCEPTANCE_EVIDENCE.md) — export
-   composition and verification contract.
+| Start with | What it explains |
+| --- | --- |
+| [Product overview](../README.md) | Who ReadinessOps helps, what the agent does, and the full workspace journey |
+| [Three-minute judge guide](../submission/JUDGE_GUIDE.md) | One concrete path through the live record, with expected results |
+| [Architecture](ARCHITECTURE.md) | The evidence-to-decision core and optional connected AWS authority |
+| [Implementation](IMPLEMENTATION.md) | Current service responsibilities, code boundaries and acceptance status |
 
-## Scope of the other documents
+## Inspect the live evidence
 
-- `BUSINESS_*` documents define product-core workflow contracts.
-- `AWS_CUSTOMER_*`, `CONNECTED_*` and `RO07_*` documents are runbooks or evidence
-  for an optional connected adapter. They do not define a two-account prerequisite
-  for ReadinessOps.
-- Dated plans, recovery notes, gate notes and baseline documents preserve the
-  implementation chronology. Their then-current status statements are historical
-  and must not override the current definition above.
+| Record | Demonstrated scope |
+| --- | --- |
+| [RO-08: action and reassessment](RO08_LIVE_ACCEPTANCE.md) | New resolution evidence, completed action, a validated candidate and fixed prior-decision comparison |
+| [RO-07: authority lifecycle](RO07_LIVE_ACCEPTANCE.md) | Registered ALLOW execution, entry closure, exact Policy removal and seven-request DENY verification |
+| [RO-10/11: outcomes and exchange](BUSINESS_OUTCOME_INTERCHANGE.md) | Observed versus unmeasured outcomes and idempotent fixed-reference import |
+| [Integrated evidence contract](INTEGRATED_ACCEPTANCE_EVIDENCE.md) | Export composition, provenance and integrity checks |
 
-The repository contains one English product and one product architecture. It does
-not publish a separate localized edition.
+## Build and inspect contracts
+
+[Development guide](DEVELOPMENT.md) provides local dependency installation,
+verification commands, source locations and AWS runbook entry points.
+
+[Action lifecycle](BUSINESS_ACTION_LIFECYCLE.md) and the other `BUSINESS_*`
+documents describe the core contracts. `AWS_CUSTOMER_*`, `CONNECTED_*` and
+`RO07_*` documents describe an optional execution connector or its evidence.
+The distinct-account topology used by that connector is not a prerequisite for
+the ReadinessOps core.
+
+Dated plans, gate notes and recovery reports preserve the implementation history.
+Use the current pages above for present capabilities and acceptance status;
+historical `NOT_RUN` or pending statements describe their original checkpoints.
