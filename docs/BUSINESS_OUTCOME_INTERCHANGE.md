@@ -1,7 +1,7 @@
 # Business Outcome and fixed interchange
 
-2026-09-11. This is implemented local source for the RO-10/11 contract boundary.
-It is not evidence of live AWS, Snowflake, browser or human operation.
+Updated 2026-09-14 UTC. This describes the RO-10/11 contract and the authenticated
+workspace checks below. File interchange does not establish live Snowflake connectivity.
 
 ## Outcome and Metric
 
@@ -67,7 +67,18 @@ claim that Snowflake communication succeeded.
 
 ## Scope and remaining acceptance
 
-Local contract, API, UI rendering and distribution tests can establish the
-implemented semantics. RO-10 and RO-11 remain live/user acceptance `NOT_RUN`
-until the real application is operated with representative inputs. No live
-Snowflake connection is required by the fixed product baseline.
+Authenticated workspace checks on 2026-09-14 UTC verified:
+
+- RO-10: two retained outcomes against the existing suspended AWS application,
+  with an observed metric of seven denied synthetic requests and a separate
+  explicitly unmeasured commercial-savings metric. These do not claim new
+  execution or measured business savings. The fixed export retained both.
+- RO-11: a clearly labeled synthetic external-reference file was imported
+  through the live UI. Reimporting the same file retained one import record.
+  The authenticated acceptance export passed integrity verification; official
+  decision, delegation, application, revocation, invocation and outcome records
+  were unchanged by import. The fixture contained a Decision Pack and zero
+  outcomes; this check does not establish cross-platform connectivity.
+
+Local contract tests cover additional validation paths. No live Snowflake
+connection is required by the fixed product baseline.
