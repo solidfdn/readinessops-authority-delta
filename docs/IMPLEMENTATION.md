@@ -115,7 +115,9 @@ retry alone.
 | Strands/AgentCore cited assessment path | Live evidence retained for the accepted scope |
 | Optional two-account VendorPayment application, normal registered `ALLOW`, stop, exact Policy removal and all-request live `DENY` | `RO07_LIVE_AUTHORITY_LIFECYCLE_CONFIRMED` |
 | Non-payment common workflow | Implemented and separately validated without claiming a second execution adapter |
-| Remaining RO-08/10/11 live product acceptance and final submission checks | Not promoted by RO-07; tracked separately |
+| RO-10 outcome recording and RO-11 fixed-reference import | Authenticated UI and integrity checks passed for the [documented scope](BUSINESS_OUTCOME_INTERCHANGE.md) |
+| RO-08 action completion and reassessment | Action completion and immutable history verified; reliable reassessment remains open. Runtime 22 returned Nova ToolUse generation errors. The compact citation-reference fix requires deployment and live validation. |
+| Final submission checks | Tracked separately from technical acceptance |
 
 The offline RO-07 verifier performs no AWS action. Local tests, synthetic canaries
 and generated contracts are not presented as substitutes for authenticated human

@@ -7,7 +7,7 @@ from authority_delta.business.contracts import (ProposalContent, ProposalValidat
                                                  _validate_parsed_proposal,
                                                  check_snapshot, validate_proposal)
 
-ANALYSIS_CONTRACT_VERSION = 'business-catalog-reassessment-7'
+ANALYSIS_CONTRACT_VERSION = 'business-catalog-reference-9'
 MAX_PROPOSAL_ATTEMPTS = 3
 
 SYSTEM = """You support ReadinessOps business decisions. Read context and evidence using both
@@ -23,7 +23,9 @@ GOVERNANCE concerns constraints, accountability and human judgment. VALUE concer
 business outcome and how to measure it. MODEL_ROUTING concerns the evidence needed to
 choose a model or return a task to a person. PORTFOLIO concerns continue/revise/stop/expand
 in the context of this initiative; do not invent other initiatives or rankings.
-Use exact short quotations and evidence_id values from the evidence tool. A GAP may
+Use exact short quotations and evidence_id values from the evidence tool.
+When the schema requests quote_id, choose the matching quote_catalog ID; the server
+copies its exact source text. Do not place quotation text in quote_id. A GAP may
 describe absence without a quote; factual risk claims and substantive recommendations
 need citations. Distinct findings use F-01, F-02 etc. Actions reference those findings.
 The server binds the result to the verified input snapshot. Do not include input_hash
@@ -79,6 +81,24 @@ def assess(source, *, model):
     reads, attempts = set(), []
     accepted = None
     phase = {'kind': 'full', 'start': 0}
+    catalog = {}
+    for evidence in source['evidence']:
+        for part in re.split(r'(?<=[.!?])\s+|\n+', evidence['text']):
+            part = part.strip()
+            if 3 <= len(part) <= 800 and any(c.isalnum() for c in part) and len(catalog) < 320:
+                catalog['q' + str(len(catalog))] = {'evidence_id': evidence['evidence_id'], 'quote': part}
+
+    def materialize(value):
+        if isinstance(value, list):
+            return [materialize(v) for v in value]
+        if isinstance(value, dict):
+            if 'quote_id' in value:
+                entry = catalog.get(value['quote_id'])
+                if not entry or value.get('evidence_id') != entry['evidence_id']:
+                    raise ValueError('Quote catalog reference does not match its evidence')
+                return dict(entry)
+            return {k: materialize(v) for k, v in value.items()}
+        return value
 
     class SummaryInspection(ProposalContent):
         # Diagnostics only: inspect remaining content despite an overlong
@@ -125,9 +145,10 @@ def assess(source, *, model):
         try:
             parsed = handler(value)
             if base is None:
-                candidate = parsed.model_dump(mode='json')
+                candidate = materialize(parsed.model_dump(mode='json'))
             else:
-                candidate = dict(copy.deepcopy(base), **parsed.model_dump(mode='json'))
+                candidate = dict(copy.deepcopy(base), **materialize(parsed.model_dump(mode='json')))
+            record['proposal'] = copy.deepcopy(candidate)
             # Even a field-only revision must pass the original entire contract.
             accepted = validate_proposal(dict(candidate, input_hash=source['input_hash']), source, reads)
             record['status'] = 'VALIDATED'
@@ -151,9 +172,46 @@ def assess(source, *, model):
     def read_evidence() -> list:
         """Read all selected evidence texts and their exact identifiers and sources."""
         reads.add('evidence')
-        return source['evidence']
+        return [dict(e, quote_catalog=[dict(quote_id=k, **v) for k,v in catalog.items() if v['evidence_id']==e['evidence_id']]) for e in source['evidence']]
 
-    class BoundProposal(ProposalContent):
+    # Constrain reassessment repair to actual contiguous source quotations.
+    # The original complete contract still verifies each evidence/quote pair.
+    overrides = {}
+    if source['mode'] == 'REASSESSMENT':
+        if catalog:
+            class CatalogCitation(Strict):
+                evidence_id: str
+                quote_id: Literal[tuple(catalog)] = Field(description='Select the quote_id from read_evidence.quote_catalog. The server copies its exact source text.')
+
+                @model_validator(mode='before')
+                @classmethod
+                def exact_literal_compatibility(cls, value):
+                    # Exact literal citations remain compatible with local callers.
+                    # The model-facing schema exposes only compact catalog IDs.
+                    if isinstance(value, dict) and set(value) == {'evidence_id', 'quote'}:
+                        for key, entry in catalog.items():
+                            if value == entry:
+                                return {'evidence_id': entry['evidence_id'], 'quote_id': key}
+                    return value
+            quoted = CatalogCitation
+            finding = create_model('SelectedFinding', __base__=Finding,
+                citations=(list[quoted], Field(max_length=8)))
+            item = create_model('SelectedDecisionItem', __base__=DecisionItem,
+                decision_item_id=(Literal[tuple(x['decision_item_id'] for x in source['decision_item_registry'])], Field()),
+                citations=(list[quoted], Field(max_length=8)))
+            impact = create_model('SelectedImpact', __base__=DecisionImpact,
+                citations=(list[quoted], Field(min_length=1,max_length=8)))
+            comparison = create_model('SelectedComparison', __base__=ReassessmentComparison,
+                impacts=(list[impact], Field(min_length=4,max_length=4)))
+            overrides = {'findings': list[finding], 'decision_items': list[item],
+                         'reassessment': comparison}
+    content_fields = {name: (annotation, copy.deepcopy(ProposalContent.model_fields[name]))
+                      for name, annotation in overrides.items()}
+    if 'reassessment' in content_fields:
+        content_fields['reassessment'] = (overrides['reassessment'], Field())
+    ModelContent = create_model('ModelContent', __base__=ProposalContent, **content_fields)
+
+    class BoundProposal(ModelContent):
         summary: str = Field(min_length=8, max_length=2400,
             description='Short two-sentence overview, preferably at most 600 characters; full detail belongs in the other fields.')
 
@@ -163,6 +221,8 @@ def assess(source, *, model):
             return validate_attempt(value, handler)
 
     def needs_revision(errors):
+        if source['mode'] == 'REASSESSMENT' and errors:
+            return True
         return any(x['path'] == 'summary' and x['code'] == 'string_too_long' for x in errors) or (
             bool(errors) and all(x['code'] in ('EXACT_QUOTE_REQUIRED', 'CITATION_REQUIRED', 'IMPACT_CITATION_REQUIRED', 'COMPARISON_REQUIRED')
                                  for x in errors))
@@ -221,30 +281,6 @@ def assess(source, *, model):
             def bound(cls, value, handler):
                 return validate_attempt(value, handler, base=base)
 
-        # Constrain reassessment repair to actual contiguous source quotations.
-        # The original complete contract still verifies each evidence/quote pair.
-        overrides = {}
-        if source['mode'] == 'REASSESSMENT':
-            quotes = []
-            for evidence in source['evidence']:
-                for part in re.split(r'(?<=[.!?])\s+|\n+', evidence['text']):
-                    part = part.strip()
-                    if 3 <= len(part) <= 800 and any(c.isalnum() for c in part):
-                        quotes.append(part)
-            quotes = list(dict.fromkeys(quotes))[:320]
-            if quotes:
-                quoted = create_model('SelectedCitation', __base__=Citation,
-                    quote=(Literal[tuple(quotes)], Field(description='Choose one exact source quotation; never join entries.')))
-                finding = create_model('SelectedFinding', __base__=Finding,
-                    citations=(list[quoted], Field(max_length=8)))
-                item = create_model('SelectedDecisionItem', __base__=DecisionItem,
-                    citations=(list[quoted], Field(max_length=8)))
-                impact = create_model('SelectedImpact', __base__=DecisionImpact,
-                    citations=(list[quoted], Field(min_length=1,max_length=8)))
-                comparison = create_model('SelectedComparison', __base__=ReassessmentComparison,
-                    impacts=(list[impact], Field(min_length=4,max_length=4)))
-                overrides = {'findings': list[finding], 'decision_items': list[item],
-                             'reassessment': comparison}
         definitions = {}
         for name in sorted(fields):
             field = copy.deepcopy(ProposalContent.model_fields[name])
@@ -264,7 +300,7 @@ def assess(source, *, model):
             quote_catalog.append({'evidence_id': evidence['evidence_id'],
                 'exact_quote_options': options[:40]})
         payload = {'input_context': {k: v for k, v in source.items() if k not in ('evidence', 'input_hash')}, 'evidence': source['evidence'],
-                   'verbatim_quote_catalog': quote_catalog,
+                   'verbatim_quote_catalog': [dict(quote_id=k, **v) for k,v in catalog.items()],
                    'decision_item_registry': source.get('decision_item_registry'),
                    # Do not feed the rejected full report back as a summary example.
                    # The complete original stays in attempts; source evidence and
