@@ -9,6 +9,7 @@ review the changes, assign actions and decide what becomes official.
 
 [Open the live workspace](https://d3rn3hqm0ax5ux.cloudfront.net/) ·
 [Three-minute judge guide](submission/JUDGE_GUIDE.md) ·
+[Developer briefing](docs/ReadinessOps_Authority_Delta_Developer_Briefing.pdf) ·
 [Architecture](docs/ARCHITECTURE.md) ·
 [Verified results](#verified-on-aws) ·
 [Build and verify](docs/DEVELOPMENT.md)
@@ -111,6 +112,16 @@ flowchart TB
 
 [Detailed architecture](docs/ARCHITECTURE.md) · [Service and code boundaries](docs/IMPLEMENTATION.md)
 
+## Developer briefing
+
+- [ReadinessOps Authority Delta Developer Briefing (PDF)](docs/ReadinessOps_Authority_Delta_Developer_Briefing.pdf)
+
+This 15-page briefing starts with the people Authority Delta helps and the work
+it takes off their desks. It then explains the business record, Authority Delta
+comparison, human decision boundaries, AWS service responsibilities, optional
+execution connector, verified suspension rule, extension points and observed
+acceptance scope.
+
 ## Scope you can rely on
 
 - Assessments are proposals. Reviewers must check the reasoning and the relevance
@@ -128,6 +139,7 @@ flowchart TB
 | Your goal | Start here |
 | --- | --- |
 | Review the working product | [Judge guide](submission/JUDGE_GUIDE.md); sign-in credentials belong in the private submission instructions |
+| Understand the intended users, workflow and implementation boundaries | [Developer briefing](docs/ReadinessOps_Authority_Delta_Developer_Briefing.pdf) |
 | Check the retained AWS proof | [Offline verification](submission/JUDGE_GUIDE.md#verify-the-downloaded-evidence) |
 | Run local checks or inspect deployment instructions | [Development guide](docs/DEVELOPMENT.md) |
 | Explore contracts and evidence | [Documentation map](docs/README.md) |
