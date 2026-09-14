@@ -6,7 +6,8 @@ ReadinessOps — Authority Delta
 
 ## Tagline
 
-Turn evidence and human judgment into finite, revocable AWS agent authority.
+Keep evidence-backed human decisions current—and optionally connect them to
+finite, revocable AWS agent authority.
 
 ## Track
 
@@ -14,12 +15,14 @@ Professional Agents
 
 ## Short description
 
-ReadinessOps helps AI initiative owners decide what an agent may do, why that
-decision is justified, and when the authority must be reviewed or removed.
-Strands analyzes versioned evidence and proposes cited gaps, risks, actions and
-decision items. A human edits and approves the exact decision before separate,
-finite AWS authority can be applied. Authority Delta then re-evaluates affected
-decisions when evidence or an agent release changes.
+ReadinessOps helps AI initiative owners decide how to proceed, why the decision
+is justified, and what must be reviewed when the evidence changes. Strands
+analyzes versioned evidence and proposes cited gaps, risks, actions and decision
+items. A human edits, approves and explicitly publishes the exact decision.
+Authority Delta then identifies affected, unchanged and unknown decision items
+when evidence or an Agent release changes. If a registered execution adapter is
+available, a separate finite delegation can optionally connect that decision to
+AWS authority.
 
 ## Inspiration
 
@@ -39,10 +42,13 @@ without asking the model to approve itself.
   Portfolio perspectives.
 - Keeps AI output advisory: an authenticated person edits, approves and explicitly
   publishes a fixed decision revision.
-- Applies a separate, typed delegation to a registered AWS adapter only after
-  publication. The browser cannot submit arbitrary ARNs, Policy text or requests.
-- Uses an account-A control plane and an ExternalId-bound account-B publisher to
-  create and verify an exact AgentCore Policy.
+- Keeps the evidence, assessment, human publication, Actions, Outcomes and history
+  workflow usable without a connected execution account.
+- For an optional registered AWS adapter, applies a separate typed delegation only
+  after publication. The browser cannot submit arbitrary ARNs, Policy text or
+  requests.
+- Uses an account-A control plane and an ExternalId-bound account-B publisher for
+  the RO-07-verified VendorPayment connection, not as a requirement for core use.
 - Allows only a finite, registered request set through the Gateway and records the
   real outcome.
 - Closes the product entry before revocation, removes only the owned Policy, proves
@@ -62,12 +68,15 @@ Bedrock AgentCore Runtime using Amazon Nova Pro. Its tools can read only the fix
 assessment snapshot and return structured, cited proposals; they cannot approve,
 publish or edit AWS Policy.
 
-The enforcement path spans two AWS accounts. Account A owns business state and
-workers. Account B owns the registered VendorPayment Runtime, Gateway, Policy
-engine, publisher and synthetic ledger. STS roles bind the connection with an
-ExternalId and separate read-only discovery from qualified mutation. Every
-candidate starts closed, uses deterministic Policy input and idempotent journals,
-and becomes active only after live canary verification.
+The ReadinessOps core runs without a second account, and the connector contract
+does not prescribe an account topology. For the optional VendorPayment connection
+verified by RO-07, the deployment uses two AWS accounts as a least-privilege
+choice. Account A owns business state and workers. Account B owns the registered
+Runtime, Gateway, Policy engine, publisher and synthetic ledger. STS roles bind
+that connection with an ExternalId and separate read-only discovery, Policy
+publication and normal runtime invocation. Every candidate starts closed, uses
+deterministic Policy input and idempotent journals, and becomes active only after
+live canary verification.
 
 ## Challenges
 
@@ -82,8 +91,9 @@ results remain closed instead of being guessed successful.
 
 - A complete evidence-to-human-decision product flow, not a chat-only agent.
 - A real Strands/AgentCore analysis path with source-bound citations.
-- A two-account, least-privilege authority boundary with separate discovery,
-  publishing and runtime roles.
+- An optional VendorPayment connector deployed across two accounts for the live
+  least-privilege proof, with separate discovery, publishing and
+  runtime-invocation roles.
 - Live proof of one registered `ALLOW` invocation followed by entry closure, exact
   Policy removal, complete live `DENY`, and unchanged-ledger verification.
 - An authenticated, hash-bound export that passed
@@ -116,7 +126,7 @@ Amazon SQS, AWS STS, AWS CloudFormation and AWS CodeBuild.
 ## Required links and fields
 
 - Public repository: `https://github.com/solidfdn/readinessops-authority-delta`
-- Architecture diagram: `docs/ARCHITECTURE.svg`
+- Architecture diagrams: `docs/ARCHITECTURE.md`
 - Live demo: `https://d3rn3hqm0ax5ux.cloudfront.net/`
 - Demo video: add the final public YouTube or Vimeo URL
 - AWS Builder ID: enter the Builder ID used for the registered submission
@@ -127,8 +137,8 @@ Amazon SQS, AWS STS, AWS CloudFormation and AWS CodeBuild.
 
 ReadinessOps as a governance concept predates this event. This AWS project,
 including the Strands agent, AgentCore Runtime and Gateway/Policy integration,
-two-account authority workflow, authenticated Workbench and Authority Delta
-implementation, was created during the hackathon period. No source code from the
-prior Snowflake or Google implementations was incorporated. Standard open-source
-libraries and AI coding assistance were used; dependencies and the Apache-2.0
-license are included in the repository.
+optional connected VendorPayment topology, authenticated Workbench and Authority
+Delta implementation, was created during the hackathon period. No source code
+from the prior Snowflake or Google implementations was incorporated. Standard
+open-source libraries and AI coding assistance were used; dependencies and the
+Apache-2.0 license are included in the repository.

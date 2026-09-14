@@ -3,6 +3,10 @@
 On 2026-09-14, the authenticated two-account acceptance completed for the
 bounded `VendorPayment` adapter in `ap-northeast-1`.
 
+This is evidence for the optional connected-enforcement path. Account B is not a
+prerequisite for the core ReadinessOps evidence, assessment, human publication,
+Actions, Outcomes, history or Authority Delta change-impact workflow.
+
 ## Observed sequence
 
 1. Account A verified application

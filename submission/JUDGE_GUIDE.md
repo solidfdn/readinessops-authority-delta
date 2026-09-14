@@ -4,11 +4,15 @@
 
 1. Open the live product: https://d3rn3hqm0ax5ux.cloudfront.net/
 2. Sign in with the private credentials supplied in the Devpost testing instructions.
-3. Open **VendorPayment authority lifecycle acceptance**.
-4. Review the published decision and its evidence.
-5. Open the separate AWS authority section to inspect the retained RO-07 lifecycle record.
+3. Review the product journey across Overview, Evidence, Assessment, Review &
+   publish, Actions, Outcomes & exchange, and History.
+4. Confirm that cited AI proposals, human judgment and explicit publication remain
+   separate in the official business record.
+5. Then open **VendorPayment authority lifecycle acceptance** to inspect the
+   optional connected-enforcement path and its retained RO-07 record.
 
-The completed record proves the following bounded lifecycle:
+The core ReadinessOps workflow does not require account B. The completed
+VendorPayment record additionally proves the following optional bounded lifecycle:
 
 - one registered protected request returned `ALLOW` through the controlled entry point;
 - the stop request closed new execution entry;
@@ -40,10 +44,11 @@ This command is offline and performs no AWS action.
 
 - The acceptance used a synthetic `VendorPayment` request set.
 - No real payment or unrestricted AWS execution was authorized.
-- The account-B publisher could act only under the registered finite policy.
+- For this connected acceptance, the account-B publisher could act only on the
+  registered finite Policy lifecycle.
 - Suspension is not reported complete until Policy absence and live `DENY`
   results are both proven.
 
-Architecture: [`docs/ARCHITECTURE.svg`](../docs/ARCHITECTURE.svg)
+Architecture: [`docs/ARCHITECTURE.md`](../docs/ARCHITECTURE.md)
 
 Detailed acceptance result: [`docs/RO07_LIVE_ACCEPTANCE.md`](../docs/RO07_LIVE_ACCEPTANCE.md)

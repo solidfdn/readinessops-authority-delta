@@ -1,147 +1,141 @@
-# Implementation sequence — ReadinessOps AWS edition 1.2
+# Implementation — ReadinessOps AWS edition
 
-This document records the implemented product boundary and its evidence-backed
-acceptance sequence. It does not reduce the product to payments or remove
-non-payment validation.
+This document describes the current implemented boundary. It distinguishes the
+ReadinessOps product core from its optional connected AWS enforcement path and
+does not reduce the product to VendorPayment.
 
-## Preserve what has passed
+## Product boundary
 
-G0, GA and GB SEM-01/02 have preserved live evidence. Business workflow V2,
-its synthetic non-payment assessment canary, and the deployed product UI
-are user-reported PASS. Actual human approval/publication and complete GB UI,
-GC/GD acceptance are pending. No reset, repeat deployment or successful-gate rerun
-is the next step. Regress changed paths when needed without relabelling old proof.
+ReadinessOps supports a complete evidence-to-decision workflow without a second
+AWS account or an execution adapter:
 
-## Engineering order and measurable exits
+1. Register a business object, owner, question, goals and measures.
+2. Add versioned TXT, text-PDF or JSON evidence.
+3. Run a cited Strands assessment from a fixed input snapshot.
+4. Let an authenticated reviewer edit, approve, return or reject the proposal.
+5. Explicitly publish one revision as the official decision.
+6. Assign Actions, record Outcomes and retain the versioned history.
+7. Use Authority Delta to identify affected, unchanged and unknown decision items
+   when evidence, rules or an Agent release changes.
 
-The live business workflow must ultimately begin with real authenticated human
-approval and explicit publication. That is an **acceptance dependency**, not a
-prerequisite for locally implementing subsequent stages with synthetic records.
-Do not block engineering on the user entering a sample name or uploading a file.
+`VendorPayment V2` is the first registered execution adapter used for live
+acceptance. It is synthetic and performs no real payment. A non-payment business
+object can complete the common workflow without pretending that another execution
+adapter exists.
 
-| Stage | Engineering outcome | Exit evidence |
+## Core AWS services
+
+| Responsibility | Implementation | Authority boundary |
 | --- | --- | --- |
-| D1 Retain initial workflow | Preserve deployed object/question/evidence intake, queued assessment, editable pack, authenticated receipt and explicit business publication | Existing deployment/canary proof retained; real human workflow is checked in the integrated live acceptance, not invented from the canary |
-| D2 Change and reassessment | Bind the prior publication/pack/receipt into the immutable input; validate affected Decision Items and dependencies; present changed/unchanged/unknown items, operational Actions and current-versus-candidate effects; record typed Outcome/Metric values; export/import issuer-bound fixed documents | Local positive and negative contract/UI tests, followed by real RO-03/06/08/09/10/11 evidence. Local implementation does not replace live acceptance |
-| D3 AWS application | Explicitly connect the registered VendorPayment adapter and observed runtime bindings; require a separate typed delegation receipt; implement limited publisher, deny-first canary, verified AppliedBinding and outcomes | Local receipt/binding/publisher failure and recovery tests; then actual account B, remaining GB/SEM-03, GC and RO-05/07 live evidence |
-| D4 Completion and delivery | Verify the connected user journey, negative controls, reconnection, clean installation, product UX, judge access and export/demo | RO-01–12 and relevant original gates/GD; submission conditions checked separately before authorized submission |
+| Reviewer workspace | React and TypeScript behind Amazon CloudFront; Amazon Cognito sign-in | The browser supplies business commands, never trusted AWS resource identities or Policy text |
+| Business API | Amazon API Gateway and AWS Lambda | JWT subject and scopes are verified server-side; revisions and request IDs are checked conditionally |
+| Versioned truth | Amazon DynamoDB and versioned Amazon S3 | Evidence, snapshots, runs, drafts, receipts and publications remain version-fixed |
+| Assessment | Amazon SQS worker, Strands Agents SDK, Amazon Bedrock AgentCore Runtime and Amazon Nova Pro | The Agent reads only its fixed snapshot and proposes cited items; it cannot approve, publish or mutate AWS Policy |
+| Recovery | DynamoDB outboxes, SQS/DLQ and scheduled dispatch | Duplicate delivery, lost responses and uncertain results remain recoverable without being guessed successful |
 
-The D2 prior-publication binding, affected-item contract/review UI and operational
-Action lifecycle are now locally implemented. The server issues stable Decision
-Item IDs, maps historical objects explicitly, validates the exact prior
-publication/digest and all AFFECTED / UNCHANGED / UNKNOWN classifications, and
-returns the official comparison baseline to the review UI. Published Action
-proposals start as `PROPOSED`; assignment requires an owner and due date, completion
-requires new versioned evidence, and the first later assessment selecting that
-evidence is linked without transferring approval. It is not deployed, and D2 live
-RO acceptance remains pending.
-The D3 control plane and bounded AWS execution package are now locally implemented. A packaged,
-server-controlled adapter registry is empty by default and therefore fail-closed.
-When supplied with an integrity-checked VendorPayment registration, the API can
-issue a separate `AWS_DELEGATION_AUTHORITY` receipt bound to the exact current
-publication, connection, boundary, Runtime, execution role, finite request set,
-compiled policy, expiry and generation. It can then commit one immutable
-enforcement candidate and one writer lock per connection/policy engine.
+ApprovalReceipt, DecisionPublication/PublishedCurrent, AWS delegation,
+AppliedBinding and execution Outcome are separate records. Business approval or
+publication alone never grants runtime permission.
 
-The application worker accepts only exact publisher evidence. It installs an
-`AppliedBinding` only after registered ALLOW/DENY outcomes and all readback checks
-are verified. A timeout, malformed result or terminal-commit uncertainty becomes
-`UNKNOWN`, retains the writer lock and preserves the prior AppliedBinding; retry
-uses reconciliation. Verified closed recovery releases the lock without installing
-the candidate. A separate Application SQS/DLQ and DynamoDB outbox now recover failed
-delivery and cap automatic UNKNOWN reconciliation attempts. Account A invokes only
-the qualified customer Publisher Lambda in the registered account; it has no Policy
-API or Runtime permission. The customer Publisher journals deny-first evidence and
-owns only the bound Policy Engine. It invokes a distinct qualified canary Lambda;
-only that canary can read the fixed registry/ledger and invoke the bound Runtime.
-Policy create response loss is reconciled with the same client token, and failed
-canaries delete only the exact owned candidate before proving closed recovery.
+## Optional connected AWS enforcement
 
-The shipped registry is still empty, and all AWS boundaries were tested with pinned
-SDK shapes and local doubles. The account-B connector now has distinct ExternalId-
-bound Discovery and PublishInvoke roles. The A worker assumes only the latter and
-then invokes the qualified Publisher; it no longer has direct cross-account Lambda
-permission. A recoverable operator performs baseline/Runtime readback, deploys and
-reads back the connector, updates the exact Canary Runtime resource policy, derives
-the fixed registration and activates the functions. This is deployable source, not
-an actual account-B Policy write or Gateway result. The next dependency is a real,
-distinct account B, using the recoverable clean-foundation operator only when its
-bootstrap/baseline/Runtime preconditions are absent, followed by the verified
-account-A registry wiring operator and the one bounded live D3 acceptance. The
-wiring worker rereads account B through a dedicated read-only DiscoveryRole instead
-of trusting the transferred report. Each launcher now records `COLLECTED` only after
-the full report passes the stage's semantic and no-side-effect contract. A final
-offline gate binds connector report bytes, launch/source/report versions, account,
-Region, registration and account-A live readback before authenticated acceptance.
-Foundation continuity is checked when the clean foundation operator was needed;
-an existing matching foundation is not rerun solely to create evidence. The wiring
-report explicitly records zero Policy and ledger counts. This gate runs no AWS or
-human action and grants no authority. D2 and D3 live acceptance remain pending.
+Connected enforcement starts only when the server has a registered adapter and an
+authenticated person separately approves an `AWS_DELEGATION_AUTHORITY` receipt.
+The receipt binds the exact publication, connection, Runtime release, finite
+request set, compiled Policy hash, expiry and generation.
 
-The first local D4 boundary is also implemented. An authenticated read-only API
-now exports one object's complete positive-path audit projection after rereading
-the fixed blobs and cross-checking Evidence, Run, Decision Pack, human receipt,
-publication, Action, delegation, application, Publisher result, Outcome and
-history. Connector ExternalIds are replaced by hashes. The offline D4 composition
-gate binds the connected readiness result, one payment initial/reassessment/
-recovery/verified-application export and one separate non-payment publication
-export. Its PASS only permits the remaining negative, browser, judge and GD
-acceptance; it cannot mark the product ready or promote a gate. See
-`INTEGRATED_ACCEPTANCE_EVIDENCE.md`.
+The connector contract binds a registered target account but does not make a
+two-account layout a product-wide requirement. The live RO-07 topology uses
+account A for the ReadinessOps control plane and a distinct customer account B for
+the registered VendorPayment enforcement plane. That distinct-account layout is
+the connected topology proven by this repository. The supplied foundation and
+connector operators explicitly reject account A as their target. A same-account
+connector deployment is therefore not supported or verified by this release.
 
-The next D4 prerequisite is implemented without claiming a live negative test.
-Every business API response now emits one bounded correlation record containing
-only safe request metadata and SHA-256 digests of the object, authenticated
-subject, mutation request ID and response. Tokens, bodies, plaintext identities,
-evidence and unmatched paths are excluded. Client-generated sign-in, pending and
-uncertain-result errors use the product language; local rendering checks validate
-the required user-visible copy across intake and object tabs. See
-`D4_NEGATIVE_ACCEPTANCE_OBSERVABILITY.md`. Correlation logs and render contracts
-do not themselves pass RO-02/04/12 or live browser UX.
+### 1. Deployment verification
 
-The corresponding offline D4 negative evidence collector/checker is now
-implemented. It accepts only the exact positive-path start gate and eight bounded
-private case directories, recomputes every HTTP/audit digest, verifies each
-authenticated export, requires rejection-state invariance, a single replay side
-effect, request-ID conflict rejection and recovery of the same completed Run.
-Instruction-like evidence is fixed by a synthetic repository marker and cannot
-create business or AWS authority. API Gateway signed-out rejection is kept
-distinct from Lambda audit evidence. Its PASS advances only to remaining browser,
-judge and release acceptance; see `D4_NEGATIVE_ACCEPTANCE_EVIDENCE.md`.
+The account-A deployment operator assumes only the ExternalId-bound, read-only
+account-B `DiscoveryRole`. It rereads the Runtime, Gateway, Policy Engine, target,
+connector functions and immutable registry before accepting the packaged binding.
+CodeBuild is used for deployment and readback, not for ordinary user runs.
 
-General business approval must never create runtime authority. Keep ApprovalReceipt,
-DecisionPublication/PublishedCurrent, typed delegation approval, AppliedBinding and
-outcomes distinct. The existing `GET /review` is saved proof, not an approval API.
-An object's display name is not an adapter ID or connection. Non-payment RO-09 remains
-part of acceptance without pretending that a second execution adapter exists.
+### 2. Policy application and revocation
 
-Reuse Cognito, CloudFront, API, versioned S3, AgentCore and the deployment service.
-Keep application records separate from immutable sandbox tables. CodeBuild is for
-deployments, not ordinary user runs. Check pinned SDK/API contracts before adding
-cloud calls. Actual account B remains mandatory for D3 live proof, but is not a local
-D1/D2/D3 implementation dependency; do not substitute another role in account A.
+The account-A Application/Revocation Worker assumes the ExternalId-bound
+`PublishInvokeRole` and invokes only the qualified account-B Publisher Lambda.
+The worker has no direct AgentCore Policy permission.
 
-## Release gate before requesting user operation
+The Publisher owns only the exact Policy derived from the immutable candidate. It
+journals each cloud mutation, creates or removes that Policy, and uses the fixed
+Canary to verify real Gateway `ALLOW`/`DENY` results. An application becomes the
+AppliedBinding only after complete Publisher and canary evidence is verified.
 
-1. Test the changed user path end to end locally, including adjacent authorization,
-   persistence, serialization and idempotency boundaries. Include malformed, stale,
-   foreign-object and unknown-state cases, not only the success fixture.
-2. Build from the exact distribution source in a fresh directory with locked
-   dependencies. Exercise the actual delivered operator/entrypoint, result recovery,
-   interrupted/failed execution and duplicate-run handling. A unit-test count or a
-   successful worker import alone is not sufficient delivery evidence.
-3. Verify the affected browser flow and authentication/reconnection behavior.
-   If live browser or AWS checks are still needed, mark them pending and define one
-   bounded acceptance operation; do not present local doubles as live PASS.
-4. Only then request the minimum user-owned live action, stating its purpose, expected
-   outcome and recovery path. Preserve the current password and successful resources.
-   Never ask for re-registration or a different scenario to disguise an unimplemented
-   connection.
-5. Record local and live results separately in PROJECT_STATE and SESSION_HANDOFF,
-   with one next engineering dependency. Do not invent percentages, remaining hours,
-   user capacity, gate completion or background progress.
+### 3. Normal controlled invocation
 
-Real human approval is performed by the authenticated reviewer at live acceptance,
-not by the model or a deployment canary. Public repository/submission and external
-messages remain subject to the applicable user authorization. U1–U3 retain their
-original conditional adoption rules.
+Normal execution does not pass through the Policy Publisher. The authenticated
+Invocation Gate first verifies that the exact AppliedBinding, delegation receipt,
+generation, publication and request identity are current and open. Acceptance is
+linearized against stop and written to an invocation outbox.
+
+The Invocation Worker then assumes the separate ExternalId-bound
+`RuntimeInvokeRole` and invokes only the qualified account-B Invocation Lambda.
+That Lambda verifies the active Publisher journal before calling the registered
+AgentCore Runtime. The Runtime reaches the synthetic tool only through AgentCore
+Gateway and its Policy Engine. The immutable request registry fixes the input, and
+the sandbox ledger records an idempotent synthetic effect.
+
+The qualified result and its evidence hash return to account A, where the result
+is retained with the business record and history.
+
+## Stop and expiry invariant
+
+A stop request or expiry first closes the product-controlled entry and invalidates
+the delegation generation. An already accepted invocation is drained before the
+Policy is removed; new invocation acceptance cannot reopen the closed generation.
+
+`STOP_REQUESTED` and `UNKNOWN` are not completion states. Suspension becomes
+`SUSPENDED_CONFIRMED` only after all of the following are verified:
+
+- the entry remains closed;
+- the exact owned Policy is absent;
+- every registered request returns a fresh live `DENY`;
+- the synthetic ledger is unchanged; and
+- the complete result matches the current application, enforcement digest and
+  revocation request.
+
+Lost or malformed cloud responses remain `UNKNOWN`, retain the writer fence and
+reconcile the same operation. They are never converted to success by timeout or
+retry alone.
+
+## Evidence-backed status
+
+| Scope | Status |
+| --- | --- |
+| Deployed common workspace, authenticated publication and retained history | Observed in the live product |
+| Strands/AgentCore cited assessment path | Live evidence retained for the accepted scope |
+| Optional two-account VendorPayment application, normal registered `ALLOW`, stop, exact Policy removal and all-request live `DENY` | `RO07_LIVE_AUTHORITY_LIFECYCLE_CONFIRMED` |
+| Non-payment common workflow | Implemented and separately validated without claiming a second execution adapter |
+| Remaining RO-08/10/11 live product acceptance and final submission checks | Not promoted by RO-07; tracked separately |
+
+The offline RO-07 verifier performs no AWS action. Local tests, synthetic canaries
+and generated contracts are not presented as substitutes for authenticated human
+or live AWS evidence.
+
+## Code map
+
+- `workbench/` and `services/workbench/`: authenticated reviewer workspace.
+- `services/business/handler.py`: JWT-authorized business API.
+- `services/business/worker.py`: queued assessment and recovery.
+- `services/business/application_worker.py`: application and revocation workers.
+- `services/business/invocation_gate.py`: authenticated execution entry and worker.
+- `services/customer_publisher/handler.py`: limited Publisher, Canary and Invocation
+  Lambda entry points in the connected account.
+- `services/sandbox/handler.py`: registered synthetic Gateway target and idempotent
+  sandbox ledger behavior.
+- `src/authority_delta/business/`: receipts, applications, invocation, revocation,
+  storage, evidence and interchange contracts.
+- `infra/`: reproducible CloudFormation resource definitions.
+- `evidence/`: scoped observed and local verification records.
+
+See [the architecture diagrams](ARCHITECTURE.md) and
+[the live RO-07 acceptance record](RO07_LIVE_ACCEPTANCE.md).

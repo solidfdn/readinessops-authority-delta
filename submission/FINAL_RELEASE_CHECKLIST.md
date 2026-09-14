@@ -2,7 +2,8 @@
 
 ## Completed and verified
 
-- [x] RO-07 live authority lifecycle completed in account A and account B.
+- [x] Optional RO-07 connected-authority lifecycle completed in account A and
+  account B; core ReadinessOps use does not require account B.
 - [x] Controlled registered request returned `ALLOW`.
 - [x] Stop closed the entry, removed the owned Policy, and produced live `DENY`.
 - [x] Exported evidence passed `scripts/check_ro07_acceptance.py`.
