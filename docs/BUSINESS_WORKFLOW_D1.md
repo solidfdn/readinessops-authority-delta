@@ -92,10 +92,13 @@ This limitation is not a browser pass or an AWS defect.
 
 The actual distributed operator must pass fresh restoration/entrypoint/recovery
 checks before it is delivered. See `evidence/local/business-delivery.json`.
-Human use of RO-01/04/05/09/12 still needs real AWS/UI evidence. RO-08 Action owner,
-deadline and completion lifecycle, structured metrics/Outcome interchange,
-targeted evidence dependency Delta, and real two-account AWS enforcement remain
-D2/D3 work. ReadinessOps completion and hackathon submission remain D4.
+This is the historical D1 implementation record, not the current acceptance
+status. Later authenticated acceptance covers the optional connected authority
+lifecycle ([RO-07](RO07_LIVE_ACCEPTANCE.md)), Action completion and reassessment
+([RO-08](RO08_LIVE_ACCEPTANCE.md)), and
+[outcome recording and fixed-reference import](BUSINESS_OUTCOME_INTERCHANGE.md).
+See [Implementation](IMPLEMENTATION.md) for current scope. Submission completion
+is tracked separately.
 
 ## Operations boundary
 

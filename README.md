@@ -156,8 +156,12 @@ unit, period, source and observed/estimated basis; unmeasured metrics cannot car
 a zero or implied result. External imports are immutable references and cannot
 replace the AWS workspace's official decision or AppliedBinding. See
 `docs/BUSINESS_ACTION_LIFECYCLE.md` and
-`docs/BUSINESS_OUTCOME_INTERCHANGE.md`. Live RO-08/10/11 acceptance remains
-`NOT_RUN`.
+`docs/BUSINESS_OUTCOME_INTERCHANGE.md`. Authenticated live checks now cover
+Action completion with new evidence and subsequent reassessment (RO-08), two
+recorded outcomes (RO-10), and an idempotent fixed-reference import (RO-11).
+See the [live reassessment record](docs/RO08_LIVE_ACCEPTANCE.md) for the exact
+scope and retained evidence. The new assessment remains a human-review candidate;
+it does not change the official decision or reactivate suspended authority.
 
 | Area | Evidence-backed state |
 | --- | --- |

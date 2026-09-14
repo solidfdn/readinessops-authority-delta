@@ -45,5 +45,8 @@ the earlier approval.
 The API contract is `POST
 /business/objects/{object_id}/actions/{action_id}` and is generated into
 `packages/contracts/business.openapi.json`. Local tests use synthetic reviewers and
-evidence only. Real RO-08 acceptance still requires the deployed authenticated UI,
-real evidence, a completed action and its subsequent real reassessment.
+evidence only. The [RO-08 live acceptance record](RO08_LIVE_ACCEPTANCE.md)
+separately documents authenticated action completion with new resolution evidence
+and a subsequent validated reassessment on runtime 25. The first failed
+reassessment link remains immutable; the later successful run uses the same fixed
+input hash. The candidate does not carry forward human approval or AWS authority.

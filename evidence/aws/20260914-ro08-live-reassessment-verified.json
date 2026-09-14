@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0",
+  "scope": "RO08_AUTHENTICATED_ACTION_EVIDENCE_REASSESSMENT_WITH_PRESERVED_AUTHORITY",
+  "result": "PASS",
+  "acceptance_scope": "Observed live scenario, not a general model-reliability guarantee",
+  "object_id": "o-8b018b1fb182496ea6749f12c78a65b8",
+  "run_id": "run-6b10a33b227a4ac1acac3f79ff3a53a3",
+  "completed_at": "2026-09-14T17:19:46.938843+00:00",
+  "runtime_version": "25",
+  "analysis_contract_version": "business-focused-reassessment-11",
+  "model_call_count": 7,
+  "input_hash": "07107d5b77645cc0eb14b0d19efd7091fae82c4a2b1c2edf4a2b1930c97cda18",
+  "source_export_digest": "d0e801dc7990ec96c24e83f0e525c88c1c4c4d64dbf439c1f12c0e923f497e86",
+  "source_export_sha256": "b41b80ace7b44f604b54dcd091f665f1dbe881d945fbe038fa5c266cc0fd43f4",
+  "result_sha256": "7c336f547079aa0a72683ba74a5c6b7bea13d8553f5ad180e8dc528ef0b71deb",
+  "action_id": "action-89ab8140f14b4e7084dcc0653de55581",
+  "first_linked_reassessment": "run-a9a450f9d6c6469885af30b7bbb198b0",
+  "later_validated_reassessment": "run-6b10a33b227a4ac1acac3f79ff3a53a3",
+  "checks": {
+    "export_integrity": "PASS",
+    "proposal_contract": "PASS",
+    "new_resolution_evidence": "PASS",
+    "fixed_prior_comparison": "PASS",
+    "four_item_identity": "PASS",
+    "unsupported_value_and_routing_remain_unknown": "PASS",
+    "official_records_unchanged": "PASS",
+    "ro07_retained": "RO07_LIVE_AUTHORITY_LIFECYCLE_CONFIRMED",
+    "outcome_records": 2,
+    "import_records": 1
+  },
+  "human_approval": "NOT_PERFORMED",
+  "aws_authority": "SUSPENDED_CONFIRMED",
+  "notes": [
+    "First failed reassessment link is retained; the later successful run uses the same fixed input hash.",
+    "AI candidate remains subject to human review; exact quotation matching does not establish semantic relevance.",
+    "No new authority application, execution, publication, outcome or import was performed in this check."
+  ]
+}

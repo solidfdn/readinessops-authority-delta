@@ -116,7 +116,7 @@ retry alone.
 | Optional two-account VendorPayment application, normal registered `ALLOW`, stop, exact Policy removal and all-request live `DENY` | `RO07_LIVE_AUTHORITY_LIFECYCLE_CONFIRMED` |
 | Non-payment common workflow | Implemented and separately validated without claiming a second execution adapter |
 | RO-10 outcome recording and RO-11 fixed-reference import | Authenticated UI and integrity checks passed for the [documented scope](BUSINESS_OUTCOME_INTERCHANGE.md) |
-| RO-08 action completion and reassessment | Action completion and immutable history verified; live reassessment remains open. Runtime 24 reached its bounded model-call limit after partial section generation. RO-08 is not accepted. The focused-section repair passes local contract tests and awaits deployment and live acceptance. Official decision, authority lifecycle, outcomes and imports were verified unchanged. |
+| RO-08 action completion and reassessment | [Live scenario verified](RO08_LIVE_ACCEPTANCE.md): new resolution evidence, completed action, runtime 25 reassessment ready for human review, four fixed prior-item comparisons, and unchanged official records/authority. |
 | Final submission checks | Tracked separately from technical acceptance |
 
 The offline RO-07 verifier performs no AWS action. Local tests, synthetic canaries
