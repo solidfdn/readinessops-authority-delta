@@ -1,0 +1,44 @@
+{
+  "source": "USER_PROVIDED_AWS_CLI_OUTPUT",
+  "observations": [
+    {
+      "release": "V1",
+      "expected": {
+        "RuntimeVersion": "1",
+        "RuntimeArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_v1-YdxoB981EG",
+        "EndpointArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_v1-YdxoB981EG/runtime-endpoint/fixed_v1",
+        "EndpointName": "fixed_v1"
+      },
+      "actual": {
+        "liveVersion": "1",
+        "agentRuntimeEndpointArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_v1-YdxoB981EG/runtime-endpoint/fixed_v1",
+        "agentRuntimeArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_v1-YdxoB981EG",
+        "status": "READY",
+        "createdAt": "2026-09-09T02:06:25.585210+00:00",
+        "lastUpdatedAt": "2026-09-09T02:06:26.505730+00:00",
+        "name": "fixed_v1",
+        "id": "fixed_v1"
+      }
+    },
+    {
+      "release": "V2",
+      "expected": {
+        "RuntimeVersion": "1",
+        "RuntimeArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_v2-vBfIej7s3r",
+        "EndpointArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_v2-vBfIej7s3r/runtime-endpoint/fixed_v2",
+        "EndpointName": "fixed_v2"
+      },
+      "actual": {
+        "liveVersion": "1",
+        "agentRuntimeEndpointArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_v2-vBfIej7s3r/runtime-endpoint/fixed_v2",
+        "agentRuntimeArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_v2-vBfIej7s3r",
+        "status": "READY",
+        "createdAt": "2026-09-09T02:06:24.668259+00:00",
+        "lastUpdatedAt": "2026-09-09T02:06:25.768022+00:00",
+        "name": "fixed_v2",
+        "id": "fixed_v2"
+      }
+    }
+  ],
+  "gate_a": "NOT_PASSED"
+}

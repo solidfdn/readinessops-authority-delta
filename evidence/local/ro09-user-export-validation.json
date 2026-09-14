@@ -1,0 +1,47 @@
+{
+  "scope": "LOCAL_VALIDATION_OF_USER_EXPORTED_LIVE_RO09_RECORD",
+  "result": "PASS",
+  "source_sha256": "f833eb3e1d706d98245e54cc9de8a5590f22595d7285a5eb6231a793f7c2fc14",
+  "document_digest": "e6d89cbaeca71d4cf69a9834780d9c07e490c485e53a4120f37d05abff6e0040",
+  "publication": {
+    "application_status": "NOT_APPLIED",
+    "at": "2026-09-12T14:30:26.639291+00:00",
+    "decision_ref": {
+      "bucket": "authority-delta-business-databucket-m0ydp4cbfqwc",
+      "key": "business/decisions/pack-24803d15fccc412dbd782007bab2a4a5/1.json",
+      "sha256": "90353f0f5675638d994c421135bed983384ff76d37f15b52d8c079cefa0c2799",
+      "size": 8154,
+      "version_id": "rij1VDWCb_kpc04XdhVttYkjT6HkHO7u"
+    },
+    "digest": "32a2b860b362352f31f9fb35cf75c4e15994132c1134198311d035d85e39860d",
+    "object_id": "o-0169eb94ece5409090c1214c8352835a",
+    "pack_id": "pack-24803d15fccc412dbd782007bab2a4a5",
+    "previous_publication_id": null,
+    "publication_id": "pub-3e5be8cf2d2347289174d601e4324488",
+    "published_by": "37e4eac8-a0b1-7024-74f1-9e909e516389",
+    "publisher_name": "okada",
+    "receipt_id": "receipt-1c87aca5618449fcae2e05e8a78e9ad4",
+    "receipt_ref": {
+      "bucket": "authority-delta-business-databucket-m0ydp4cbfqwc",
+      "key": "business/receipts/receipt-1c87aca5618449fcae2e05e8a78e9ad4.json",
+      "sha256": "6ba46f4e9cbaed02899ee248e00989f65703994a47c4655bcfc78652ac4cc4fe",
+      "size": 817,
+      "version_id": "Fg.EDqvLAs9Ms8bXrxcYj4zB93gZ0L1m"
+    },
+    "ref": {
+      "bucket": "authority-delta-business-databucket-m0ydp4cbfqwc",
+      "key": "business/publications/pub-3e5be8cf2d2347289174d601e4324488.json",
+      "sha256": "67224f66bb5c4e317e0d45f6c121ba31cb4d11d3480338fcf0e200085ebd4c21",
+      "size": 1110,
+      "version_id": "s2P.WI.tcd3spfnKSzwz2orKOq1Hisw9"
+    },
+    "revision": 1,
+    "schema_version": "1.2",
+    "source_authority": "aws:solifan"
+  },
+  "application_status": "NOT_APPLIED",
+  "delegations": 0,
+  "applications": 0,
+  "product_ready": false,
+  "independent_aws_readback": "NOT_RUN"
+}

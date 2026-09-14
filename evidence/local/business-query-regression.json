@@ -1,0 +1,17 @@
+{
+  "scope": "LOCAL_SDK_REQUEST_CONTRACT_NOT_LIVE_AWS",
+  "before": {
+    "tests": 4,
+    "failures": 5,
+    "errors": 0,
+    "expected": "REPRODUCED"
+  },
+  "after": {
+    "tests": 4,
+    "failures": 0,
+    "errors": 0,
+    "status": "PASS"
+  },
+  "source": "User-returned live DynamoDB ValidationException; AWS API Query requires partition equality and optional sort-key condition",
+  "reference": "https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Query.html"
+}

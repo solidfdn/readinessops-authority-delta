@@ -1,0 +1,310 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Authority Delta read-only analysis Runtime. No Gateway, policy, ledger or vendor Runtime invoke permissions.",
+  "Parameters": {
+    "ArtifactBucket": {
+      "Type": "String",
+      "AllowedPattern": "^[a-z0-9][a-z0-9.-]{1,61}[a-z0-9]$"
+    },
+    "DeployerRoleArn": {
+      "Type": "String",
+      "AllowedPattern": "^arn:aws:iam::[0-9]{12}:role/ReadinessOpsAuthorityDeltaDeployer$"
+    },
+    "AnalysisArtifactKey": {
+      "Type": "String",
+      "MinLength": 1,
+      "MaxLength": 1024
+    },
+    "AnalysisArtifactVersionId": {
+      "Type": "String",
+      "MinLength": 3,
+      "MaxLength": 1024
+    },
+    "AnalysisModelId": {
+      "Type": "String",
+      "AllowedValues": [
+        "apac.amazon.nova-pro-v1:0"
+      ]
+    },
+    "AnalysisProfileArn": {
+      "Type": "String",
+      "AllowedPattern": "^arn:aws:bedrock:ap-northeast-1:[0-9]{12}:inference-profile/apac\\.amazon\\.nova-pro-v1:0$"
+    },
+    "AnalysisFoundationModelArns": {
+      "Type": "CommaDelimitedList"
+    }
+  },
+  "Resources": {
+    "AnalysisExecutionRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "RoleName": "authority-delta-analysis-runtime",
+        "Description": "Read-only analysis: own code and the verified Nova Pro APAC inference profile.",
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "bedrock-agentcore.amazonaws.com"
+              },
+              "Action": "sts:AssumeRole",
+              "Condition": {
+                "StringEquals": {
+                  "aws:SourceAccount": {
+                    "Ref": "AWS::AccountId"
+                  }
+                },
+                "ArnLike": {
+                  "aws:SourceArn": {
+                    "Fn::Sub": "arn:${AWS::Partition}:bedrock-agentcore:${AWS::Region}:${AWS::AccountId}:*"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "Policies": [
+          {
+            "PolicyName": "FixedRuntimePermissions",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Sid": "ReadOwnRuntimeCode",
+                  "Effect": "Allow",
+                  "Action": [
+                    "s3:GetObject",
+                    "s3:GetObjectVersion"
+                  ],
+                  "Resource": {
+                    "Fn::Sub": "arn:${AWS::Partition}:s3:::${ArtifactBucket}/${AnalysisArtifactKey}"
+                  }
+                },
+                {
+                  "Sid": "IdentifyOwnExecution",
+                  "Effect": "Allow",
+                  "Action": "sts:GetCallerIdentity",
+                  "Resource": "*"
+                },
+                {
+                  "Sid": "RuntimeLogGroup",
+                  "Effect": "Allow",
+                  "Action": [
+                    "logs:CreateLogGroup",
+                    "logs:DescribeLogStreams"
+                  ],
+                  "Resource": {
+                    "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/bedrock-agentcore/runtimes/authority_delta_analysis-*"
+                  }
+                },
+                {
+                  "Sid": "RuntimeLogEvents",
+                  "Effect": "Allow",
+                  "Action": [
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents"
+                  ],
+                  "Resource": {
+                    "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/bedrock-agentcore/runtimes/authority_delta_analysis-*:log-stream:*"
+                  }
+                },
+                {
+                  "Sid": "DiscoverRuntimeLogs",
+                  "Effect": "Allow",
+                  "Action": "logs:DescribeLogGroups",
+                  "Resource": "*"
+                },
+                {
+                  "Sid": "RuntimeLogResourcePolicy",
+                  "Effect": "Allow",
+                  "Action": "logs:PutResourcePolicy",
+                  "Resource": {
+                    "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/bedrock-agentcore/runtimes/authority_delta_analysis-*"
+                  }
+                },
+                {
+                  "Sid": "AnalyzeWithNovaProProfile",
+                  "Effect": "Allow",
+                  "Action": [
+                    "bedrock:InvokeModel"
+                  ],
+                  "Resource": {
+                    "Ref": "AnalysisProfileArn"
+                  }
+                },
+                {
+                  "Sid": "NovaProDestinationsThroughProfile",
+                  "Effect": "Allow",
+                  "Action": [
+                    "bedrock:InvokeModel"
+                  ],
+                  "Resource": {
+                    "Ref": "AnalysisFoundationModelArns"
+                  },
+                  "Condition": {
+                    "StringEquals": {
+                      "bedrock:InferenceProfileArn": {
+                        "Ref": "AnalysisProfileArn"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "Tags": [
+          {
+            "Key": "Project",
+            "Value": "ReadinessOpsAuthorityDelta"
+          },
+          {
+            "Key": "Release",
+            "Value": "Analysis"
+          }
+        ]
+      }
+    },
+    "AnalysisRuntime": {
+      "Type": "AWS::BedrockAgentCore::Runtime",
+      "Properties": {
+        "AgentRuntimeName": "authority_delta_analysis",
+        "AgentRuntimeArtifact": {
+          "CodeConfiguration": {
+            "Code": {
+              "S3": {
+                "Bucket": {
+                  "Ref": "ArtifactBucket"
+                },
+                "Prefix": {
+                  "Ref": "AnalysisArtifactKey"
+                },
+                "VersionId": {
+                  "Ref": "AnalysisArtifactVersionId"
+                }
+              }
+            },
+            "Runtime": "PYTHON_3_12",
+            "EntryPoint": [
+              "runtime.py"
+            ]
+          }
+        },
+        "RoleArn": {
+          "Fn::GetAtt": [
+            "AnalysisExecutionRole",
+            "Arn"
+          ]
+        },
+        "NetworkConfiguration": {
+          "NetworkMode": "PUBLIC"
+        },
+        "ProtocolConfiguration": "HTTP",
+        "LifecycleConfiguration": {
+          "IdleRuntimeSessionTimeout": 60,
+          "MaxLifetime": 600
+        },
+        "EnvironmentVariables": {
+          "AD_ACCOUNT_ID": {
+            "Ref": "AWS::AccountId"
+          },
+          "AD_REGION": {
+            "Ref": "AWS::Region"
+          },
+          "AD_EXPECTED_ROLE_NAME": {
+            "Ref": "AnalysisExecutionRole"
+          },
+          "AD_ANALYSIS_MODEL_ID": {
+            "Ref": "AnalysisModelId"
+          }
+        },
+        "Tags": {
+          "Project": "ReadinessOpsAuthorityDelta",
+          "Release": "Analysis"
+        }
+      }
+    },
+    "AnalysisEndpoint": {
+      "Type": "AWS::BedrockAgentCore::RuntimeEndpoint",
+      "Properties": {
+        "AgentRuntimeId": {
+          "Fn::GetAtt": [
+            "AnalysisRuntime",
+            "AgentRuntimeId"
+          ]
+        },
+        "AgentRuntimeVersion": {
+          "Fn::GetAtt": [
+            "AnalysisRuntime",
+            "AgentRuntimeVersion"
+          ]
+        },
+        "Name": "fixed_analysis",
+        "Tags": {
+          "Project": "ReadinessOpsAuthorityDelta",
+          "Release": "Analysis"
+        }
+      }
+    },
+    "AnalysisRuntimeResourcePolicy": {
+      "Type": "AWS::BedrockAgentCore::ResourcePolicy",
+      "Properties": {
+        "ResourceArn": {
+          "Fn::GetAtt": [
+            "AnalysisRuntime",
+            "AgentRuntimeArn"
+          ]
+        },
+        "Policy": {
+          "Fn::Sub": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Sid\":\"PermitOnlyDeploymentCanary\",\"Effect\":\"Allow\",\"Principal\":{\"AWS\":\"${DeployerRoleArn}\"},\"Action\":[\"bedrock-agentcore:InvokeAgentRuntime\",\"bedrock-agentcore:StopRuntimeSession\"],\"Resource\":\"${AnalysisRuntime.AgentRuntimeArn}\"},{\"Sid\":\"DenyOtherCallers\",\"Effect\":\"Deny\",\"Principal\":\"*\",\"Action\":[\"bedrock-agentcore:InvokeAgentRuntime\",\"bedrock-agentcore:InvokeAgentRuntimeForUser\",\"bedrock-agentcore:InvokeAgentRuntimeCommand\",\"bedrock-agentcore:InvokeAgentRuntimeCommandShell\",\"bedrock-agentcore:InvokeAgentRuntimeWithWebSocketStream\",\"bedrock-agentcore:InvokeAgentRuntimeWithWebSocketStreamForUser\",\"bedrock-agentcore:StopRuntimeSession\"],\"Resource\":\"${AnalysisRuntime.AgentRuntimeArn}\",\"Condition\":{\"ArnNotEquals\":{\"aws:PrincipalArn\":\"${DeployerRoleArn}\"}}}]}"
+        }
+      }
+    }
+  },
+  "Outputs": {
+    "AnalysisRuntimeArn": {
+      "Value": {
+        "Fn::GetAtt": [
+          "AnalysisRuntime",
+          "AgentRuntimeArn"
+        ]
+      }
+    },
+    "AnalysisRuntimeId": {
+      "Value": {
+        "Fn::GetAtt": [
+          "AnalysisRuntime",
+          "AgentRuntimeId"
+        ]
+      }
+    },
+    "AnalysisRuntimeVersion": {
+      "Value": {
+        "Fn::GetAtt": [
+          "AnalysisRuntime",
+          "AgentRuntimeVersion"
+        ]
+      }
+    },
+    "AnalysisEndpointArn": {
+      "Value": {
+        "Fn::GetAtt": [
+          "AnalysisEndpoint",
+          "AgentRuntimeEndpointArn"
+        ]
+      }
+    },
+    "AnalysisEndpointName": {
+      "Value": "fixed_analysis"
+    },
+    "AnalysisExecutionRoleArn": {
+      "Value": {
+        "Fn::GetAtt": [
+          "AnalysisExecutionRole",
+          "Arn"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0",
+  "scope": "LOCAL_D2_AFFECTED_DECISION_CONTRACT_AND_REVIEW_UI_NO_LIVE_AWS_OR_HUMAN_DECISION",
+  "result": "PASS",
+  "completed_at": "2026-09-10T17:26:51Z",
+  "source_base_commit": "5da91f97b9cfe4a20b34dadeaae18c701508f11d",
+  "input_fixture_sha256": "f70250a22b3e601b98557ba9390129da21e5b08a8553a995077576ef2ae0e639",
+  "runtime": {
+    "python": "3.12.14",
+    "node": "24.19.0",
+    "boto3_botocore": "1.43.89",
+    "strands_agents": "1.51.0",
+    "react": "19.2.0",
+    "typescript": "5.9.3"
+  },
+  "checks": {
+    "python_full_regression": {
+      "command": "PYTHONPATH=src:scripts:tests:. .venv-analysis/bin/python -m unittest discover -s tests -q",
+      "tests": 206,
+      "seconds": 35.070,
+      "result": "PASS"
+    },
+    "python_business_contracts": {
+      "command": "PYTHONPATH=src:scripts:tests:. .venv-analysis/bin/python -m unittest test_business test_business_prior -q",
+      "tests": 27,
+      "seconds": 0.208,
+      "result": "PASS"
+    },
+    "typescript": {
+      "command": "cd workbench && ./node_modules/.bin/tsc --noEmit",
+      "result": "PASS"
+    },
+    "production_assets": {
+      "command": "cd workbench && node build.mjs",
+      "asset_count": 3,
+      "manifest_verified": true,
+      "result": "PASS"
+    },
+    "business_ui_contract": {
+      "command": "cd workbench && node business-test.mjs",
+      "result": "PASS",
+      "evidence": "evidence/local/business-ui-contract.json"
+    }
+  },
+  "covered": [
+    "server-issued stable Decision Item IDs with deterministic legacy mapping",
+    "exact prior publication ID and decision digest comparison",
+    "affected, unchanged and unknown classifications with selected-evidence citations",
+    "foreign publication, foreign item, missing comparison and fabricated citation rejection",
+    "unknown remains explicit and requires NEEDS_INPUT",
+    "official and candidate display with affected and unknown items prioritized",
+    "prior approval does not transfer and no AWS runtime authority is applied"
+  ],
+  "not_claimed": [
+    "live Bedrock or Strands reassessment",
+    "browser or Cognito acceptance",
+    "live human approval or official publication",
+    "AWS deployment or runtime authority application",
+    "D2 live acceptance or any gate promotion"
+  ]
+}

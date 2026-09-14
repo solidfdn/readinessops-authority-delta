@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "readinessops-authority-delta"
+version = "0.1.0"
+description = "Revalidate human-approved authority when an AI agent changes."
+readme = "README.md"
+requires-python = ">=3.12"
+license = {text = "Apache-2.0"}
+authors = [{name = "SOLIFAN LLC"}]
+dependencies = [
+  "jsonschema[format]>=4.26.0,<4.27.0",
+  "rfc8785==0.1.4",
+]
+
+[project.scripts]
+authority-delta = "authority_delta.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.0",
+  "scope": "LOCAL_D4_AUTHENTICATED_EXPORT_AND_POSITIVE_PATH_COMPOSITION_NO_LIVE_AWS_BROWSER_HUMAN_OR_GATE_PROMOTION",
+  "result": "PASS",
+  "observed_at": "2026-09-11T23:04:26Z",
+  "source_commit": "06ef7d38f50c44746dce9c82931d18f7c92d397e",
+  "implementation": [
+    "authenticated read-only acceptance export rereads and verifies fixed Evidence, assessment, Decision Pack, approval, publication, delegation, application, Publisher result, Outcome and import blobs",
+    "bounded source and projection hashes plus one complete export digest with recursive connector ExternalId redaction",
+    "history UI downloads the verified acceptance export instead of an unverified detail response",
+    "offline D4 composition gate binds connected readiness, a payment initial/reassessment/action/recovery/application/outcome path and a separate non-payment common publication path",
+    "composition PASS leaves negative controls, browser UX, judge access, original gates, GD and submission explicitly pending"
+  ],
+  "verification": {
+    "fresh_clone_full_regression": {
+      "count": 282,
+      "result": "PASS",
+      "seconds": 62.737,
+      "exit_code": 0
+    },
+    "fresh_clone_focused_acceptance_contracts": {
+      "count": 9,
+      "result": "PASS",
+      "seconds": 0.573,
+      "exit_code": 0
+    },
+    "offline_hash_locked_analysis_dependency_install": "PASS_PYTHON_3_12_X86_64",
+    "generated_openapi_matches_commit": true,
+    "typescript": "PASS",
+    "production_build": "PASS",
+    "workbench_ui_contract_checks": 17,
+    "business_ui_contract_checks": 12,
+    "packaged_assets_match_fresh_build": true,
+    "business_package": {
+      "checks": 10,
+      "result": "PASS_TWICE_DETERMINISTIC",
+      "sha256": "5da9c6cc79ae42493528aef635f9c54460e553350275694063ff9928eb262b9c",
+      "size_bytes": 28527286
+    },
+    "codebuild_source_archive": {
+      "entries": 261,
+      "sha256": "59dec627fc379763ac44280b5f5db5352d7ad848b4573ff80d6e2b2de022a258",
+      "contains_acceptance_export_contract": true,
+      "contains_integrated_checker": true
+    }
+  },
+  "security": {
+    "export_requires_authenticated_read_scope_and_object_owner": true,
+    "export_changes_runtime_authority": false,
+    "external_id_emitted": false,
+    "tampered_projection_or_cross_record_chain_accepted": false,
+    "nonpayment_adapter_authority_claimed": false,
+    "checker_performs_aws_browser_or_human_action": false,
+    "checker_marks_product_ready": false
+  },
+  "deployment": "NOT_RUN",
+  "actual_account_b_identity": "NOT_RUN",
+  "authenticated_browser_export": "NOT_RUN",
+  "human_approval_or_publication": "NOT_RUN",
+  "actual_policy_write_or_runtime_canary": "NOT_RUN",
+  "integrated_live_acceptance": "NOT_RUN",
+  "readinessops_product_ready": "NOT_RUN",
+  "gates_promoted": false,
+  "next_dependency": "Distinct account-B connected readiness, then one bounded authenticated positive path; afterwards complete the explicitly remaining negative, English UX, judge, GD and submission checks"
+}

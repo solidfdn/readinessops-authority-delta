@@ -1,0 +1,15 @@
+{
+  "scope": "LOCAL_TESTS_AND_RECLASSIFICATION_NO_NEW_AWS_RUN",
+  "tested_source_commit": "db49149895ea06504c610618c27483bd3bcef33a",
+  "observed_at": "2026-09-08T06:03:55.697932+00:00",
+  "test_count": 46,
+  "exit_code": 0,
+  "status": "PASS",
+  "test_command": "python -m unittest discover -s tests -q",
+  "environment": "Fresh extracted git archive using Python 3.12",
+  "stderr": "----------------------------------------------------------------------\nRan 46 tests in 0.647s\n\nOK",
+  "actual_policy_response_regression": "PASS",
+  "actual_account_verification_response_regression": "PASS",
+  "v1_v2_registry_evaluator": "PASS_LOCAL_ONLY",
+  "verification_v2_in_aws": "NOT_RUN"
+}

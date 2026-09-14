@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0",
+  "result": "PASS",
+  "observed_at": "2026-09-11T13:04:18+00:00",
+  "source_commits": {
+    "action_lifecycle": "cc84352a53d4655cfa7147e56b198c7b6a99d6d6",
+    "outcome_interchange": "75a863091eeb7670dfa8e155119c44001c1d7558",
+    "delivery_assets": "9e1619629c5cf06ed31b86aa0304911a06c825ae"
+  },
+  "scope": "LOCAL_D2_ACTION_OUTCOME_METRIC_AND_FILE_INTERCHANGE_NO_LIVE_AWS_SNOWFLAKE_BROWSER_OR_HUMAN",
+  "implementation": [
+    "published AI action proposals materialize as PROPOSED operational records bound to publication, pack, Findings and baseline evidence",
+    "owner and due date are required for active work; completion requires newly added readable versioned evidence and links to a later reassessment",
+    "immutable business Outcomes bind to the verified current publication and exact decision, application or trace target",
+    "measured Metrics require finite value, unit, period, source and OBSERVED or ESTIMATED basis",
+    "NOT_MEASURED Metrics forbid value, unit, period and basis and require source and reason",
+    "deterministic interchange exports bind authority_source, Decision Pack revision and digest, publication and exact Outcomes",
+    "external imports remain immutable references and never change PublishedCurrent, AppliedBinding or runtime authority",
+    "pack and Outcome identifiers cannot be rebound to another issuer, source object or changed revision content",
+    "FILE_INTERCHANGE_ONLY is retained separately from any Snowflake communication status"
+  ],
+  "security": {
+    "request_id_idempotency": true,
+    "expected_revision_required": true,
+    "cross_object_reference_rejected": true,
+    "tampered_digest_rejected": true,
+    "local_editable_authority_import_rejected": true,
+    "import_changes_canonical_decision": false,
+    "outcome_changes_runtime_authority": false,
+    "unmeasured_defaulted_to_zero": false
+  },
+  "tests": {
+    "fresh_clone_full_regression": {
+      "count": 265,
+      "result": "PASS",
+      "seconds": 58.136,
+      "exit_code": 0
+    },
+    "business_regression": {
+      "count": 79,
+      "result": "PASS",
+      "seconds": 1.212,
+      "exit_code": 0
+    },
+    "focused_interchange": {
+      "count": 5,
+      "result": "PASS",
+      "seconds": 0.028,
+      "exit_code": 0
+    },
+    "workbench": {
+      "typescript": "PASS",
+      "production_build": "PASS",
+      "contract_checks": 17,
+      "contract_result": "PASS",
+      "browser_interaction": "NOT_RUN"
+    },
+    "generated_contracts_match_commit": true,
+    "offline_locked_dependency_install": "PASS_PYTHON_3_12"
+  },
+  "distribution": {
+    "business_package_checks": 10,
+    "business_package_result": "PASS",
+    "business_package_sha256": "683c21c9ab854332f9dc452acc468024d26b1a2f5d9f29eee0bec8303ad20ba5",
+    "business_package_size_bytes": 28522244,
+    "business_package_uncompressed_bytes": 62081700,
+    "business_package_architecture": "x86_64",
+    "business_package_deterministic_two_builds": true,
+    "source_archive_entries": 420,
+    "source_archive_sha256": "cb114e2520c530eac91007dc6055f2091db04167e03c5648fefd09668d083a12",
+    "workbench_asset_sha256": {
+      "app_js": "61b5f66368aa1da2b048082276a4fb52af937c756ff42f4d34392ee00691dfe1",
+      "app_css": "098cca21ab2a77ab25a20688e541e82def9a3ac92b4cacb9f0209e7ff5a81b45",
+      "index_html": "9d9e7b3bc746e19f5f8eec331a835d2dcfaecf304e4e1cca8792c3968834bc64",
+      "manifest": "ef8a52a49ca84a530acecc7113928c8c58aa5f020b84af76f38b2c620177491a"
+    }
+  },
+  "not_run": [
+    "live AWS deployment or invocation",
+    "live Snowflake connectivity",
+    "authenticated browser operation",
+    "human approval, publication or outcome entry",
+    "RO-08, RO-10 or RO-11 live acceptance",
+    "historical standalone business operator check because its ignored uploaded operator and dependency archives are absent from both allowed attachments"
+  ],
+  "gates_promoted": false,
+  "next_engineering_dependency": "Distinct account-B confirmation and one bounded foundation-if-needed, connector, verified account-A wiring and authenticated D2/D3 acceptance sequence"
+}

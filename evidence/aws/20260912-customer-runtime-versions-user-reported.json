@@ -1,0 +1,100 @@
+{
+  "foundation_runtime": {
+    "agentRuntimeArn": "arn:aws:bedrock-agentcore:ap-northeast-1:062788795311:runtime/authority_delta_vendor_v2-CkJuzbCxaF",
+    "agentRuntimeName": "authority_delta_vendor_v2",
+    "agentRuntimeId": "authority_delta_vendor_v2-CkJuzbCxaF",
+    "roleArn": "arn:aws:iam::062788795311:role/authority-delta-vendor-v2-runtime",
+    "networkConfiguration": {
+      "networkMode": "PUBLIC"
+    },
+    "status": "READY",
+    "lifecycleConfiguration": {
+      "idleRuntimeSessionTimeout": 60,
+      "maxLifetime": 600
+    },
+    "workloadIdentityDetails": {
+      "workloadIdentityArn": "arn:aws:bedrock-agentcore:ap-northeast-1:062788795311:workload-identity-directory/default/workload-identity/authority_delta_vendor_v2-CkJuzbCxaF"
+    },
+    "agentRuntimeArtifact": {
+      "codeConfiguration": {
+        "code": {
+          "s3": {
+            "bucket": "authority-delta-bootstrap-artifactbucket-0p7nabrwltfg",
+            "prefix": "customer-foundation/runtime/d2551ba17f7b3cf60d63e0a391c907f268723b9db59a857211e1a4abec1d209c/customer-foundation-v2.zip",
+            "versionId": "7H6gMy0GhMM9WhvJSxwRiivp5AS0q4Ub"
+          }
+        },
+        "runtime": "PYTHON_3_12",
+        "entryPoint": [
+          "runtime.py"
+        ]
+      }
+    },
+    "protocolConfiguration": {
+      "serverProtocol": "HTTP"
+    },
+    "environmentVariables": {
+      "AD_ACCOUNT_ID": "062788795311",
+      "AD_EXPECTED_ROLE_NAME": "authority-delta-vendor-v2-runtime",
+      "AD_GATEWAY_ID": "authority-delta-gateway-hhnckywugl",
+      "AD_GATEWAY_URL": "https://authority-delta-gateway-hhnckywugl.gateway.bedrock-agentcore.ap-northeast-1.amazonaws.com/mcp",
+      "AD_REGION": "ap-northeast-1",
+      "AD_REGISTRY_TABLE": "authority-delta-customer-baseline-RequestRegistryTable-Y2QPZ92ZIQR"
+    },
+    "metadataConfiguration": {
+      "requireMMDSV2": true
+    },
+    "agentRuntimeVersion": "1",
+    "createdAt": "2026-09-12T10:39:26.486766+00:00",
+    "lastUpdatedAt": "2026-09-12T10:39:26.486766+00:00"
+  },
+  "connector_runtime": {
+    "agentRuntimeArn": "arn:aws:bedrock-agentcore:ap-northeast-1:062788795311:runtime/authority_delta_vendor_v2-CkJuzbCxaF",
+    "agentRuntimeName": "authority_delta_vendor_v2",
+    "agentRuntimeId": "authority_delta_vendor_v2-CkJuzbCxaF",
+    "roleArn": "arn:aws:iam::062788795311:role/authority-delta-vendor-v2-runtime",
+    "networkConfiguration": {
+      "networkMode": "PUBLIC"
+    },
+    "status": "READY",
+    "lifecycleConfiguration": {
+      "idleRuntimeSessionTimeout": 60,
+      "maxLifetime": 600
+    },
+    "workloadIdentityDetails": {
+      "workloadIdentityArn": "arn:aws:bedrock-agentcore:ap-northeast-1:062788795311:workload-identity-directory/default/workload-identity/authority_delta_vendor_v2-CkJuzbCxaF"
+    },
+    "agentRuntimeArtifact": {
+      "codeConfiguration": {
+        "code": {
+          "s3": {
+            "bucket": "authority-delta-bootstrap-artifactbucket-0p7nabrwltfg",
+            "prefix": "customer-foundation/runtime/d2551ba17f7b3cf60d63e0a391c907f268723b9db59a857211e1a4abec1d209c/customer-foundation-v2.zip",
+            "versionId": "7H6gMy0GhMM9WhvJSxwRiivp5AS0q4Ub"
+          }
+        },
+        "runtime": "PYTHON_3_12",
+        "entryPoint": [
+          "runtime.py"
+        ]
+      }
+    },
+    "protocolConfiguration": {
+      "serverProtocol": "HTTP"
+    },
+    "environmentVariables": {
+      "AD_ACCOUNT_ID": "062788795311",
+      "AD_EXPECTED_ROLE_NAME": "authority-delta-vendor-v2-runtime",
+      "AD_GATEWAY_ID": "authority-delta-gateway-hhnckywugl",
+      "AD_GATEWAY_URL": "https://authority-delta-gateway-hhnckywugl.gateway.bedrock-agentcore.ap-northeast-1.amazonaws.com/mcp",
+      "AD_REGION": "ap-northeast-1",
+      "AD_REGISTRY_TABLE": "authority-delta-customer-baseline-RequestRegistryTable-Y2QPZ92ZIQR"
+    },
+    "metadataConfiguration": {
+      "requireMMDSV2": true
+    },
+    "agentRuntimeVersion": "2",
+    "createdAt": "2026-09-12T10:46:29.769476+00:00",
+    "lastUpdatedAt": "2026-09-12T10:46:29.769476+00:00"
+  }
+}

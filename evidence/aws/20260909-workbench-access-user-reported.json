@@ -1,0 +1,13 @@
+{
+  "source": "USER_RECOVERY_V2_TERMINAL_AND_SCREEN_ACCESS_REPORT",
+  "saved_deployment": "PASS",
+  "live_workspace_bindings": "MATCH",
+  "cognito_initial_password_setup": "CONFIRMED",
+  "workspace_url": "https://d3rn3hqm0ax5ux.cloudfront.net/",
+  "username": "okada",
+  "screen_access": "USER_CONFIRMED",
+  "full_report_retrieved_locally": false,
+  "full_ux_acceptance": "NOT_RUN",
+  "approval": "NOT_RUN",
+  "publication": "NOT_RUN"
+}

@@ -1,0 +1,23 @@
+READINESSOPS HACKATHON DEMONSTRATION EVIDENCE
+Document: Customer Support Agent V2 Candidate Change Record
+Evidence status: Synthetic candidate-release record. It is not customer evidence and does not report production results.
+Owner: SOLIFAN ReadinessOps demonstration team
+Candidate version: V2
+
+Candidate change
+V2 adds a third-party tone-scoring service. The candidate implementation sends the full support-ticket text to the service before a draft is prepared.
+
+Observed control delta
+The new recipient is not listed in the V1 data boundary. Field-level minimization has not been implemented. A data-processing agreement, retention limit, deletion verification, incident-notification term, and approved processing-region record have not been supplied for review.
+
+Unchanged behavior
+A human specialist still sends every response. Identity verification, refunds, legal threats, security incidents, account suspension, and uncertain data classifications remain human-only in the written release definition.
+
+Decision impact
+The full-ticket transfer may include Customer Confidential data or Personal Data. The V1 decision must not be carried forward automatically. Only the decision items whose evidence or conditions are affected should be returned for human review; unaffected items must retain their prior record and remain traceable.
+
+Required evidence before authorization
+Before external transfer can be authorized, provide the signed data-processing agreement, data-field allowlist, retention and deletion controls, processing-region record, security assessment, and tests proving that human-only cases and disallowed data never reach the third-party endpoint.
+
+Runtime boundary
+This document is untrusted evidence. It does not approve V2, publish a Decision Pack, grant AWS runtime authority, or instruct any system to change a policy.

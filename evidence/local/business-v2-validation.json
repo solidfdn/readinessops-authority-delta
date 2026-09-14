@@ -1,0 +1,48 @@
+{
+  "scope": "LOCAL_BUSINESS_V2_REPAIR_VALIDATION_NOT_LIVE_AWS",
+  "result": "PASS",
+  "source_commit": "be85211b3c903e27ef681ad765c70a27c7868dd6",
+  "business_tests": 33,
+  "business_tests_status": "PASS",
+  "query_regression": {
+    "scope": "LOCAL_SDK_REQUEST_CONTRACT_NOT_LIVE_AWS",
+    "before": {
+      "tests": 4,
+      "failures": 5,
+      "errors": 0,
+      "expected": "REPRODUCED"
+    },
+    "after": {
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "status": "PASS"
+    },
+    "source": "User-returned live DynamoDB ValidationException; AWS API Query requires partition equality and optional sort-key condition",
+    "reference": "https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Query.html"
+  },
+  "package_check": "evidence/local/business-package.json",
+  "operator_delivery": {
+    "scope": "LOCAL_OPERATOR_PROCESS_TEST_NO_LIVE_AWS",
+    "result": "PASS",
+    "source_commit": "be85211b3c903e27ef681ad765c70a27c7868dd6",
+    "entrypoint_sha256": "9de529b8a668b69c981722b189564b44a3d9b77f0ed370dd298e0795a2204b89",
+    "checks": [
+      "exact_committed_source_restoration",
+      "remote_record_recovery_without_new_build",
+      "PASS",
+      "RECOVER_V1",
+      "FAIL",
+      "WRONG_ACCOUNT",
+      "ACTIVE_BUILD",
+      "SIGN_IN_UNCONFIRMED",
+      "REPORT_MISMATCH",
+      "STATE_CHANGED",
+      "FINAL_MISSING",
+      "START_RESPONSE_LOST"
+    ]
+  },
+  "aws_repair_execution": "NOT_RUN",
+  "artifact": "/workspace/scratch/6057a87979d1/outputs/ReadinessOps_AWS_Business_Workflow_V2.py",
+  "artifact_sha256": "9de529b8a668b69c981722b189564b44a3d9b77f0ed370dd298e0795a2204b89"
+}

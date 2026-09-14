@@ -1,0 +1,14 @@
+{
+  "scope": "LOCAL_GATE_A_IMPLEMENTATION_NO_LIVE_AWS",
+  "result": "PASS",
+  "observed_at": "2026-09-09T01:58:10.886046+00:00",
+  "test_command": ".venv/bin/python -m unittest discover -s tests -q",
+  "test_count": 97,
+  "exit_status": 0,
+  "elapsed_seconds": 14.844,
+  "tested_source_commit": "560ae4bbe99eb8095f3ac84a5cc057e2c718a5fd",
+  "operator_delivery_source_commit": "6a9828b516e6f5f10e832b3da4a1daedb9ab8587",
+  "subsequent_executable_change": "Only local delivery harness argv correction; runtime/worker/launcher unchanged. Actual artifact checked separately.",
+  "aws_execution": "NOT_RUN",
+  "gate_a": "NOT_RUN"
+}

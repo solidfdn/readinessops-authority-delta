@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.1",
+  "baseline_id": "AD-BASELINE-1.0",
+  "result": "PASS",
+  "scope": "AWS_BASELINE_DEPLOYMENT_ONLY_GATE_A_NOT_RUN",
+  "observed_at": "2026-09-08T05:22:31.293321+00:00",
+  "build_id": "authority-delta-deploy:b6baddf0-1e4d-44ec-b609-74007e69dfb3",
+  "source_sha256": "ad62e261fb3fdc7b3b3b7dee1df4b4be57b589d0c4a0886fb461dc01640338bd",
+  "account": "538522204923",
+  "region": "ap-northeast-1",
+  "deployment_arn": "arn:aws:sts::538522204923:assumed-role/ReadinessOpsAuthorityDeltaDeployer/AWSCodeBuild-b6baddf0-1e4d-44ec-b609-74007e69dfb3",
+  "artifact": {
+    "bucket": "authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp",
+    "key": "lambda/757ea25a4c0c0ec6c8f173552cd78f33bd96ee15e701d08bbc1d7e9c6afb0220/authority-delta-sandbox.zip",
+    "version_id": "ut_Hzs2R61xiRmok8a3Ts0q9wtsf1LJq",
+    "sha256": "757ea25a4c0c0ec6c8f173552cd78f33bd96ee15e701d08bbc1d7e9c6afb0220"
+  },
+  "resources": {
+    "GatewayArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:gateway/authority-delta-gateway-rvplvkk1t7",
+    "GatewayUrl": "https://authority-delta-gateway-rvplvkk1t7.gateway.bedrock-agentcore.ap-northeast-1.amazonaws.com/mcp",
+    "GatewayIdentifier": "authority-delta-gateway-rvplvkk1t7",
+    "SandboxLedgerTableName": "authority-delta-customer-baseline-SandboxLedgerTable-11Y1G7Q37O2X1",
+    "PolicyEngineId": "AuthorityDeltaEngine-4bsgo7fc7d",
+    "RequestRegistryTableName": "authority-delta-customer-baseline-RequestRegistryTable-1J7KH7E64KVHH",
+    "PolicyEngineArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:policy-engine/AuthorityDeltaEngine-4bsgo7fc7d",
+    "SandboxToolFunctionArn": "arn:aws:lambda:ap-northeast-1:538522204923:function:authority-delta-customer-basel-SandboxToolFunction-yKesNCZF3bcd"
+  },
+  "postconditions": {
+    "gateway_status": "READY",
+    "policy_engine_status": "ACTIVE",
+    "policy_mode": "ENFORCE",
+    "policy_count": 0,
+    "target_count": 1,
+    "request_registry_count": 7,
+    "ledger_count": 0
+  },
+  "gate_a": "NOT_RUN",
+  "model_invocation": "NOT_RUN",
+  "credentials_recorded": false,
+  "sdk_versions": {
+    "boto3": "1.43.89",
+    "botocore": "1.43.89"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0",
+  "scope": "USER_REPORTED_RO07_RECOVERY_WIRING_ASSESSMENT_CONTRACT_FAILURE",
+  "source": "USER_PROVIDED_CLOUDSHELL_OUTPUT",
+  "observed_at": "2026-09-13T17:15:44.828626+00:00",
+  "account_a": "538522204923",
+  "wiring_build_id": "authority-delta-deploy:611625c5-853d-4428-b1fb-d41196dfedda",
+  "application_id": "application-84ed051249524be2adc7d0d46f0503c5",
+  "build_result": "FAIL",
+  "phase": "Assessment result and diagnostics saved",
+  "business_assessment": {
+    "job_status": "NEEDS_INPUT",
+    "analysis_status": "NEEDS_INPUT",
+    "attempt_count": 3,
+    "failure_classification": "MODEL_OUTPUT_CONTRACT",
+    "analysis_contract_version": "business-citation-revision-3",
+    "repeated_error": {
+      "path": "decision_items.3.citations.0",
+      "code": "EXACT_QUOTE_REQUIRED"
+    }
+  },
+  "state_unchanged": true,
+  "live_customer_canary": "NOT_RUN",
+  "result_interpretation": "SAFE_DEPLOYMENT_STOP_NOT_RO07_ACCEPTANCE",
+  "live_state_after_failed_build": "NOT_INCLUDED_IN_USER_OUTPUT"
+}

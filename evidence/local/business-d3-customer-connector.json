@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0",
+  "scope": "LOCAL_D3_TWO_ACCOUNT_STS_CONNECTOR_OPERATOR_NO_LIVE_AWS_BROWSER_OR_HUMAN",
+  "result": "PASS",
+  "observed_at": "2026-09-11T04:46:59+00:00",
+  "source_commit": "154e7b5da0c4f2da8a35994ce8be5fbc51aed592",
+  "source_base_commit": "d93510445688da34b710850d11c6d252f83a1c66",
+  "implementation": [
+    "account-A ApplicationWorker assumes only the registered account-B PublishInvokeRole with ExternalId before invoking the qualified Publisher alias",
+    "separate account-B DiscoveryRole is read-only; PublishInvokeRole has only the qualified Publisher invoke",
+    "registration, typed delegation receipt and immutable enforcement candidate bind both connector roles and the same ExternalId",
+    "publisher result records separate STS and Lambda request IDs and rejects LIVE_CUSTOMER execution without STS",
+    "account-B launcher rejects account A and checks MFA, fixed budget, bootstrap, baseline and Runtime prerequisites before starting CodeBuild",
+    "worker reads back Gateway, Policy Engine, target/tool schema, immutable registry, sandbox function, V2 Runtime/endpoint/role and versioned artifact bucket before connector deployment",
+    "worker updates the V2 Runtime resource policy with only the exact Canary and deployer roles, derives the finite registry from observed values and activates versioned Publisher/Canary code",
+    "same-build resume prevents duplicate starts; terminal missing-report recovery reuses the exact source version and ExternalId only after the prior build is terminal"
+  ],
+  "security": {
+    "account_a_id": "538522204923",
+    "account_b_id": null,
+    "account_a_substituted_for_account_b": false,
+    "direct_cross_account_lambda_permission": false,
+    "external_id_required": true,
+    "discovery_policy_write_permission": false,
+    "publish_invoke_policy_write_permission": false,
+    "application_worker_policy_or_runtime_permission": false,
+    "packaged_adapter_registration_count": 0
+  },
+  "tests": {
+    "full_fresh_clone": {
+      "command": "PYTHONPATH=src:scripts:tests:. <fresh-venv>/bin/python -m unittest discover -s tests -q",
+      "count": 241,
+      "seconds": 45.377,
+      "result": "PASS",
+      "dependency_install": "PYTHON_3_12_OFFLINE_REQUIRE_HASHES_FROM_VENDOR_ANALYSIS_X86_64"
+    },
+    "connector_operator_and_launcher": {
+      "count": 11,
+      "result": "PASS",
+      "coverage": [
+        "wrong account, role, source principal and ExternalId rejection",
+        "separate trust and IAM boundaries",
+        "observed-only registry generation",
+        "fixed SDK operation shapes",
+        "worker activation and source-registry restoration",
+        "actual source archive contents and fixed buildspec override",
+        "same-build resume",
+        "failed report/build rejection",
+        "active-build duplicate prevention",
+        "explicit same-source terminal recovery"
+      ]
+    },
+    "workbench": {
+      "test_checks": 15,
+      "test_result": "PASS",
+      "typescript_no_emit": "PASS",
+      "production_build": "PASS"
+    },
+    "generated_templates_reproducible_in_fresh_clone": true,
+    "python_compile": "PASS"
+  },
+  "delivery": {
+    "source_archive_sha256": "7f53540849987dadb16fc48749c057045bc1aa96425decd58bedcd09802df19e",
+    "source_archive_entries": 251,
+    "launcher_sha256": "6fe1228f8591c0567424a4c853ea947f2aff951c7d4e4c666c4ab90a694bd0fa",
+    "worker_sha256": "86b8f8be5bc17e4d4320497e2032cc0fe4a4e17b4d682e6e3a636a07d29c2fbe",
+    "buildspec_sha256": "8cfe7d781d1b309dc58796e5e1870f1862c92243f91e3e93e98c1ad419ae4412",
+    "customer_template_sha256": "f6544667073eca4c70185126643bc8ddb48c6123c6b447c0392aeb713bf1b9ec",
+    "business_template_sha256": "2a34d0e18ce2b68ea37cbfef9dbb69eea42a0cced28552b894362f8d363fa944",
+    "lambda_artifact_sha256": "56a7ca2c00a0ff982684d0b24584a21ff47661004d5e5b56337b73a6ab86f633",
+    "runtime_artifact_sha256": "58374cae2105b82113994a6d5c2ec270d636765aeb7b732d75fbea413587211b"
+  },
+  "not_run": [
+    "AWS account-B identity or prerequisite readback",
+    "CloudFormation or CodeBuild deployment",
+    "STS AssumeRole or cross-account Lambda invocation",
+    "Policy write or live Gateway canary",
+    "account-A observed registry wiring",
+    "human approval or publication",
+    "D2 or D3 live acceptance"
+  ],
+  "gates_promoted": false,
+  "next": "Confirm a distinct account B and this distribution's bootstrap, customer baseline and fixed Runtime prerequisites; run the connector operator once, import its versioned observed registry into account A, then execute one bounded D3 acceptance."
+}

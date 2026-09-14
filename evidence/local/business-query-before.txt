@@ -1,0 +1,212 @@
+FFFFF
+======================================================================
+FAIL: test_partition_only_outbox_and_owner_index (test_business_query_regression.QueryRegression.test_partition_only_outbox_and_owner_index) (table='jobs')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/6057a87979d1/readinessops-authority-delta/tests/test_business_query_regression.py", line 24, in test_partition_only_outbox_and_owner_index
+    self.assertEqual(self.store.query(table, pk), [])
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "prior-query", line 36, in query
+  File "/workspace/scratch/6057a87979d1/readinessops-authority-delta/.venv-analysis/lib/python3.12/site-packages/botocore/client.py", line 606, in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/6057a87979d1/readinessops-authority-delta/.venv-analysis/lib/python3.12/site-packages/botocore/context.py", line 123, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/6057a87979d1/readinessops-authority-delta/.venv-analysis/lib/python3.12/site-packages/botocore/client.py", line 1035, in _make_api_call
+    api_params = self._emit_api_params(
+                 ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/6057a87979d1/readinessops-authority-delta/.venv-analysis/lib/python3.12/site-packages/botocore/client.py", line 1154, in _emit_api_params
+    self.meta.events.emit(
+  File "/workspace/scratch/6057a87979d1/readinessops-authority-delta/.venv-analysis/lib/python3.12/site-packages/botocore/hooks.py", line 412, in emit
+    return self._emitter.emit(aliased_event_name, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/6057a87979d1/readinessops-authority-delta/.venv-analysis/lib/python3.12/site-packages/botocore/hooks.py", line 256, in emit
+    return self._emit(event_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/6057a87979d1/readinessops-authority-delta/.venv-analysis/lib/python3.12/site-packages/botocore/hooks.py", line 239, in _emit
+    response = handler(**kwargs)
+               ^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/6057a87979d1/readinessops-authority-delta/.venv-analysis/lib/python3.12/site-packages/botocore/stub.py", line 403, in _assert_expected_params
+    raise StubAssertionError(
+botocore.exceptions.StubAssertionError: Error getting response stub for operation Query: Expected parameters:
+{'ConsistentRead': True,
+ 'ExpressionAttributeValues': {':p': {'S': 'OUTBOX'}},
+ 'KeyConditionExpression': 'pk = :p',
+ 'TableName': 'JobsTable'},
+but received:
+{'ConsistentRead': True,
+ 'ExpressionAttributeValues': {':p': {'S': 'OUTBOX'}, ':s': {'S': ''}},
+ 'KeyConditionExpression': 'pk = :p AND begins_with(sk, :s)',
+ 'TableName': 'JobsTable'}
+
+======================================================================
+FAIL: test_partition_only_outbox_and_owner_index (test_business_query_regression.QueryRegression.test_partition_only_outbox_and_owner_index) (table='app')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/6057a87979d1/readinessops-authority-delta/tests/test_business_query_regression.py", line 24, in test_partition_only_outbox_and_owner_index
+    self.assertEqual(self.store.query(table, pk), [])
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "prior-query", line 36, in query
+  File "/workspace/scratch/6057a87979d1/readinessops-authority-delta/.venv-analysis/lib/python3.12/site-packages/botocore/client.py", line 606, in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/6057a87979d1/readinessops-authority-delta/.venv-analysis/lib/python3.12/site-packages/botocore/context.py", line 123, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/6057a87979d1/readinessops-authority-delta/.venv-analysis/lib/python3.12/site-packages/botocore/client.py", line 1035, in _make_api_call
+    api_params = self._emit_api_params(
+                 ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/6057a87979d1/readinessops-authority-delta/.venv-analysis/lib/python3.12/site-packages/botocore/client.py", line 1154, in _emit_api_params
+    self.meta.events.emit(
+  File "/workspace/scratch/6057a87979d1/readinessops-authority-delta/.venv-analysis/lib/python3.12/site-packages/botocore/hooks.py", line 412, in emit
+    return self._emitter.emit(aliased_event_name, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/6057a87979d1/readinessops-authority-delta/.venv-analysis/lib/python3.12/site-packages/botocore/hooks.py", line 256, in emit
+    return self._emit(event_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/6057a87979d1/readinessops-authority-delta/.venv-analysis/lib/python3.12/site-packages/botocore/hooks.py", line 239, in _emit
+    response = handler(**kwargs)
+               ^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/6057a87979d1/readinessops-authority-delta/.venv-analysis/lib/python3.12/site-packages/botocore/stub.py", line 403, in _assert_expected_params
+    raise StubAssertionError(
+botocore.exceptions.StubAssertionError: Error getting response stub for operation Query: Expected parameters:
+{'ConsistentRead': True,
+ 'ExpressionAttributeValues': {':p': {'S': 'OWNER#local-reviewer'}},
+ 'KeyConditionExpression': 'pk = :p',
+ 'TableName': 'AppTable'},
+but received:
+{'ConsistentRead': True,
+ 'ExpressionAttributeValues': {':p': {'S': 'OWNER#local-reviewer'},
+                               ':s': {'S': ''}},
+ 'KeyConditionExpression': 'pk = :p AND begins_with(sk, :s)',
+ 'TableName': 'AppTable'}
+
+======================================================================
+FAIL: test_prefix_and_pagination_preserve_exact_partition (test_business_query_regression.QueryRegression.test_prefix_and_pagination_preserve_exact_partition) (prefix='')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/6057a87979d1/readinessops-authority-delta/tests/test_business_query_regression.py", line 64, in test_prefix_and_pagination_preserve_exact_partition
+    self.assertEqual(len(self.store.query('app', 'object-local', prefix)), 2)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "prior-query", line 36, in query
+  File "/workspace/scratch/6057a87979d1/readinessops-authority-delta/.venv-analysis/lib/python3.12/site-packages/botocore/client.py", line 606, in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/6057a87979d1/readinessops-authority-delta/.venv-analysis/lib/python3.12/site-packages/botocore/context.py", line 123, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/6057a87979d1/readinessops-authority-delta/.venv-analysis/lib/python3.12/site-packages/botocore/client.py", line 1035, in _make_api_call
+    api_params = self._emit_api_params(
+                 ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/6057a87979d1/readinessops-authority-delta/.venv-analysis/lib/python3.12/site-packages/botocore/client.py", line 1154, in _emit_api_params
+    self.meta.events.emit(
+  File "/workspace/scratch/6057a87979d1/readinessops-authority-delta/.venv-analysis/lib/python3.12/site-packages/botocore/hooks.py", line 412, in emit
+    return self._emitter.emit(aliased_event_name, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/6057a87979d1/readinessops-authority-delta/.venv-analysis/lib/python3.12/site-packages/botocore/hooks.py", line 256, in emit
+    return self._emit(event_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/6057a87979d1/readinessops-authority-delta/.venv-analysis/lib/python3.12/site-packages/botocore/hooks.py", line 239, in _emit
+    response = handler(**kwargs)
+               ^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/6057a87979d1/readinessops-authority-delta/.venv-analysis/lib/python3.12/site-packages/botocore/stub.py", line 403, in _assert_expected_params
+    raise StubAssertionError(
+botocore.exceptions.StubAssertionError: Error getting response stub for operation Query: Expected parameters:
+{'ConsistentRead': True,
+ 'ExpressionAttributeValues': {':p': {'S': 'object-local'}},
+ 'KeyConditionExpression': 'pk = :p',
+ 'TableName': 'AppTable'},
+but received:
+{'ConsistentRead': True,
+ 'ExpressionAttributeValues': {':p': {'S': 'object-local'}, ':s': {'S': ''}},
+ 'KeyConditionExpression': 'pk = :p AND begins_with(sk, :s)',
+ 'TableName': 'AppTable'}
+
+======================================================================
+FAIL: test_real_adapter_dispatch_query_get_send_and_conditional_delete (test_business_query_regression.QueryRegression.test_real_adapter_dispatch_query_get_send_and_conditional_delete)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/6057a87979d1/readinessops-authority-delta/tests/test_business_query_regression.py", line 48, in test_real_adapter_dispatch_query_get_send_and_conditional_delete
+    dispatch_pending(self.store, sqs, 'https://sqs.ap-northeast-1.amazonaws.com/123456789012/local')
+  File "/workspace/scratch/6057a87979d1/readinessops-authority-delta/src/authority_delta/business/jobs.py", line 24, in dispatch_pending
+    for row in db.query('jobs', 'OUTBOX'):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "prior-query", line 36, in query
+  File "/workspace/scratch/6057a87979d1/readinessops-authority-delta/.venv-analysis/lib/python3.12/site-packages/botocore/client.py", line 606, in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/6057a87979d1/readinessops-authority-delta/.venv-analysis/lib/python3.12/site-packages/botocore/context.py", line 123, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/6057a87979d1/readinessops-authority-delta/.venv-analysis/lib/python3.12/site-packages/botocore/client.py", line 1035, in _make_api_call
+    api_params = self._emit_api_params(
+                 ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/6057a87979d1/readinessops-authority-delta/.venv-analysis/lib/python3.12/site-packages/botocore/client.py", line 1154, in _emit_api_params
+    self.meta.events.emit(
+  File "/workspace/scratch/6057a87979d1/readinessops-authority-delta/.venv-analysis/lib/python3.12/site-packages/botocore/hooks.py", line 412, in emit
+    return self._emitter.emit(aliased_event_name, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/6057a87979d1/readinessops-authority-delta/.venv-analysis/lib/python3.12/site-packages/botocore/hooks.py", line 256, in emit
+    return self._emit(event_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/6057a87979d1/readinessops-authority-delta/.venv-analysis/lib/python3.12/site-packages/botocore/hooks.py", line 239, in _emit
+    response = handler(**kwargs)
+               ^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/6057a87979d1/readinessops-authority-delta/.venv-analysis/lib/python3.12/site-packages/botocore/stub.py", line 403, in _assert_expected_params
+    raise StubAssertionError(
+botocore.exceptions.StubAssertionError: Error getting response stub for operation Query: Expected parameters:
+{'ConsistentRead': True,
+ 'ExpressionAttributeValues': {':p': {'S': 'OUTBOX'}},
+ 'KeyConditionExpression': 'pk = :p',
+ 'TableName': 'JobsTable'},
+but received:
+{'ConsistentRead': True,
+ 'ExpressionAttributeValues': {':p': {'S': 'OUTBOX'}, ':s': {'S': ''}},
+ 'KeyConditionExpression': 'pk = :p AND begins_with(sk, :s)',
+ 'TableName': 'JobsTable'}
+
+======================================================================
+FAIL: test_result_bound_is_retained (test_business_query_regression.QueryRegression.test_result_bound_is_retained)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/6057a87979d1/readinessops-authority-delta/tests/test_business_query_regression.py", line 74, in test_result_bound_is_retained
+    self.store.query('jobs', 'OUTBOX', limit=1)
+  File "prior-query", line 36, in query
+  File "/workspace/scratch/6057a87979d1/readinessops-authority-delta/.venv-analysis/lib/python3.12/site-packages/botocore/client.py", line 606, in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/6057a87979d1/readinessops-authority-delta/.venv-analysis/lib/python3.12/site-packages/botocore/context.py", line 123, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/6057a87979d1/readinessops-authority-delta/.venv-analysis/lib/python3.12/site-packages/botocore/client.py", line 1035, in _make_api_call
+    api_params = self._emit_api_params(
+                 ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/6057a87979d1/readinessops-authority-delta/.venv-analysis/lib/python3.12/site-packages/botocore/client.py", line 1154, in _emit_api_params
+    self.meta.events.emit(
+  File "/workspace/scratch/6057a87979d1/readinessops-authority-delta/.venv-analysis/lib/python3.12/site-packages/botocore/hooks.py", line 412, in emit
+    return self._emitter.emit(aliased_event_name, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/6057a87979d1/readinessops-authority-delta/.venv-analysis/lib/python3.12/site-packages/botocore/hooks.py", line 256, in emit
+    return self._emit(event_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/6057a87979d1/readinessops-authority-delta/.venv-analysis/lib/python3.12/site-packages/botocore/hooks.py", line 239, in _emit
+    response = handler(**kwargs)
+               ^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/6057a87979d1/readinessops-authority-delta/.venv-analysis/lib/python3.12/site-packages/botocore/stub.py", line 403, in _assert_expected_params
+    raise StubAssertionError(
+botocore.exceptions.StubAssertionError: Error getting response stub for operation Query: Expected parameters:
+{'ConsistentRead': True,
+ 'ExpressionAttributeValues': {':p': {'S': 'OUTBOX'}},
+ 'KeyConditionExpression': 'pk = :p',
+ 'TableName': 'JobsTable'},
+but received:
+{'ConsistentRead': True,
+ 'ExpressionAttributeValues': {':p': {'S': 'OUTBOX'}, ':s': {'S': ''}},
+ 'KeyConditionExpression': 'pk = :p AND begins_with(sk, :s)',
+ 'TableName': 'JobsTable'}
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.191s
+
+FAILED (failures=5)

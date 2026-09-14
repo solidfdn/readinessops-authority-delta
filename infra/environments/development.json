@@ -1,0 +1,23 @@
+{
+  "baseline_id": "AD-BASELINE-1.0",
+  "source": "USER_PROVIDED_CODEBUILD_RESULT",
+  "observed_at": "2026-09-08T05:22:31.293321+00:00",
+  "account": "538522204923",
+  "region": "ap-northeast-1",
+  "bootstrap_stack": "authority-delta-bootstrap",
+  "application_stack": "authority-delta-customer-baseline",
+  "project": "authority-delta-deploy",
+  "artifact_bucket": "authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp",
+  "resources": {
+    "GatewayArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:gateway/authority-delta-gateway-rvplvkk1t7",
+    "GatewayUrl": "https://authority-delta-gateway-rvplvkk1t7.gateway.bedrock-agentcore.ap-northeast-1.amazonaws.com/mcp",
+    "GatewayIdentifier": "authority-delta-gateway-rvplvkk1t7",
+    "SandboxLedgerTableName": "authority-delta-customer-baseline-SandboxLedgerTable-11Y1G7Q37O2X1",
+    "PolicyEngineId": "AuthorityDeltaEngine-4bsgo7fc7d",
+    "RequestRegistryTableName": "authority-delta-customer-baseline-RequestRegistryTable-1J7KH7E64KVHH",
+    "PolicyEngineArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:policy-engine/AuthorityDeltaEngine-4bsgo7fc7d",
+    "SandboxToolFunctionArn": "arn:aws:lambda:ap-northeast-1:538522204923:function:authority-delta-customer-basel-SandboxToolFunction-yKesNCZF3bcd"
+  },
+  "sandbox_code_sha256": "757ea25a4c0c0ec6c8f173552cd78f33bd96ee15e701d08bbc1d7e9c6afb0220",
+  "model_candidates": ["openai.gpt-5.6-terra", "amazon.nova-lite-v1:0"]
+}

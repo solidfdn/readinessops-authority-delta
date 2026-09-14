@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">ReadinessOps Authority Delta architecture</title>
+  <desc id="desc">Evidence and human decisions flow through a Strands analysis plane and a separately controlled two-account AWS authority plane.</desc>
+  <rect width="1600" height="900" fill="#ffffff"/>
+  <style>
+    .title{font:700 38px Arial,sans-serif;fill:#071d3a}.subtitle{font:400 20px Arial,sans-serif;fill:#52657a}
+    .lane{fill:#f5f9fd;stroke:#b7cce2;stroke-width:2}.box{fill:#ffffff;stroke:#2667b2;stroke-width:2}
+    .control{fill:#eaf3fc;stroke:#1261ae;stroke-width:2}.guard{fill:#eef8f5;stroke:#288a70;stroke-width:2}
+    .label{font:700 22px Arial,sans-serif;fill:#071d3a}.small{font:400 17px Arial,sans-serif;fill:#334b65}
+    .laneTitle{font:700 20px Arial,sans-serif;fill:#1261ae}.arrow{stroke:#1261ae;stroke-width:3;fill:none;marker-end:url(#arrow)}
+    .return{stroke:#288a70;stroke-width:3;fill:none;stroke-dasharray:8 7;marker-end:url(#arrowGreen)}
+  </style>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#1261ae"/></marker>
+    <marker id="arrowGreen" markerWidth="12" markerHeight="12" refX="10" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#288a70"/></marker>
+  </defs>
+
+  <text x="70" y="70" class="title">ReadinessOps — Authority Delta</text>
+  <text x="70" y="108" class="subtitle">Evidence-backed decisions, finite AWS authority, and verified suspension</text>
+
+  <rect x="55" y="145" width="1490" height="305" rx="16" class="lane"/>
+  <text x="80" y="182" class="laneTitle">DECISION PLANE · ACCOUNT A</text>
+
+  <rect x="90" y="220" width="270" height="155" rx="12" class="box"/>
+  <text x="225" y="265" text-anchor="middle" class="label">Human reviewer</text>
+  <text x="225" y="299" text-anchor="middle" class="small">React · CloudFront</text>
+  <text x="225" y="328" text-anchor="middle" class="small">Amazon Cognito</text>
+
+  <rect x="435" y="220" width="300" height="155" rx="12" class="control"/>
+  <text x="585" y="257" text-anchor="middle" class="label">ReadinessOps API</text>
+  <text x="585" y="291" text-anchor="middle" class="small">API Gateway · Lambda</text>
+  <text x="585" y="320" text-anchor="middle" class="small">DynamoDB · versioned S3</text>
+  <text x="585" y="349" text-anchor="middle" class="small">Receipts · publications · history</text>
+
+  <rect x="810" y="220" width="300" height="155" rx="12" class="box"/>
+  <text x="960" y="257" text-anchor="middle" class="label">Strands analysis agent</text>
+  <text x="960" y="291" text-anchor="middle" class="small">Amazon Bedrock AgentCore</text>
+  <text x="960" y="320" text-anchor="middle" class="small">Amazon Nova Pro</text>
+  <text x="960" y="349" text-anchor="middle" class="small">Cited Gap · Risk · Action</text>
+
+  <rect x="1185" y="220" width="300" height="155" rx="12" class="control"/>
+  <text x="1335" y="257" text-anchor="middle" class="label">Authority workers</text>
+  <text x="1335" y="291" text-anchor="middle" class="small">Application · Invocation</text>
+  <text x="1335" y="320" text-anchor="middle" class="small">Revocation · SQS outbox</text>
+  <text x="1335" y="349" text-anchor="middle" class="small">Fail closed · reconcile</text>
+
+  <path d="M360 298 H425" class="arrow"/><path d="M735 298 H800" class="arrow"/><path d="M1110 298 H1175" class="arrow"/>
+
+  <rect x="55" y="485" width="1490" height="330" rx="16" class="lane"/>
+  <text x="80" y="522" class="laneTitle">ENFORCEMENT PLANE · ACCOUNT B</text>
+
+  <rect x="125" y="570" width="290" height="165" rx="12" class="guard"/>
+  <text x="270" y="610" text-anchor="middle" class="label">STS boundary</text>
+  <text x="270" y="644" text-anchor="middle" class="small">ExternalId-bound roles</text>
+  <text x="270" y="673" text-anchor="middle" class="small">Discovery separated from</text>
+  <text x="270" y="702" text-anchor="middle" class="small">qualified publisher invocation</text>
+
+  <rect x="500" y="570" width="290" height="165" rx="12" class="control"/>
+  <text x="645" y="610" text-anchor="middle" class="label">Bounded publisher</text>
+  <text x="645" y="644" text-anchor="middle" class="small">Exact Policy ownership</text>
+  <text x="645" y="673" text-anchor="middle" class="small">Idempotent journal</text>
+  <text x="645" y="702" text-anchor="middle" class="small">Create · read · remove</text>
+
+  <rect x="875" y="570" width="290" height="165" rx="12" class="guard"/>
+  <text x="1020" y="610" text-anchor="middle" class="label">AgentCore control</text>
+  <text x="1020" y="644" text-anchor="middle" class="small">Gateway · Policy</text>
+  <text x="1020" y="673" text-anchor="middle" class="small">Exact principal · tool · input</text>
+  <text x="1020" y="702" text-anchor="middle" class="small">Live ALLOW / DENY</text>
+
+  <rect x="1250" y="570" width="245" height="165" rx="12" class="box"/>
+  <text x="1372" y="610" text-anchor="middle" class="label">VendorPayment</text>
+  <text x="1372" y="644" text-anchor="middle" class="small">V2 Runtime</text>
+  <text x="1372" y="673" text-anchor="middle" class="small">Synthetic sandbox</text>
+  <text x="1372" y="702" text-anchor="middle" class="small">Immutable ledger</text>
+
+  <path d="M1335 375 V470 H270 V560" class="arrow"/>
+  <path d="M415 652 H490" class="arrow"/><path d="M790 652 H865" class="arrow"/><path d="M1165 652 H1240" class="arrow"/>
+  <path d="M1372 745 V780 H585 V385" class="return"/>
+  <text x="950" y="797" text-anchor="middle" class="small">Verified outcomes and evidence return to the business record</text>
+
+  <text x="70" y="862" class="small">Invariant: AI proposes. Humans approve. Only verified finite authority executes. Uncertainty closes the path.</text>
+</svg>

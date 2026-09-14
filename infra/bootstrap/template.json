@@ -1,0 +1,170 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Authority Delta deployment service. CodeBuild assumes the existing deployment role; the operator launches a bounded build without creating access keys.",
+  "Parameters": {
+    "DeploymentRoleName": {
+      "Type": "String",
+      "Default": "ReadinessOpsAuthorityDeltaDeployer",
+      "AllowedPattern": "^[A-Za-z0-9+=,.@_-]{1,64}$"
+    },
+    "BuildProjectName": {"Type": "String", "Default": "authority-delta-deploy", "AllowedValues": ["authority-delta-deploy"]}
+  },
+  "Resources": {
+    "ArtifactBucket": {
+      "Type": "AWS::S3::Bucket",
+      "DeletionPolicy": "Retain",
+      "UpdateReplacePolicy": "Retain",
+      "Properties": {
+        "VersioningConfiguration": {"Status": "Enabled"},
+        "BucketEncryption": {"ServerSideEncryptionConfiguration": [{"ServerSideEncryptionByDefault": {"SSEAlgorithm": "AES256"}}]},
+        "PublicAccessBlockConfiguration": {"BlockPublicAcls": true, "IgnorePublicAcls": true, "BlockPublicPolicy": true, "RestrictPublicBuckets": true},
+        "OwnershipControls": {"Rules": [{"ObjectOwnership": "BucketOwnerEnforced"}]},
+        "Tags": [{"Key": "Project", "Value": "ReadinessOpsAuthorityDelta"}]
+      }
+    },
+    "DeploymentLogs": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {"LogGroupName": {"Fn::Sub": "/aws/codebuild/${BuildProjectName}"}, "RetentionInDays": 14}
+    },
+    "DeploymentProject": {
+      "Type": "AWS::CodeBuild::Project",
+      "Properties": {
+        "Name": {"Ref": "BuildProjectName"},
+        "Description": "Bounded Authority Delta deployment job with AWS-managed temporary credentials.",
+        "ServiceRole": {"Fn::GetAtt": ["DeploymentRole", "Arn"]},
+        "Artifacts": {"Type": "NO_ARTIFACTS"},
+        "Source": {"Type": "S3", "Location": {"Fn::Sub": "${ArtifactBucket}/source/bootstrap.zip"}, "BuildSpec": "buildspec.deploy.yml"},
+        "Environment": {
+          "Type": "LINUX_CONTAINER", "ComputeType": "BUILD_GENERAL1_SMALL",
+          "Image": "aws/codebuild/standard:7.0", "ImagePullCredentialsType": "CODEBUILD", "PrivilegedMode": false,
+          "EnvironmentVariables": [
+            {"Name": "AD_EXPECTED_ACCOUNT", "Value": {"Ref": "AWS::AccountId"}},
+            {"Name": "AD_REGION", "Value": {"Ref": "AWS::Region"}},
+            {"Name": "AD_ARTIFACT_BUCKET", "Value": {"Ref": "ArtifactBucket"}}
+          ]
+        },
+        "TimeoutInMinutes": 25,
+        "QueuedTimeoutInMinutes": 5,
+        "ConcurrentBuildLimit": 1,
+        "LogsConfig": {"CloudWatchLogs": {"Status": "ENABLED", "GroupName": {"Ref": "DeploymentLogs"}}},
+        "Tags": [{"Key": "Project", "Value": "ReadinessOpsAuthorityDelta"}]
+      }
+    },
+    "DeploymentRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "RoleName": {"Ref": "DeploymentRoleName"},
+        "Description": "Authority Delta CodeBuild service role, trusted only by this account's deployment project.",
+        "MaxSessionDuration": 3600,
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Sid": "AllowOnlyOwnedCodeBuildProject",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "codebuild.amazonaws.com"
+              },
+              "Action": "sts:AssumeRole",
+              "Condition": {"StringEquals": {
+                "aws:SourceAccount": {"Ref": "AWS::AccountId"},
+                "aws:SourceArn": {"Fn::Sub": "arn:${AWS::Partition}:codebuild:${AWS::Region}:${AWS::AccountId}:project/${BuildProjectName}"}
+              }}
+            }
+          ]
+        },
+        "ManagedPolicyArns": [
+          {"Fn::Sub": "arn:${AWS::Partition}:iam::aws:policy/PowerUserAccess"}
+        ],
+        "Policies": [
+          {
+            "PolicyName": "AuthorityDeltaScopedIam",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Sid": "ManageOnlyProjectRoles",
+                  "Effect": "Allow",
+                  "Action": [
+                    "iam:CreateRole",
+                    "iam:DeleteRole",
+                    "iam:GetRole",
+                    "iam:TagRole",
+                    "iam:UntagRole",
+                    "iam:UpdateAssumeRolePolicy",
+                    "iam:UpdateRoleDescription",
+                    "iam:PutRolePolicy",
+                    "iam:GetRolePolicy",
+                    "iam:DeleteRolePolicy",
+                    "iam:AttachRolePolicy",
+                    "iam:DetachRolePolicy",
+                    "iam:ListRolePolicies",
+                    "iam:ListRoleTags",
+                    "iam:UpdateRole",
+                    "iam:ListAttachedRolePolicies"
+                  ],
+                  "Resource": [
+                    {"Fn::Sub": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/authority-delta-*"},
+                    {"Fn::Sub": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/ReadinessOpsAuthorityDelta-*"}
+                  ]
+                },
+                {
+                  "Sid": "PassOnlyProjectRolesToRequiredServices",
+                  "Effect": "Allow",
+                  "Action": "iam:PassRole",
+                  "Resource": [
+                    {"Fn::Sub": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/authority-delta-*"},
+                    {"Fn::Sub": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/ReadinessOpsAuthorityDelta-*"}
+                  ],
+                  "Condition": {
+                    "StringEquals": {
+                      "iam:PassedToService": [
+                        "lambda.amazonaws.com",
+                        "bedrock-agentcore.amazonaws.com"
+                      ]
+                    }
+                  }
+                },
+                {
+                  "Sid": "CreateOnlyAgentCoreServiceLinkedRole",
+                  "Effect": "Allow",
+                  "Action": "iam:CreateServiceLinkedRole",
+                  "Resource": "*",
+                  "Condition": {
+                    "StringEquals": {
+                      "iam:AWSServiceName": "bedrock-agentcore.amazonaws.com"
+                    }
+                  }
+                },
+                {
+                  "Sid": "ReadOwnIdentityAndBudget",
+                  "Effect": "Allow",
+                  "Action": [
+                    "sts:GetCallerIdentity",
+                    "budgets:ViewBudget"
+                  ],
+                  "Resource": "*"
+                }
+              ]
+            }
+          }
+        ],
+        "Tags": [
+          {"Key": "Project", "Value": "ReadinessOpsAuthorityDelta"},
+          {"Key": "Purpose", "Value": "CodeBuildDeployment"}
+        ]
+      }
+    }
+  },
+  "Outputs": {
+    "DeploymentRoleArn": {
+      "Description": "Service role assumed by CodeBuild, never by root.",
+      "Value": {"Fn::GetAtt": ["DeploymentRole", "Arn"]}
+    },
+    "MaxSessionDurationSeconds": {
+      "Value": 3600
+    },
+    "ArtifactBucketName": {"Value": {"Ref": "ArtifactBucket"}},
+    "BuildProjectName": {"Value": {"Ref": "DeploymentProject"}}
+  }
+}

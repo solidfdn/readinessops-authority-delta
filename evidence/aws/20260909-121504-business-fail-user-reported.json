@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.2",
+  "baseline_id": "AD-BASELINE-1.2",
+  "scope": "READINESSOPS_BUSINESS_WORKFLOW_DEPLOYMENT_NO_HUMAN_APPROVAL",
+  "result": "FAIL",
+  "build_id": "authority-delta-deploy:02244729-c866-4424-885b-6fe8d0209dd6",
+  "source_sha256": "705c6651fbe5739cc046644a22bf6dbf4292d6a60bb5d7e9672bb5b2f1e01fd8",
+  "started_at": "2026-09-09T12:11:28.650577+00:00",
+  "state_unchanged": true,
+  "approval_recorded": false,
+  "account": "538522204923",
+  "region": "ap-northeast-1",
+  "existing_workspace": {
+    "ApiUrl": "https://ycebapd6i7.execute-api.ap-northeast-1.amazonaws.com",
+    "UserPoolId": "ap-northeast-1_seKBPUFZf",
+    "ReviewerUsername": "okada",
+    "ClientId": "2fqamgtqvtljr0d7a7k2jb98or",
+    "DistributionId": "E3AQILZGOR78PR",
+    "WorkspaceUrl": "https://d3rn3hqm0ax5ux.cloudfront.net/",
+    "ApiId": "ycebapd6i7",
+    "AuthOrigin": "https://authority-delta-538522204923-review.auth.ap-northeast-1.amazoncognito.com",
+    "ReviewFunction": "authority-delta-review",
+    "SiteBucket": "authority-delta-workbench-sitebucket-dgfu3kyqjd8y"
+  },
+  "existing_reviewer_sub": "37e4eac8-a0b1-7024-74f1-9e909e516389",
+  "phase": "Running one synthetic non-payment assessment through the real queue and Strands",
+  "artifacts": {
+    "lambda": {
+      "path": "/codebuild/output/src4222113206/src/dist/business-lambda.zip",
+      "sha256": "0a84fadb7f47e46affb97b5947ac3c0bdc607bdfa6bdaeaa07135b59fdfcd63a",
+      "size_bytes": 28485518,
+      "uncompressed_bytes": 61902725,
+      "architecture": "x86_64",
+      "bucket": "authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp",
+      "key": "business-code/0a84fadb7f47e46affb97b5947ac3c0bdc607bdfa6bdaeaa07135b59fdfcd63a/lambda.zip",
+      "version_id": "VFP4u.l4tO7I8VMv381ll_zkpD0R8UJm"
+    },
+    "runtime": {
+      "path": "/codebuild/output/src4222113206/src/dist/business-runtime.zip",
+      "sha256": "646b275cbb080bfb4456b50968a5ce4e712330434c9f13cd2a50af0aa2c9c3bb",
+      "size_bytes": 28326981,
+      "uncompressed_bytes": 60907268,
+      "architecture": "aarch64",
+      "bucket": "authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp",
+      "key": "business-code/646b275cbb080bfb4456b50968a5ce4e712330434c9f13cd2a50af0aa2c9c3bb/runtime.zip",
+      "version_id": "ccVINKBkk.myjQ8UBXZ.QvobJF6kk0eN"
+    }
+  },
+  "deploying_stack": "authority-delta-business",
+  "business_resources": {
+    "DataBucket": "authority-delta-business-databucket-m0ydp4cbfqwc",
+    "AnalysisRuntimeArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_business-59YQj24fG4",
+    "WorkerFunction": "authority-delta-business-worker",
+    "DispatcherFunction": "authority-delta-business-dispatcher",
+    "AnalysisRuntimeVersion": "1",
+    "AnalysisRuntimeId": "authority_delta_business-59YQj24fG4",
+    "JobsTable": "authority-delta-business-JobsTable-14BEH5FIXMGQZ",
+    "AnalysisEndpointName": "fixed_business",
+    "AnalysisExecutionRoleArn": "arn:aws:iam::538522204923:role/authority-delta-business-model",
+    "AnalysisEndpointArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_business-59YQj24fG4/runtime-endpoint/fixed_business",
+    "ApiFunction": "authority-delta-business-api",
+    "Queue": "https://sqs.ap-northeast-1.amazonaws.com/538522204923/authority-delta-business-Queue-wWqBNbpyi4vs",
+    "QueueArn": "arn:aws:sqs:ap-northeast-1:538522204923:authority-delta-business-Queue-wWqBNbpyi4vs",
+    "AppTable": "authority-delta-business-AppTable-88YH8409TP9M"
+  },
+  "error": {
+    "type": "ValueError",
+    "message": "Dispatcher failed: {\"errorMessage\": \"An error occurred (ValidationException) when calling the Query operation: One or more parameter values are not valid. The AttributeValue for a key attribute cannot contain an empty string value. Key: sk\", \"errorType\": \"ClientError\", \"requestId\": \"fe054609-8b93-43c9-9c75-d3a8553d33c6\", \"stackTrace\": [\"  File \\\"/var/task/services/business/worker.py\\\", line 19, in dispatch_handler\\n    dispatch_pending(db, boto3.client('sqs'), os.environ['QUEUE_URL'])\\n\", \"  File \\\"/var/task/authority_delta/business/jobs.py\\\", line 24, in dispatch_pending\\n    for row in db.query('jobs', 'OUTBOX'):\\n\", \"  File \\\"/var/task/authority_delta/business/storage.py\\\", line 36, in query\\n    page = self.client.query(**args)\\n\", \"  File \\\"/var/task/botocore/client.py\\\", line 606, in _api_call\\n    return self._make_api_call(operation_name, kwargs)\\n\", \"  File \\\"/var/task/botocore/context.py\\\", line 123, in wrapper\\n    return func(*args, **kwargs)\\n\", \"  File \\\"/var/task/botocore/client.py\\\", line 1094, in _make_api_call\\n    raise error_class(parsed_response, operation_name)\\n\"]}"
+  },
+  "stack_failures": [],
+  "completed_at": "2026-09-09T12:15:04.476517+00:00",
+  "business_canary": {
+    "scope": "SYNTHETIC_NONPAYMENT_ASSESSMENT_NO_HUMAN_DECISION",
+    "run_id": "run-145ceb8a0f38417c86383044c7818c33",
+    "input_ref": {
+      "bucket": "authority-delta-business-databucket-m0ydp4cbfqwc",
+      "key": "business/inputs/run-145ceb8a0f38417c86383044c7818c33.json",
+      "version_id": "i7X5zax2vue6jkiuQ9MQzBlL6A3R4TUj",
+      "sha256": "40ee701aef69f38b1cac3bf51f01f0c8253f7678758e21998544cf9b4a2b6299",
+      "size": 1382
+    },
+    "status": "IN_PROGRESS"
+  },
+  "canary_diagnostics": null
+}

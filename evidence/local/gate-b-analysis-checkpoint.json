@@ -1,0 +1,10 @@
+{
+  "scope": "LOCAL_TESTS_NO_STRANDS_SDK_NO_LIVE_GATE_B",
+  "test_command": ".venv/bin/python -m unittest discover -s tests -q",
+  "exit_code": 0,
+  "test_count": 116,
+  "operator_script_sha256": "1e8e35e4245e77ec79e250bd5c198d0f83fe800bceb4fd598c2824bd6563bff6",
+  "operator_tests": "Real script process with pip subprocess double; two-architecture collection, manifest, failure exit, corrupt architecture and output preservation. Actual PyPI resolution NOT_RUN.",
+  "strands_invocation": "NOT_RUN",
+  "gate_b": "NOT_RUN"
+}

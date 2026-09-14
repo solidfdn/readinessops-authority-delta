@@ -1,0 +1,7 @@
+{
+  "name": "Customer data sharing — acceptance test",
+  "owner": "Shinji Okada",
+  "purpose": "Review whether customer data may be shared with an external analytics provider to reduce weekly reporting work. This acceptance test uses synthetic evidence only.",
+  "question": "Under what conditions may customer data be shared with an external analytics provider? Distinguish a synthetic pilot from production use, identify missing evidence, and explain when human review, stopping and reassessment are required.",
+  "goals": "Measure report preparation time, review time, corrections and cost. No baseline or achieved improvement has been measured."
+}

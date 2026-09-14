@@ -1,0 +1,13 @@
+{
+  "scope": "LOCAL_DELIVERED_PATCH_AND_WORKER_PERSISTENCE_NO_LIVE_AWS",
+  "tested_source_commit": "d7401ed84f6f7edd3c3b24491fe44edda0f1ffb3",
+  "observed_at": "2026-09-08T06:24:44.723432+00:00",
+  "repair_sha256": "a961cfd992b4ff148a8548a5572331be918dc50eff762143178b64c805e72f85",
+  "base_zip_sha256": "7271a5eb7f3039ccc78efdcbba81b3de3b08f0232f7ab735be95cda0c676d496",
+  "restored_all_tracked_files_match_commit": true,
+  "tracked_file_count": 86,
+  "test_command": "python -m unittest discover -s tests -q (restored delivery source)",
+  "exit_status": 0,
+  "test_output": "----------------------------------------------------------------------\nRan 50 tests in 0.762s\n\nOK\n",
+  "aws_run": "NOT_RUN"
+}

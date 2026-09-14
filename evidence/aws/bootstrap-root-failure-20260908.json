@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "baseline_id": "AD-BASELINE-1.0",
+  "source": "USER_PROVIDED_CLOUDSHELL_STDOUT",
+  "captured_at": "2026-09-08T05:15:46.024378+00:00",
+  "account": "538522204923",
+  "region": "ap-northeast-1",
+  "original_bundle_commit": "6c056b3bbb32785bd49734f1d68f971732e18eee",
+  "bootstrap_stack": "authority-delta-bootstrap",
+  "bootstrap_deploy": "SUCCESS_USER_REPORTED",
+  "failed_operation": "sts:AssumeRole",
+  "error_code": "AccessDenied",
+  "error_message": "Roles may not be assumed by root accounts.",
+  "application_steps_reached": false,
+  "gateway_denial_proven": false,
+  "credentials_recorded": false
+}

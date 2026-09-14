@@ -1,0 +1,14 @@
+{
+  "source": "USER_PROVIDED_PARTIAL_CODEBUILD_LOG",
+  "build_id": "authority-delta-deploy:216ae0dc-03d0-4950-8471-d212e6ccedfb",
+  "observed_failure_at": "2026-09-08T06:09:03.953403Z",
+  "command": "PYTHONPATH=src /tmp/authority-delta-verify-env/bin/python scripts/verify_aws.py",
+  "exit_status": 1,
+  "error": "TypeError: Object of type datetime is not JSON serializable",
+  "build_status": "FAILED",
+  "final_report": "NOT_AVAILABLE",
+  "gateway_outcome": "NOT_RECOVERED",
+  "model_outcome": "NOT_RECOVERED",
+  "gate_promoted": false,
+  "diagnosis": "Bundled botocore modelLifecycle timestamp members reproduce datetime serialization failure; the supplied traceback does not identify the exact offending member."
+}

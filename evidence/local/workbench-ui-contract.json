@@ -1,0 +1,28 @@
+{
+  "scope": "LOCAL_REACT_SSR_AND_PKCE_CONTRACT_NO_BROWSER_OR_AWS",
+  "result": "PASS",
+  "checks": [
+    "five_workspace_sections",
+    "linked_evidence_and_findings",
+    "no_fabricated_decision_or_publication",
+    "business_presentation_without_payment_fields",
+    "review_render",
+    "untrusted_model_text_escaped",
+    "redirect_origin_bound",
+    "pkce_s256",
+    "wrong_state_no_token_request",
+    "valid_code_exchange",
+    "one_time_state_removed",
+    "sign_out_clears_session",
+    "expired_session_rejected",
+    "single_language_product_shell",
+    "browser_locale_independent_file_and_date_controls",
+    "unregistered_adapter_closed",
+    "separate_registered_delegation",
+    "finite_normal_invocation_action",
+    "revocation_unknown_not_reported_suspended",
+    "suspension_requires_removed_and_deny",
+    "action_lifecycle_requires_owner_due_and_new_evidence",
+    "outcome_metric_and_fixed_interchange_contract"
+  ]
+}

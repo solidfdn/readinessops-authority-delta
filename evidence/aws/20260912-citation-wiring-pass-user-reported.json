@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "scope": "USER_REPORTED_ACCOUNT_A_CITATION_RECOVERY_WIRING_TERMINAL_RESULT",
+  "source_commit": "c8b0f9e",
+  "build_id": "authority-delta-deploy:09977602-3f1a-4f06-8a5a-d4c1d06ec6da",
+  "account": "538522204923",
+  "result": "PASS",
+  "customer_registry": "VERIFIED_AND_DEPLOYED",
+  "business_assessment_canary": "PASS",
+  "human_workflow": "NOT_RUN",
+  "policy_write": "NOT_RUN",
+  "live_customer_canary": "NOT_RUN",
+  "state_unchanged": true,
+  "policy_count": 0,
+  "ledger_count": 0,
+  "provenance": "USER_PASTED_TERMINAL_RESULT_NOT_INDEPENDENT_AWS_READBACK",
+  "full_report_received": false,
+  "gates_promoted": false
+}

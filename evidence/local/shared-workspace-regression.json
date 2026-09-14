@@ -1,0 +1,15 @@
+{
+  "result": "PASS",
+  "scope": "LOCAL_NO_LIVE_AWS",
+  "python_tests": 156,
+  "python_seconds": 67.296,
+  "ui_contract": "evidence/local/workbench-ui-contract.json",
+  "compiler_compatibility": "evidence/local/shared-compiler-compatibility.json",
+  "live_update": "NOT_RUN",
+  "isolated_analysis_package": {
+    "tests": 2,
+    "seconds": 7.017,
+    "result": "PASS",
+    "site_packages": "DISABLED"
+  }
+}

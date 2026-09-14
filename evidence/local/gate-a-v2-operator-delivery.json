@@ -1,0 +1,105 @@
+{
+  "scope": "LOCAL_GATE_A_OPERATOR_DELIVERY_REVIEW_NO_LIVE_AWS",
+  "result": "PASS",
+  "observed_at": "2026-09-09T02:14:23.868838+00:00",
+  "aws_execution": "NOT_RUN",
+  "entrypoint_sha256": "d5c26160ebd6d8d85aa7cae933431106ed9ea6daa508bbd75acbf79785379905",
+  "base_zip_sha256": "7271a5eb7f3039ccc78efdcbba81b3de3b08f0232f7ab735be95cda0c676d496",
+  "checks": [
+    {
+      "name": "restored_delivery_matches_committed_source",
+      "status": "PASS",
+      "tracked_files": 118,
+      "removed_files": 0
+    },
+    {
+      "name": "operator_process_pass",
+      "status": "PASS",
+      "exit_status": 0,
+      "build_starts": 1,
+      "source_uploads": 1,
+      "boundary": "Actual generated Python entrypoint, launcher, source archive and AwsCli processes; AWS responses are local doubles"
+    },
+    {
+      "name": "resume_same_build_after_pass",
+      "status": "PASS",
+      "exit_status": 0,
+      "additional_build_starts": 0,
+      "additional_source_uploads": 0
+    },
+    {
+      "name": "operator_process_fail",
+      "status": "PASS",
+      "exit_status": 1,
+      "build_starts": 1,
+      "source_uploads": 1,
+      "boundary": "Actual generated Python entrypoint, launcher, source archive and AwsCli processes; AWS responses are local doubles"
+    },
+    {
+      "name": "operator_process_final_missing",
+      "status": "PASS",
+      "exit_status": 1,
+      "build_starts": 1,
+      "source_uploads": 1,
+      "boundary": "Actual generated Python entrypoint, launcher, source archive and AwsCli processes; AWS responses are local doubles"
+    },
+    {
+      "name": "resume_same_build_after_final_missing",
+      "status": "PASS",
+      "exit_status": 0,
+      "additional_build_starts": 0,
+      "additional_source_uploads": 0
+    },
+    {
+      "name": "operator_process_wrong_account",
+      "status": "PASS",
+      "exit_status": 1,
+      "build_starts": 0,
+      "source_uploads": 0,
+      "boundary": "Actual generated Python entrypoint, launcher, source archive and AwsCli processes; AWS responses are local doubles"
+    },
+    {
+      "name": "operator_process_active_build",
+      "status": "PASS",
+      "exit_status": 1,
+      "build_starts": 0,
+      "source_uploads": 0,
+      "boundary": "Actual generated Python entrypoint, launcher, source archive and AwsCli processes; AWS responses are local doubles"
+    },
+    {
+      "name": "operator_process_cleanup_unconfirmed",
+      "status": "PASS",
+      "exit_status": 1,
+      "build_starts": 1,
+      "source_uploads": 1,
+      "boundary": "Actual generated Python entrypoint, launcher, source archive and AwsCli processes; AWS responses are local doubles"
+    },
+    {
+      "name": "codebuild_source_imports_with_fresh_offline_locked_dependencies",
+      "status": "PASS",
+      "python_version": "Python 3.12.14",
+      "boundary": "Fresh virtual environment and actual source subset; not a live CodeBuild image"
+    },
+    {
+      "name": "delivered_source_builds_independent_runtime_zips",
+      "status": "PASS",
+      "artifacts": [
+        {
+          "release_id": "V1",
+          "sha256": "3b738fd9e005e5a00c70bc375eb4b9f6716ce49070fc31fd8dc1c06ae1333148",
+          "size_bytes": 16544704,
+          "release_definition_hash": "f09d96687195a3adc65c5ef671f2b6a26005886aba085f8e312b8f6f66c291c6"
+        },
+        {
+          "release_id": "V2",
+          "sha256": "656fb485ece8e5c3c32f3f4949c5067ea60c2efdf2843056206cafa1f914cd2d",
+          "size_bytes": 16544714,
+          "release_definition_hash": "1c5c93ff428181d66ec2542a503aae90698390a7e50f54375ade33434210d8be"
+        }
+      ],
+      "boundary": "Actual packaged wheels and application imports; no live AgentCore invocation"
+    }
+  ],
+  "delivered_source_commit": "d8eb16a715e09ac02e474e95f95374f56416b04c",
+  "elapsed_seconds": 30.193
+}

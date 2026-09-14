@@ -1,0 +1,30 @@
+{
+  "scope": "RECLASSIFICATION_OF_USER_PROVIDED_LIVE_EVIDENCE_NOT_A_NEW_AWS_RUN",
+  "source_report": "evidence/aws/20260908-055108-verification-v1-user-reported.json",
+  "source_report_sha256": "09840de62279a6873fce6e4fa1cdd2e02395d96c404903bc959667e00398178d",
+  "original_result": "FAIL",
+  "original_build_id": "authority-delta-deploy:ae695157-48e2-4b5e-a366-8e0fded3e418",
+  "observed_at": "2026-09-08T05:51:08.761457+00:00",
+  "reclassified_at": "2026-09-08T06:01:00.993707+00:00",
+  "P-001": {
+    "status": "PASS",
+    "gateway_outcome": "DENY",
+    "aws_request_id": "9194ab47-cda4-4738-be28-0c52f1a43ac7",
+    "mcp_id": "ad-verify-a37d45c17d424c19929aa588e5da6f65",
+    "ledger_before": 0,
+    "ledger_after": 0,
+    "state_unchanged": true
+  },
+  "remaining_cases": {
+    "P-002": "NOT_RUN",
+    "P-003": "NOT_RUN",
+    "P-004": "NOT_RUN",
+    "P-005": "NOT_RUN",
+    "P-006": "NOT_RUN",
+    "C-001": "NOT_RUN"
+  },
+  "all_seven_cases": "NOT_PASSED",
+  "model_access": "BLOCKED_AWS_ACCOUNT_VERIFICATION",
+  "gate_a": "NOT_RUN",
+  "no_cloud_resources_changed": true
+}

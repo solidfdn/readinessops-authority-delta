@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0",
+  "scope": "LOCAL_D4_PRIVATE_BROWSER_CAPTURE_ASSEMBLY_NO_LIVE_AWS_BROWSER_HUMAN_OR_GATE_PROMOTION",
+  "result": "PASS",
+  "observed_at": "2026-09-12T09:25:11Z",
+  "source_commit": "35da03814f5535e1d7adb413306d254719ddc4d4",
+  "implementation": [
+    "safe X-Request-ID response correlation identical to the privacy-bounded business audit request ID",
+    "CORS exposure of only the safe request correlation header",
+    "strict private 12-exchange HAR, 11-audit-message and authenticated-export assembler",
+    "request Authorization headers and cookies discarded from assembled observations and safe results",
+    "signed-out API Gateway Authorizer evidence kept separate with no invented Lambda audit",
+    "atomic staging, exact directory round-trip and existing D4 negative checker execution before publication",
+    "fail-closed handling for missing or ambiguous correlation, extra or reused input, base64 response bodies, unsafe paths, symlinks, partial output and existing destinations"
+  ],
+  "verification": {
+    "full_python_regression": {
+      "count": 298,
+      "result": "PASS",
+      "seconds": 119.928,
+      "exit_code": 0
+    },
+    "focused_api_capture_template_launcher": {
+      "count": 21,
+      "result": "PASS",
+      "seconds": 4.806,
+      "exit_code": 0
+    },
+    "offline_hash_locked_python_install": "PASS_PYTHON_3_12_X86_64",
+    "python_compile": "PASS",
+    "npm_ci_offline": "BLOCKED_TYPESCRIPT_5_9_3_TARBALL_NOT_CACHED_NO_NETWORK_FALLBACK_USED",
+    "frontend_source_changed": false,
+    "business_package": {
+      "result": "PASS_TWICE_DETERMINISTIC",
+      "sha256": "1ca7af92c75ec4864d19766bd4cf9aa6a5b673e4be12d9e3bf8d8e16c7eaba0c",
+      "size_bytes": 28528357,
+      "uncompressed_bytes": 62109828,
+      "architecture": "x86_64"
+    },
+    "codebuild_source_archive": {
+      "entries": 264,
+      "sha256": "6d9e1058b11290da11a557ec72a549c3138a8f8d1b82be4dc0b8855f838b7095",
+      "contains_assembler": true,
+      "contains_business_handler": true
+    }
+  },
+  "security": {
+    "raw_authorization_header_or_cookie_copied_to_output": false,
+    "unsafe_request_id_exposed": false,
+    "authorizer_rejection_invents_lambda_audit": false,
+    "unmapped_har_or_audit_record_accepted": false,
+    "existing_evidence_directory_overwritten": false,
+    "assembler_performs_live_action": false,
+    "safe_result_contains_raw_http_or_object_id": false
+  },
+  "deployment": "NOT_RUN",
+  "actual_account_b_identity": "NOT_RUN",
+  "live_negative_operations": "NOT_RUN",
+  "authenticated_browser_operation": "NOT_RUN",
+  "human_approval_or_publication": "NOT_RUN",
+  "actual_policy_write_or_runtime_canary": "NOT_RUN",
+  "judge_access_and_demo": "NOT_RUN",
+  "readinessops_product_ready": "NOT_RUN",
+  "gates_promoted": false,
+  "next_dependency": "Confirm a distinct account B, complete connected readiness and the bounded positive path, deploy the safe correlation update through the preserved business workflow, then collect and assemble the eight private live negative cases"
+}

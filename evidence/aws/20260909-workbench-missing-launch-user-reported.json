@@ -1,0 +1,9 @@
+{
+  "source": "USER_TERMINAL_OUTPUT",
+  "command": "python3 ~/Authority_Delta_Workbench_SignIn_Recovery.py",
+  "error": "Saved launch record is missing. Do not rerun deployment; report this message.",
+  "root_cause": "Recovery v1 incorrectly required the old temporary launch record and prepared repository",
+  "aws_calls_by_failed_recovery": 0,
+  "password_status": "UNKNOWN",
+  "recovery_v2_live": "NOT_RUN"
+}

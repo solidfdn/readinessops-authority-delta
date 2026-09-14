@@ -1,0 +1,23 @@
+{
+  "scope": "LOCAL_REACT_RENDER_AND_CLIENT_CONTRACT_NO_BROWSER_OR_LIVE_AWS",
+  "result": "PASS",
+  "checks": [
+    "business_intake_without_payment_requirement",
+    "single_language_product_copy",
+    "english_evidence_review_history_render",
+    "browser_locale_independent_file_control",
+    "four_decision_perspectives",
+    "authenticated_acceptance_export_control",
+    "approval_publication_and_runtime_distinct",
+    "reassessment_official_candidate_and_impact_priority",
+    "untrusted_text_escaped",
+    "old_read_only_session_requires_new_scopes",
+    "lost_response_recovery_same_request_id",
+    "pending_write_blocks_different_command",
+    "english_recovery_and_pending_errors",
+    "stale_request_cleared",
+    "expired_auth_retains_command",
+    "sign_in_error",
+    "client_error_bundle"
+  ]
+}

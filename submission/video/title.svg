@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <rect width="1920" height="1080" fill="#ffffff"/>
+  <rect x="0" y="0" width="22" height="1080" fill="#1261ae"/>
+  <text x="130" y="185" font-family="Arial" font-size="28" font-weight="700" fill="#1261ae">SOLIFAN · AWS AGENTS FOR HUMANS HACKATHON</text>
+  <text x="130" y="395" font-family="Arial" font-size="88" font-weight="700" fill="#071d3a">ReadinessOps</text>
+  <text x="130" y="500" font-family="Arial" font-size="72" font-weight="700" fill="#1261ae">Authority Delta</text>
+  <text x="130" y="620" font-family="Arial" font-size="36" fill="#52657a">Evidence. Human judgment. Finite authority. Verified removal.</text>
+  <line x1="130" y1="715" x2="1790" y2="715" stroke="#b7cce2" stroke-width="3"/>
+  <text x="130" y="805" font-family="Arial" font-size="30" fill="#071d3a">Professional Agents</text>
+  <text x="130" y="930" font-family="Arial" font-size="26" fill="#52657a">Foundations empower challenges — we design judgment, not features.</text>
+</svg>

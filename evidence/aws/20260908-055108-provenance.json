@@ -1,0 +1,9 @@
+{
+  "source": "USER_PASTED_CODEBUILD_VERIFICATION_RESULT",
+  "original_report": "evidence/aws/20260908-055108-verification-v1-user-reported.json",
+  "s3_bucket": "authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp",
+  "s3_key": "evidence/256dda2174e340209b4ed0cef5fc8904/verification-result.json",
+  "s3_version": "Noe7dOPHdTyEFrC2HRzhk1cIW0ToJSif",
+  "independently_fetched_by_codex": false,
+  "note": "Original FAIL statuses preserved; derived classification is saved separately."
+}

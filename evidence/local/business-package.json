@@ -1,0 +1,23 @@
+{
+  "result": "PASS",
+  "checks": [
+    "fresh_imports",
+    "packaged_request_schema",
+    "text_pdf",
+    "encrypted_pdf_needs_input",
+    "scan_pdf_needs_input",
+    "broken_pdf_needs_input",
+    "utf8_txt",
+    "invalid_json_needs_input",
+    "filename_boundary",
+    "unauthenticated_api"
+  ],
+  "scope": "LOCAL_DISTRIBUTION_PACKAGE_NO_LIVE_AWS",
+  "artifact": {
+    "path": "/tmp/readinessops-package-moznfg39/business.zip",
+    "sha256": "9b7fbd9e4db56b5cc705d38b6c67d5ac300044d9675e48c6aea9e268e4df65e5",
+    "size_bytes": 28552652,
+    "uncompressed_bytes": 62227458,
+    "architecture": "x86_64"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "source": "USER_PROVIDED_COMPACT_RESULT_AND_CODEBUILD_LOG",
+  "scope": "GATE_B_LIVE_SEMANTIC_PROOF_UI_NOT_INCLUDED",
+  "build_id": "authority-delta-deploy:4186d536-a5f8-4bf9-9015-2b697b32fcdb",
+  "source_commit": "e5c07c6875898c66bc52e8e2fb346c86a5af3026",
+  "source_sha256": "585bf60837cdbd8c0551fbd2e2346cf583ecdff083501d72b2d936b016186ba9",
+  "result": "FAIL",
+  "semantic_runtime_proof": "NOT_RUN",
+  "gate_b": "NOT_PASSED",
+  "sem_01": null,
+  "sem_02": null,
+  "state_unchanged": true,
+  "error": {
+    "type": "ValueError",
+    "message": "Semantic acceptance failed; retain analysis evidence"
+  },
+  "completed_log_utc": "2026-09-09T04:34:17.908152Z",
+  "checkpoints_logged": [
+    "prior",
+    "benign-observations",
+    "benign",
+    "analysis-runtime",
+    "semantic-analysis"
+  ],
+  "stacks_reported_complete": [
+    "authority-delta-benign-runtime",
+    "authority-delta-analysis-runtime"
+  ],
+  "report_location": {
+    "bucket": "authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp",
+    "key": "evidence/64fe9cd81aaf42149c10a5855cc579d9/gate-b-result.json",
+    "version_id": "ClJgbaeJJ_qiIwIhLsWqoRCM3e085M6O"
+  },
+  "full_report_retrieved_locally": false,
+  "diagnosis": "Code path reaches patch validation after receiving bound analysis response; exact rejection reason and model proposal are absent from the supplied console output. Do not infer a model or validator defect yet."
+}

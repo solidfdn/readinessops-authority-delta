@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0",
+  "scope": "USER_REPORTED_RO07_RESOURCE_SCOPED_POLICY_DENIAL",
+  "source_authority": "user-provided-cloudshell-output",
+  "account_a_id": "538522204923",
+  "account_b_id": "062788795311",
+  "application_id": "application-84ed051249524be2adc7d0d46f0503c5",
+  "object_id": "o-8b018b1fb182496ea6749f12c78a65b8",
+  "attempt": 50,
+  "status": "UNKNOWN",
+  "updated_at": "2026-09-13T12:33:36.913754+00:00",
+  "last_error": "Publisher invocation failed: Lambda FunctionError=Unhandled; remote=AccessDeniedException: An error occurred (AccessDeniedException) when calling the CreatePolicy operation: User: arn:aws:sts::062788795311:assumed-role/authority-delta-customer-publisher/authority-delta-customer-publisher is not authorized to perform: bedrock-agentcore:ManageResourceScopedPolicy on the bounded account-B gateway resource",
+  "canary_result_recovery_attempts": 1,
+  "result_ref": null,
+  "interpretation": {
+    "canary_request_identity_contract": "PASSED_BY_OBSERVED_NEXT_PHASE",
+    "resource_scoped_policy_permission": "DENIED",
+    "application_terminal_state": "PARKED_UNKNOWN",
+    "live_allow_verified": false
+  },
+  "limitations": [
+    "This file records user-provided CloudShell output; Codex did not independently call AWS.",
+    "The AWS error text supplied by the user was truncated after the gateway ARN prefix.",
+    "No Policy creation, ALLOW execution, stop, deletion, all-DENY, or unchanged-ledger completion is claimed."
+  ]
+}

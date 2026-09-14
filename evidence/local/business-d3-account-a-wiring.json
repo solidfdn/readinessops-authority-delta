@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0",
+  "scope": "LOCAL_D3_ACCOUNT_A_VERIFIED_CUSTOMER_WIRING_NO_LIVE_AWS_POLICY_CANARY_BROWSER_OR_HUMAN",
+  "result": "PASS",
+  "observed_at": "2026-09-11T07:20:31+00:00",
+  "source_commit": "f2a9f1f6f855f6f8a11bb4f954f1868418d55449",
+  "source_base_commit": "504e6cd94a55a2adfd397966c5175de5a9b3a51d",
+  "implementation": [
+    "account-B DiscoveryRole trusts only the exact account-A CodeBuild deployer while PublishInvokeRole trusts only the exact application worker; both require the saved ExternalId",
+    "account-A launcher validates and version-binds the complete connector report and source to one recoverable CodeBuild operation",
+    "wiring worker assumes only the report-bound DiscoveryRole and rereads baseline, Gateway, Policy Engine, target, fixed Runtime, connector stack and qualified functions",
+    "live readback requires the Policy Engine and sandbox ledger to remain empty before connected acceptance",
+    "only an exact readback packages the derived registration during the existing business and English UI deployment, then restores the shipped empty registry",
+    "resume collects the same build and explicit recovery reuses the same immutable source and connector report"
+  ],
+  "security": {
+    "account_a_id": "538522204923",
+    "account_b_id": null,
+    "account_a_substituted_for_account_b": false,
+    "connector_report_trusted_without_readback": false,
+    "discovery_role_policy_write_permission": false,
+    "discovery_role_runtime_invoke_permission": false,
+    "publisher_invoke_role_discovery_permission": false,
+    "packaged_adapter_registration_count": 0
+  },
+  "tests": {
+    "fresh_clone_full_regression": {
+      "command": "PYTHONPATH=src:scripts:tests:. <fresh-venv>/bin/python -m unittest discover -s tests -q",
+      "count": 255,
+      "seconds": 56.914,
+      "result": "PASS",
+      "dependency_install": "PYTHON_3_12_OFFLINE_REQUIRE_HASHES_FROM_VENDOR_ANALYSIS_X86_64"
+    },
+    "wiring_and_connector_delivery": {
+      "count": 18,
+      "seconds": 12.897,
+      "result": "PASS"
+    },
+    "workbench": {
+      "typescript_no_emit": "PASS",
+      "production_build": "PASS",
+      "workbench_contract_checks": 15,
+      "business_contract_checks": 11
+    },
+    "source_archive_entries": 257,
+    "source_archive_sha256": "6b58fa66362ad93b8e19fb7b895d73ed759cdc82c30fbb8d2a13dff6fda40713"
+  },
+  "delivery": {
+    "worker_sha256": "3d76620e5d952173284d3858173844a59ab547eacdfe334cafc84af0886e4ab8",
+    "launcher_sha256": "226b99db059943dc970d70491652f445fefb6ae668cb4f2d6302c0049b77abde",
+    "buildspec_sha256": "39a336f76f47259d4256179376a4602168703544398525e42021dd26318c3f05",
+    "customer_template_sha256": "84726c7641b8d20a4e2259e98e38a671be7ca807e4f34c478234a07c6a75aa73"
+  },
+  "not_run": [
+    "AWS account-B identity, connector report or DiscoveryRole assumption",
+    "CloudFormation, CodeBuild or account-A business/UI deployment",
+    "Policy write or live customer Gateway canary",
+    "human approval or publication",
+    "D2 or D3 live acceptance"
+  ],
+  "gates_promoted": false,
+  "next": "Confirm a distinct account B, run foundation only if needed, then connector and verified account-A wiring; after all three reports pass, perform one bounded authenticated D2/D3 acceptance."
+}

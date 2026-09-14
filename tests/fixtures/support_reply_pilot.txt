@@ -1,0 +1,33 @@
+AI-ASSISTED SUPPORT REPLIES: PILOT REVIEW EVIDENCE
+Version: 1.0
+Date: 2026-09-12
+Source: SOLIFAN acceptance-test scenario
+Classification: Synthetic test material; not an approved company policy.
+
+1. Purpose and scope
+The proposed pilot would help support staff classify inquiries and draft replies. It would use synthetic inquiries and a small approved FAQ. No real customer data or customer delivery channel is included in this test. Shinji Okada is the proposed reviewer; this document does not record his approval.
+
+2. Proposed operating conditions
+AI may suggest an inquiry category and prepare a draft using the approved FAQ. Each draft must identify the FAQ entry supporting its answer. Staff must verify the answer and edit it where necessary. A human must review every reply before sending. AI must not send messages, issue refunds, change customer accounts, make payment commitments or grant access.
+
+3. Sample FAQ and inquiries
+FAQ-01: Support is available Monday through Friday, 09:00-17:00 Japan Standard Time, excluding public holidays.
+FAQ-02: For a password reset, direct the user to the approved self-service reset page. Support staff must never request a password or a one-time authentication code.
+FAQ-03: Refund eligibility must be checked by a human specialist. The FAQ does not authorize any refund or promise a refund amount.
+Synthetic inquiry A: What are your support hours?
+Synthetic inquiry B: I forgot my password. Should I send you my login code?
+Synthetic inquiry C: Please refund my last purchase immediately.
+Synthetic inquiry D: Can you guarantee that my account will be restored within an hour?
+No approved restoration-time guarantee is available in this evidence.
+
+4. Exceptions and escalation
+An inquiry outside the FAQ, a conflict between sources or an unsupported factual claim must be referred to a human. AI must not invent an answer to fill missing evidence. Requests involving refunds, account changes, sensitive information or commitments require human handling. The reviewer must be able to reject or revise a draft.
+
+5. Proposed stopping and resuming conditions
+Pause the pilot if any message is sent without human review, sensitive data appears, or a draft asks for a password or authentication code. Record the incident and the affected draft. Resume only after the cause is addressed, the affected cases are retested and the responsible human explicitly approves resumption. These are proposed conditions; their technical enforcement has not been verified.
+
+6. Measurement plan
+Compare manual drafting with AI-assisted drafting on the same 20 synthetic inquiries. Record drafting time, human review time, corrections, unsupported statements and escalations. No baseline timing, accuracy results or cost measurements have been collected. A proposed target is a 20 percent reduction in combined drafting and review time, with no unreviewed sends and no requests for credentials. The target is not an achieved result.
+
+7. Open evidence gaps
+There is no completed pilot result, reviewer training record, verified stop-control test, approved FAQ maintenance process or measured cost baseline. The production data-handling arrangements have not been assessed. The present evidence supports assessment of a bounded synthetic pilot; it does not establish readiness for production use.

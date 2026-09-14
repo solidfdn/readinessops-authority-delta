@@ -1,0 +1,6 @@
+{
+  "scope": "LOCAL_BROWSER_UI_VERIFICATION",
+  "status": "NOT_RUN_BLOCKED",
+  "reason": "Cloud browser URL security policy rejected localhost and shared local file navigation. No alternate browser control or policy workaround attempted after rejection.",
+  "live_aws": "NOT_RUN"
+}

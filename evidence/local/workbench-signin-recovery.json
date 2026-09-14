@@ -1,0 +1,31 @@
+{
+  "scope": "LOCAL_REGRESSION_AND_GENERATED_OPERATOR_PROCESS_TEST_NO_LIVE_AWS",
+  "result": "PASS",
+  "source_commit": "781a71d80d1c9f60d088078de1b5a65693259113",
+  "backend_tests": 10,
+  "backend_seconds": 2.336,
+  "recovery_tests": 3,
+  "recovery_seconds": 6.118,
+  "actual_recovery_process_scenarios": [
+    "PASS",
+    "PASSWORD_REQUIRED",
+    "PASSWORD_DENIED",
+    "PASSWORD_AMBIGUOUS",
+    "PASSWORD_POLICY",
+    "WRONG_ACCOUNT",
+    "REPORT_MISMATCH"
+  ],
+  "assertions": [
+    "No start-build or S3 upload",
+    "Seekable anonymous memory input inherited by child",
+    "No password in argv/stdout/stderr",
+    "Known errors retain fixed category",
+    "Confirmed password preserved",
+    "Ambiguous successful write reconciled",
+    "Invalid whitespace and mismatch never submitted"
+  ],
+  "live_root_cause": "UNKNOWN",
+  "actual_aws_cli_binary_test": "NOT_RUN",
+  "operator": "Authority_Delta_Workbench_SignIn_Recovery.py",
+  "operator_sha256": "5736018e4cea206e904e292ec2c16e09224bfebac19397ff9ce79f839a8bbff3"
+}

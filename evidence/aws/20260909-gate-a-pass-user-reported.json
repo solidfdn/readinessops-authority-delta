@@ -1,0 +1,18 @@
+{
+  "source": "USER_PROVIDED_RESULT_SUMMARY",
+  "result": "PASS",
+  "gate_a": "PASS",
+  "auth_01": "PASS",
+  "auth_02": "PASS",
+  "cleanup": {
+    "status": "PASS"
+  },
+  "error": null,
+  "report_location": {
+    "bucket": "authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp",
+    "key": "evidence/a3c877fa362e4e2b8234b0474ec9ba62/gate-a-result.json",
+    "version_id": "9f4gdW9LwTE6_Txqfa9l.MreHJ2ySkQr"
+  },
+  "full_report_retrieved_locally": false,
+  "build_id": null
+}

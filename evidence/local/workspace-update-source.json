@@ -1,0 +1,9 @@
+{
+  "source_commit": "14e5faa44e7588f3ae78e8cdc3eedc2edb2a6f59",
+  "operator_file": "ReadinessOps_AWS_Workspace_Update.py",
+  "operator_sha256": "a82e0af6e29032027883bae2de2dc35d248bd7a2ec8feadaec8728473d3897da",
+  "local_delivery": "PASS_10_CHECKS",
+  "live_update": "NOT_RUN",
+  "password": "EXISTING_CONFIRMED_RETAINED",
+  "prior_gate_b": "PINNED_V3_REUSED_NO_INFERENCE_OR_REPLAY"
+}

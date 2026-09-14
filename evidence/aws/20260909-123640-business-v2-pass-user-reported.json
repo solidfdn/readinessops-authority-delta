@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "source": "USER_PROVIDED_TERMINAL_OUTPUT",
+  "scope": "READINESSOPS_BUSINESS_WORKFLOW_DEPLOYMENT_NO_HUMAN_APPROVAL",
+  "result": "PASS",
+  "build_id": "authority-delta-deploy:5fe446dd-1d18-4ee3-a9f7-b9091a42c24c",
+  "source_sha256": "13baec4f85ae0020155fdccf12dc6fa6cd6d7413071620b539650cac6cbc65a7",
+  "account": "538522204923",
+  "region": "ap-northeast-1",
+  "deployment": "PASS",
+  "business_assessment_canary": "PASS",
+  "canary_run_id": "run-145ceb8a0f38417c86383044c7818c33",
+  "canary_status": "REVIEW_REQUIRED",
+  "human_workflow": "NOT_RUN",
+  "decision_publication": "NOT_RUN",
+  "runtime_policy_publication": "NOT_RUN",
+  "completed_at": "2026-09-09T12:36:40.233388+00:00",
+  "report_location": {
+    "bucket": "authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp",
+    "key": "evidence/a77bee9b5f0948a7a7f0337782abdfdb/business-result.json",
+    "version_id": "nYL2ePexawcvkzELG.YGACvqQipe3F_L"
+  }
+}

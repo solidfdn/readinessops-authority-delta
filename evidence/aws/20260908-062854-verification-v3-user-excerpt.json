@@ -1,0 +1,70 @@
+{
+  "source": "USER_PROVIDED_LIVE_REPORT_EXCERPT",
+  "observed": {
+    "gateway_default_deny": {
+      "status": "PASS",
+      "required_calls": 7,
+      "observed_calls": 7,
+      "state_unchanged": true
+    },
+    "after": {
+      "stable": {
+        "gateway_arn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:gateway/authority-delta-gateway-rvplvkk1t7",
+        "policy_engine_arn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:policy-engine/AuthorityDeltaEngine-4bsgo7fc7d",
+        "policy_mode": "ENFORCE",
+        "policy_count": 0,
+        "target_id": "VO1IHSEQT6",
+        "target_schema_hash": "2ba784f03a63db6f3751224c2be718a32ad56428c390b0218b5376a7911723e2",
+        "sandbox_code_sha256": "757ea25a4c0c0ec6c8f173552cd78f33bd96ee15e701d08bbc1d7e9c6afb0220",
+        "registry_hash": "479bb2346d45f22018c5cfb00e0d2c8c5cb84b35cc6c783b749bffd3a15080cc",
+        "ledger_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "registry_count": 7,
+        "ledger_count": 0
+      },
+      "api_evidence": {
+        "gateway": {
+          "request_id": "6357cdbc-b1f2-4b0e-9230-d414dd83bfb0",
+          "http_status": 200
+        },
+        "policy_engine": {
+          "request_id": "f053f1b0-1c73-414f-8564-48a5bbdb322b",
+          "http_status": 200
+        },
+        "target": {
+          "request_id": "6c61a618-d861-4238-886b-7c9abedbd90c",
+          "http_status": 200
+        }
+      }
+    },
+    "checkpoints": {
+      "gateway": {
+        "bucket": "authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp",
+        "key": "evidence/de0a1e76ec674c1ab2a08c7e95c53399/verification-result-gateway.json",
+        "version_id": "U_cdPNEiIVN8of3o8U0ieEDy4odXJno0",
+        "sha256": "2c7d4f2e678a3d2352ba4abe3eed3cc08dae94c33ce52e904558a127dccbf91e"
+      }
+    },
+    "gate_0": "PASS",
+    "model_independent_work_ready": true,
+    "remaining_gate_a": [
+      "Immutable V1/V2 runtimes and distinct caller principals",
+      "AUTH-01 unapproved V2 denial",
+      "AUTH-02 scoped permit and other-principal/input/tool denial"
+    ],
+    "completed_at": "2026-09-08T06:28:54.498532+00:00"
+  },
+  "report_location": {
+    "bucket": "authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp",
+    "key": "evidence/de0a1e76ec674c1ab2a08c7e95c53399/verification-result.json",
+    "version_id": "5q5glB17Y3RVSbVV67jN7N5OmoPCM4ll"
+  },
+  "not_in_excerpt": [
+    "build_id",
+    "overall_result",
+    "source_sha256",
+    "model_invocation",
+    "gateway_calls",
+    "before"
+  ],
+  "retrieved_directly_by_assistant": false
+}

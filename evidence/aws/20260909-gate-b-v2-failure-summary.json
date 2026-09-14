@@ -1,0 +1,86 @@
+{
+  "result": "FAIL",
+  "semantic_runtime_proof": "FAIL",
+  "gate_b": "NOT_PASSED",
+  "sem_01": "FAIL",
+  "sem_02": "NOT_RUN",
+  "state_unchanged": true,
+  "error": {
+    "type": "ValueError",
+    "message": "Analysis Runtime HOLD: Analysis correction limit reached"
+  },
+  "build_id": "authority-delta-deploy:dec0c5aa-7b7c-44cb-a98b-5784c5266466",
+  "source_sha256": "04d5ee648b0232c4d0b6e293c733dc1c7d939a419c8cf835f2e3c41c6548b222",
+  "build_status": "FAILED",
+  "partial": false,
+  "analysis_diagnostics": {
+    "semantic": {
+      "runtime_call_status": "FAIL",
+      "runtime_result": "HOLD",
+      "runtime_error": {
+        "type": "EventLoopException",
+        "message": "Analysis correction limit reached"
+      },
+      "proposal_attempt_count": 3,
+      "proposal_attempt_errors": [
+        "1 validation error for ValidatorCallable\ninput_hash\n  Field required [type=missing, input_value={'summary': 'Analyze the ...dation': 'HUMAN_REVIEW'}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/missing",
+        "Fabricated or duplicate change",
+        "Fabricated or duplicate change"
+      ],
+      "analysis_status": null,
+      "analysis_error": null,
+      "patch_status": null,
+      "affected_case_ids": null,
+      "expected_case_ids": null,
+      "acceptance_status": null,
+      "reads": [
+        "definitions",
+        "observations",
+        "requests"
+      ],
+      "proposal_recommendation": "HUMAN_REVIEW",
+      "rejected_proposal": {
+        "summary": "Analyze the input binding to determine if a previous human delegation needs review after the release change.",
+        "input_hash": "e9d12739a8864f7432afd82bd49a833fd7c652ff47bf3b95bbb56521cccece54",
+        "maintain_proposal": "The approved amount/currency, verification and forbidden-operation limits remain the same. No individual payment approval is authorized.",
+        "changes": [
+          {
+            "case_id": "P-002",
+            "reason": "The definition for 'verified_changed_bank_methods' was changed from ['independent'] to ['email_only', 'independent']. This change allows the 'email_only' verification method, which was previously not allowed. The request for case P-002 uses the 'email_only' verification method, which was previously not allowed. This change allows the request to be automatically approved instead of requiring human review.",
+            "evidence_refs": [
+              "s3://authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp/evidence/a3c877fa362e4e2b8234b0474ec9ba62/gate-a-result.json?versionId=9f4gdW9LwTE6_Txqfa9l.MreHJ2ySkQr#runtime_calls/8"
+            ],
+            "definition_fields": [
+              "verified_changed_bank_methods"
+            ],
+            "before_judgment": "HUMAN_REVIEW",
+            "after_judgment": "ALLOW"
+          },
+          {
+            "case_id": "P-003",
+            "reason": "The definition for 'verified_changed_bank_methods' was changed from ['independent'] to ['email_only', 'independent']. This change allows the 'email_only' verification method, which was previously not allowed. The request for case P-003 uses the 'email_only' verification method, which was previously not allowed. This change allows the request to be automatically approved instead of requiring human review.",
+            "evidence_refs": [
+              "s3://authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp/evidence/a3c877fa362e4e2b8234b0474ec9ba62/gate-a-result.json?versionId=9f4gdW9LwTE6_Txqfa9l.MreHJ2ySkQr#runtime_calls/9"
+            ],
+            "definition_fields": [
+              "verified_changed_bank_methods"
+            ],
+            "before_judgment": "HUMAN_REVIEW",
+            "after_judgment": "ALLOW"
+          }
+        ],
+        "counterexamples": [
+          {
+            "case_id": "P-001",
+            "evidence_refs": [
+              "s3://authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp/evidence/a3c877fa362e4e2b8234b0474ec9ba62/gate-a-result.json?versionId=9f4gdW9LwTE6_Txqfa9l.MreHJ2ySkQr#runtime_calls/7"
+            ],
+            "reason": "The definition for 'verified_changed_bank_methods' was changed from ['independent'] to ['email_only', 'independent']. However, the request for case P-001 uses the 'independent' verification method, which is still allowed. Therefore, the judgment remains 'ALLOW'."
+          }
+        ],
+        "recommendation": "HUMAN_REVIEW"
+      },
+      "checkpoint": null
+    }
+  }
+}

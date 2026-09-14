@@ -1,0 +1,71 @@
+{
+  "scope": "LOCAL_OPERATOR_DELIVERY_REVIEW_NO_LIVE_AWS",
+  "result": "PASS",
+  "observed_at": "2026-09-08T06:38:04.297050+00:00",
+  "aws_execution": "NOT_RUN",
+  "repair_sha256": "cdacd74706cb5188d6c9cd106a94a8d4f58d402151b3a2aff909251c722c3553",
+  "base_zip_sha256": "7271a5eb7f3039ccc78efdcbba81b3de3b08f0232f7ab735be95cda0c676d496",
+  "checks": [
+    {
+      "name": "restored_delivery_matches_its_committed_source",
+      "status": "PASS",
+      "tracked_files": 87
+    },
+    {
+      "name": "operator_process_pass",
+      "status": "PASS",
+      "exit_status": 0,
+      "build_starts": 1,
+      "boundary": "Real Python/launcher/AwsCli/archive processes; AWS CLI responses are a local double"
+    },
+    {
+      "name": "operator_process_blocked",
+      "status": "PASS",
+      "exit_status": 2,
+      "build_starts": 1,
+      "boundary": "Real Python/launcher/AwsCli/archive processes; AWS CLI responses are a local double"
+    },
+    {
+      "name": "operator_process_fail",
+      "status": "PASS",
+      "exit_status": 1,
+      "build_starts": 1,
+      "boundary": "Real Python/launcher/AwsCli/archive processes; AWS CLI responses are a local double"
+    },
+    {
+      "name": "operator_process_final_missing",
+      "status": "PASS",
+      "exit_status": 1,
+      "build_starts": 1,
+      "boundary": "Real Python/launcher/AwsCli/archive processes; AWS CLI responses are a local double"
+    },
+    {
+      "name": "operator_process_wrong_account",
+      "status": "PASS",
+      "exit_status": 1,
+      "build_starts": 0,
+      "boundary": "Real Python/launcher/AwsCli/archive processes; AWS CLI responses are a local double"
+    },
+    {
+      "name": "operator_process_active_build",
+      "status": "PASS",
+      "exit_status": 1,
+      "build_starts": 0,
+      "boundary": "Real Python/launcher/AwsCli/archive processes; AWS CLI responses are a local double"
+    },
+    {
+      "name": "codebuild_source_imports_with_fresh_offline_locked_dependencies",
+      "status": "PASS",
+      "python_version": "Python 3.12.13",
+      "scope": "Fresh venv and actual source subset; not an AWS CodeBuild image"
+    },
+    {
+      "name": "restored_source_regressions_and_worker_persistence",
+      "status": "PASS",
+      "output": "----------------------------------------------------------------------\nRan 50 tests in 0.748s\n\nOK",
+      "evidence": "Real SDK Stubber shapes, observed Gateway failure envelope, datetime encoding, checkpoint/final save and readback; no live requests"
+    }
+  ],
+  "delivered_source_commit": "4cc508de2a54af10b5d6f85a855e2af488f53d7b",
+  "elapsed_seconds": 11.993
+}

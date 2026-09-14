@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0",
+  "scope": "USER_REPORTED_ACCOUNT_B_POLICY_STATUS_NOT_INDEPENDENTLY_OBSERVED",
+  "observed_at": "2026-09-13",
+  "account_id": "062788795311",
+  "region": "ap-northeast-1",
+  "application_id": "application-84ed051249524be2adc7d0d46f0503c5",
+  "enforcement_digest": "af22fb208fa39d585fab31871daa4e9e5176ef1f88c586bcfceece2c3c65d687",
+  "policy_engine_id": "AuthorityDeltaEngine-ct5rx0yah8",
+  "policy": {
+    "policy_id": "AuthorityDeltaApp_af22fb208fa39d58-nn08tzjb4w",
+    "name": "AuthorityDeltaApp_af22fb208fa39d58",
+    "status": "CREATE_FAILED",
+    "status_reasons": [
+      "Insufficient permissions to list targets on gateway with ID authority-delta-gateway-hhnckywugl"
+    ],
+    "enforcement_mode": "ACTIVE"
+  },
+  "publisher_journal_status": "POLICY_CREATED",
+  "account_a_application": {
+    "status": "UNKNOWN",
+    "attempt": 52,
+    "last_error": "Publisher invocation failed: Lambda FunctionError=Unhandled; remote=ValueError: Owned candidate Policy entered a failed state"
+  },
+  "interpretation": "The prior exact Gateway validation deployment passed, but asynchronous Policy validation requires target discovery on the registered Gateway. This record does not prove a corrected live deployment or RO07 completion.",
+  "live_allow": "NOT_PROVEN",
+  "real_payment": "NOT_AUTHORIZED"
+}

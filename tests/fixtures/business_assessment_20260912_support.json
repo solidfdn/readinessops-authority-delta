@@ -1,0 +1,640 @@
+{
+  "attempt": 1,
+  "claim_id": "b6f813621be34897a3ae34408c8cc2ad",
+  "completed_at": "2026-09-12T13:13:33.547892+00:00",
+  "created_at": "2026-09-12T13:12:37.715681+00:00",
+  "data_revision": 2,
+  "error": "The assessment could not produce a valid proposal. Your selected evidence is saved.",
+  "input_hash": "30a930629aafcc12a5da0c376ab209fbb2d4d5d1e6c23dfb85175a333fa31041",
+  "input_ref": {
+    "bucket": "authority-delta-business-databucket-m0ydp4cbfqwc",
+    "key": "business/inputs/run-322f667a47b841a8a3540b97ca964d28.json",
+    "sha256": "8fc2462f5ae2d946b92289351646e1df29d30304c34c2b4d7ddfaf691808eb38",
+    "size": 5524,
+    "version_id": "tE_.a1wCgJQrXQlVzY9e5sao4X5zVpTN"
+  },
+  "lease_until": "2026-09-12T13:19:44.948490+00:00",
+  "object_id": "o-4284bb7663244bb7a68cd6ebcc91be4f",
+  "owner_sub": "37e4eac8-a0b1-7024-74f1-9e909e516389",
+  "result_ref": {
+    "bucket": "authority-delta-business-databucket-m0ydp4cbfqwc",
+    "key": "business/results/run-322f667a47b841a8a3540b97ca964d28/b6f813621be34897a3ae34408c8cc2ad.json",
+    "sha256": "b9e0290dbac7d0de20daae8b20061b595d49419b0ad75aa127fc319d526d749e",
+    "size": 23169,
+    "version_id": "KymqZ8qOM52KwA4gpoVCOaxADIevyzWf"
+  },
+  "run_id": "run-322f667a47b841a8a3540b97ca964d28",
+  "started_at": "2026-09-12T13:12:44.948458+00:00",
+  "status": "NEEDS_INPUT",
+  "analysis": {
+    "analysis_contract_version": "business-field-revision-2",
+    "attempts": [
+      {
+        "error": "findings.3.citations.0: Quote must appear exactly in the cited selected evidence; use a verbatim substring from read_evidence, or remove the citation and retain explicit uncertainty for a GAP/NEEDS_INPUT item",
+        "proposal": {
+          "actions": [
+            {
+              "description": "Gather completed pilot results and reviewer training records to assess the effectiveness and training requirements of the AI-assisted support replies pilot.",
+              "finding_ids": [
+                "F-01"
+              ],
+              "title": "Collect completed pilot results and reviewer training records."
+            },
+            {
+              "description": "Create a verified stop-control test and an approved FAQ maintenance process to ensure the proper functioning and maintenance of the AI-assisted support replies system.",
+              "finding_ids": [
+                "F-02"
+              ],
+              "title": "Establish a verified stop-control test and approved FAQ maintenance process."
+            },
+            {
+              "description": "Measure the cost baseline and assess the production data-handling arrangements to evaluate the financial and operational feasibility of the AI-assisted support replies initiative.",
+              "finding_ids": [
+                "F-03"
+              ],
+              "title": "Measure the cost baseline and assess production data-handling arrangements."
+            },
+            {
+              "description": "Mitigate the identified risks by implementing proper human review and data handling procedures to safeguard sensitive information and prevent unauthorized actions.",
+              "finding_ids": [
+                "F-04"
+              ],
+              "title": "Address the identified risks and ensure proper human review and data handling."
+            }
+          ],
+          "decision_items": [
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-f6e2af15eb4a43f68df69fc568c57aad",
+                  "quote": "There is no completed pilot result, reviewer training record, verified stop-control test, approved FAQ maintenance process or measured cost baseline."
+                }
+              ],
+              "conditions": "N/A",
+              "decision_item_id": "di-deb11369232a4620b4380156dddbd30d",
+              "perspective": "GOVERNANCE",
+              "question": "What constraints, accountability, and human judgment are required for the AI-assisted support replies pilot?",
+              "rationale": "Further information is required to establish constraints, accountability, and human judgment for the AI-assisted support replies pilot.",
+              "reassessment_conditions": "N/A",
+              "recommendation": "NEEDS_INPUT"
+            },
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-f6e2af15eb4a43f68df69fc568c57aad",
+                  "quote": "There is no completed pilot result, reviewer training record, verified stop-control test, approved FAQ maintenance process or measured cost baseline."
+                }
+              ],
+              "conditions": "N/A",
+              "decision_item_id": "di-08b50491d62340cea521e0bb469d050d",
+              "perspective": "VALUE",
+              "question": "What is the business outcome and how can it be measured for the AI-assisted support replies pilot?",
+              "rationale": "Additional data is needed to measure the business outcome and determine the value of the AI-assisted support replies pilot.",
+              "reassessment_conditions": "N/A",
+              "recommendation": "NEEDS_INPUT"
+            },
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-f6e2af15eb4a43f68df69fc568c57aad",
+                  "quote": "There is no completed pilot result, reviewer training record, verified stop-control test, approved FAQ maintenance process or measured cost baseline."
+                }
+              ],
+              "conditions": "N/A",
+              "decision_item_id": "di-59af73560c564a9a99644484d5e3cb03",
+              "perspective": "MODEL_ROUTING",
+              "question": "What evidence is needed to choose a model or determine when to return a task to a person in the AI-assisted support replies workflow?",
+              "rationale": "More evidence is required to choose a model or determine when to return a task to a person in the AI-assisted support replies workflow.",
+              "reassessment_conditions": "N/A",
+              "recommendation": "NEEDS_INPUT"
+            },
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-f6e2af15eb4a43f68df69fc568c57aad",
+                  "quote": "There is no completed pilot result, reviewer training record, verified stop-control test, approved FAQ maintenance process or measured cost baseline."
+                }
+              ],
+              "conditions": "N/A",
+              "decision_item_id": "di-6f92e9b2a7154ee0aa97bb4f6318492b",
+              "perspective": "PORTFOLIO",
+              "question": "Should the AI-assisted support replies initiative be continued, revised, stopped, or expanded?",
+              "rationale": "Further information is needed to assess whether to continue, revise, stop, or expand the AI-assisted support replies initiative.",
+              "reassessment_conditions": "N/A",
+              "recommendation": "NEEDS_INPUT"
+            }
+          ],
+          "findings": [
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-f6e2af15eb4a43f68df69fc568c57aad",
+                  "quote": "There is no completed pilot result, reviewer training record, verified stop-control test, approved FAQ maintenance process or measured cost baseline."
+                }
+              ],
+              "description": "No completed pilot result or reviewer training record has been collected.",
+              "finding_id": "F-01",
+              "kind": "GAP",
+              "severity": "HIGH",
+              "severity_reason": "Lack of completed pilot results and reviewer training records.",
+              "title": "No completed pilot result or reviewer training record"
+            },
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-f6e2af15eb4a43f68df69fc568c57aad",
+                  "quote": "There is no completed pilot result, reviewer training record, verified stop-control test, approved FAQ maintenance process or measured cost baseline."
+                }
+              ],
+              "description": "No verified stop-control test or approved FAQ maintenance process has been established.",
+              "finding_id": "F-02",
+              "kind": "GAP",
+              "severity": "HIGH",
+              "severity_reason": "Lack of verified stop-control test and approved FAQ maintenance process.",
+              "title": "No verified stop-control test or approved FAQ maintenance process"
+            },
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-f6e2af15eb4a43f68df69fc568c57aad",
+                  "quote": "There is no completed pilot result, reviewer training record, verified stop-control test, approved FAQ maintenance process or measured cost baseline."
+                }
+              ],
+              "description": "No measured cost baseline or production data-handling arrangements have been assessed.",
+              "finding_id": "F-03",
+              "kind": "GAP",
+              "severity": "HIGH",
+              "severity_reason": "Lack of measured cost baseline and production data-handling arrangements.",
+              "title": "No measured cost baseline or production data-handling arrangements"
+            },
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-f6e2af15eb4a43f68df69fc568c57aad",
+                  "quote": "Sending messages without human review, handling sensitive data, or requesting credentials pose significant risks."
+                }
+              ],
+              "description": "Sending messages without human review, handling sensitive data, or requesting credentials pose significant risks.",
+              "finding_id": "F-04",
+              "kind": "RISK",
+              "severity": "HIGH",
+              "severity_reason": "Potential risks associated with improper handling of sensitive data and unauthorized actions.",
+              "title": "Risks associated with sending messages without human review, handling sensitive data, or requesting credentials"
+            }
+          ],
+          "missing_information": [
+            "Completed pilot results",
+            "Reviewer training records",
+            "Verified stop-control test",
+            "Approved FAQ maintenance process",
+            "Measured cost baseline",
+            "Production data-handling arrangements"
+          ],
+          "summary": "The AI-assisted support replies pilot aims to reduce drafting time for support replies using synthetic data. Human review is required before sending any reply. The pilot has not yet been completed, and there are several evidence gaps and risks that need to be addressed before considering production use."
+        },
+        "status": "REJECTED",
+        "validation_errors": [
+          {
+            "code": "EXACT_QUOTE_REQUIRED",
+            "message": "Quote must appear exactly in the cited selected evidence; use a verbatim substring from read_evidence, or remove the citation and retain explicit uncertainty for a GAP/NEEDS_INPUT item",
+            "path": "findings.3.citations.0"
+          }
+        ]
+      },
+      {
+        "error": "findings.3.citations: A substantive finding or recommendation needs source citations",
+        "proposal": {
+          "actions": [
+            {
+              "description": "Gather completed pilot results and reviewer training records to assess the effectiveness and training requirements of the AI-assisted support replies pilot.",
+              "finding_ids": [
+                "F-01"
+              ],
+              "title": "Collect completed pilot results and reviewer training records."
+            },
+            {
+              "description": "Create a verified stop-control test and an approved FAQ maintenance process to ensure the proper functioning and maintenance of the AI-assisted support replies system.",
+              "finding_ids": [
+                "F-02"
+              ],
+              "title": "Establish a verified stop-control test and approved FAQ maintenance process."
+            },
+            {
+              "description": "Measure the cost baseline and assess the production data-handling arrangements to evaluate the financial and operational feasibility of the AI-assisted support replies initiative.",
+              "finding_ids": [
+                "F-03"
+              ],
+              "title": "Measure the cost baseline and assess production data-handling arrangements."
+            },
+            {
+              "description": "Mitigate the identified risks by implementing proper human review and data handling procedures to safeguard sensitive information and prevent unauthorized actions.",
+              "finding_ids": [
+                "F-04"
+              ],
+              "title": "Address the identified risks and ensure proper human review and data handling."
+            }
+          ],
+          "decision_items": [
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-f6e2af15eb4a43f68df69fc568c57aad",
+                  "quote": "There is no completed pilot result, reviewer training record, verified stop-control test, approved FAQ maintenance process or measured cost baseline."
+                }
+              ],
+              "conditions": "N/A",
+              "decision_item_id": "di-deb11369232a4620b4380156dddbd30d",
+              "perspective": "GOVERNANCE",
+              "question": "What constraints, accountability, and human judgment are required for the AI-assisted support replies pilot?",
+              "rationale": "Further information is required to establish constraints, accountability, and human judgment for the AI-assisted support replies pilot.",
+              "reassessment_conditions": "N/A",
+              "recommendation": "NEEDS_INPUT"
+            },
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-f6e2af15eb4a43f68df69fc568c57aad",
+                  "quote": "There is no completed pilot result, reviewer training record, verified stop-control test, approved FAQ maintenance process or measured cost baseline."
+                }
+              ],
+              "conditions": "N/A",
+              "decision_item_id": "di-08b50491d62340cea521e0bb469d050d",
+              "perspective": "VALUE",
+              "question": "What is the business outcome and how can it be measured for the AI-assisted support replies pilot?",
+              "rationale": "Additional data is needed to measure the business outcome and determine the value of the AI-assisted support replies pilot.",
+              "reassessment_conditions": "N/A",
+              "recommendation": "NEEDS_INPUT"
+            },
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-f6e2af15eb4a43f68df69fc568c57aad",
+                  "quote": "There is no completed pilot result, reviewer training record, verified stop-control test, approved FAQ maintenance process or measured cost baseline."
+                }
+              ],
+              "conditions": "N/A",
+              "decision_item_id": "di-59af73560c564a9a99644484d5e3cb03",
+              "perspective": "MODEL_ROUTING",
+              "question": "What evidence is needed to choose a model or determine when to return a task to a person in the AI-assisted support replies workflow?",
+              "rationale": "More evidence is required to choose a model or determine when to return a task to a person in the AI-assisted support replies workflow.",
+              "reassessment_conditions": "N/A",
+              "recommendation": "NEEDS_INPUT"
+            },
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-f6e2af15eb4a43f68df69fc568c57aad",
+                  "quote": "There is no completed pilot result, reviewer training record, verified stop-control test, approved FAQ maintenance process or measured cost baseline."
+                }
+              ],
+              "conditions": "N/A",
+              "decision_item_id": "di-6f92e9b2a7154ee0aa97bb4f6318492b",
+              "perspective": "PORTFOLIO",
+              "question": "Should the AI-assisted support replies initiative be continued, revised, stopped, or expanded?",
+              "rationale": "Further information is needed to assess whether to continue, revise, stop, or expand the AI-assisted support replies initiative.",
+              "reassessment_conditions": "N/A",
+              "recommendation": "NEEDS_INPUT"
+            }
+          ],
+          "findings": [
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-f6e2af15eb4a43f68df69fc568c57aad",
+                  "quote": "There is no completed pilot result, reviewer training record, verified stop-control test, approved FAQ maintenance process or measured cost baseline."
+                }
+              ],
+              "description": "No completed pilot result or reviewer training record has been collected.",
+              "finding_id": "F-01",
+              "kind": "GAP",
+              "severity": "HIGH",
+              "severity_reason": "Lack of completed pilot results and reviewer training records.",
+              "title": "No completed pilot result or reviewer training record"
+            },
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-f6e2af15eb4a43f68df69fc568c57aad",
+                  "quote": "There is no completed pilot result, reviewer training record, verified stop-control test, approved FAQ maintenance process or measured cost baseline."
+                }
+              ],
+              "description": "No verified stop-control test or approved FAQ maintenance process has been established.",
+              "finding_id": "F-02",
+              "kind": "GAP",
+              "severity": "HIGH",
+              "severity_reason": "Lack of verified stop-control test and approved FAQ maintenance process.",
+              "title": "No verified stop-control test or approved FAQ maintenance process"
+            },
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-f6e2af15eb4a43f68df69fc568c57aad",
+                  "quote": "There is no completed pilot result, reviewer training record, verified stop-control test, approved FAQ maintenance process or measured cost baseline."
+                }
+              ],
+              "description": "No measured cost baseline or production data-handling arrangements have been assessed.",
+              "finding_id": "F-03",
+              "kind": "GAP",
+              "severity": "HIGH",
+              "severity_reason": "Lack of measured cost baseline and production data-handling arrangements.",
+              "title": "No measured cost baseline or production data-handling arrangements"
+            },
+            {
+              "citations": [],
+              "description": "Sending messages without human review, handling sensitive data, or requesting credentials pose significant risks.",
+              "finding_id": "F-04",
+              "kind": "RISK",
+              "severity": "HIGH",
+              "severity_reason": "Potential risks associated with improper handling of sensitive data and unauthorized actions.",
+              "title": "Risks associated with sending messages without human review, handling sensitive data, or requesting credentials"
+            }
+          ],
+          "missing_information": [
+            "Completed pilot results",
+            "Reviewer training records",
+            "Verified stop-control test",
+            "Approved FAQ maintenance process",
+            "Measured cost baseline",
+            "Production data-handling arrangements"
+          ],
+          "summary": "The AI-assisted support replies pilot aims to reduce drafting time for support replies using synthetic data. Human review is required before sending any reply. The pilot has not yet been completed, and there are several evidence gaps and risks that need to be addressed before considering production use."
+        },
+        "status": "REJECTED",
+        "validation_errors": [
+          {
+            "code": "CITATION_REQUIRED",
+            "message": "A substantive finding or recommendation needs source citations",
+            "path": "findings.3.citations"
+          }
+        ]
+      },
+      {
+        "error": "findings.3.citations.0: Quote must appear exactly in the cited selected evidence; use a verbatim substring from read_evidence, or remove the citation and retain explicit uncertainty for a GAP/NEEDS_INPUT item",
+        "proposal": {
+          "actions": [
+            {
+              "description": "Gather completed pilot results and reviewer training records to assess the effectiveness and training requirements of the AI-assisted support replies pilot.",
+              "finding_ids": [
+                "F-01"
+              ],
+              "title": "Collect completed pilot results and reviewer training records."
+            },
+            {
+              "description": "Create a verified stop-control test and an approved FAQ maintenance process to ensure the proper functioning and maintenance of the AI-assisted support replies system.",
+              "finding_ids": [
+                "F-02"
+              ],
+              "title": "Establish a verified stop-control test and approved FAQ maintenance process."
+            },
+            {
+              "description": "Measure the cost baseline and assess the production data-handling arrangements to evaluate the financial and operational feasibility of the AI-assisted support replies initiative.",
+              "finding_ids": [
+                "F-03"
+              ],
+              "title": "Measure the cost baseline and assess production data-handling arrangements."
+            },
+            {
+              "description": "Mitigate the identified risks by implementing proper human review and data handling procedures to safeguard sensitive information and prevent unauthorized actions.",
+              "finding_ids": [
+                "F-04"
+              ],
+              "title": "Address the identified risks and ensure proper human review and data handling."
+            }
+          ],
+          "decision_items": [
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-f6e2af15eb4a43f68df69fc568c57aad",
+                  "quote": "There is no completed pilot result, reviewer training record, verified stop-control test, approved FAQ maintenance process or measured cost baseline."
+                }
+              ],
+              "conditions": "N/A",
+              "decision_item_id": "di-deb11369232a4620b4380156dddbd30d",
+              "perspective": "GOVERNANCE",
+              "question": "What constraints, accountability, and human judgment are required for the AI-assisted support replies pilot?",
+              "rationale": "Further information is required to establish constraints, accountability, and human judgment for the AI-assisted support replies pilot.",
+              "reassessment_conditions": "N/A",
+              "recommendation": "NEEDS_INPUT"
+            },
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-f6e2af15eb4a43f68df69fc568c57aad",
+                  "quote": "There is no completed pilot result, reviewer training record, verified stop-control test, approved FAQ maintenance process or measured cost baseline."
+                }
+              ],
+              "conditions": "N/A",
+              "decision_item_id": "di-08b50491d62340cea521e0bb469d050d",
+              "perspective": "VALUE",
+              "question": "What is the business outcome and how can it be measured for the AI-assisted support replies pilot?",
+              "rationale": "Additional data is needed to measure the business outcome and determine the value of the AI-assisted support replies pilot.",
+              "reassessment_conditions": "N/A",
+              "recommendation": "NEEDS_INPUT"
+            },
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-f6e2af15eb4a43f68df69fc568c57aad",
+                  "quote": "There is no completed pilot result, reviewer training record, verified stop-control test, approved FAQ maintenance process or measured cost baseline."
+                }
+              ],
+              "conditions": "N/A",
+              "decision_item_id": "di-59af73560c564a9a99644484d5e3cb03",
+              "perspective": "MODEL_ROUTING",
+              "question": "What evidence is needed to choose a model or determine when to return a task to a person in the AI-assisted support replies workflow?",
+              "rationale": "More evidence is required to choose a model or determine when to return a task to a person in the AI-assisted support replies workflow.",
+              "reassessment_conditions": "N/A",
+              "recommendation": "NEEDS_INPUT"
+            },
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-f6e2af15eb4a43f68df69fc568c57aad",
+                  "quote": "There is no completed pilot result, reviewer training record, verified stop-control test, approved FAQ maintenance process or measured cost baseline."
+                }
+              ],
+              "conditions": "N/A",
+              "decision_item_id": "di-6f92e9b2a7154ee0aa97bb4f6318492b",
+              "perspective": "PORTFOLIO",
+              "question": "Should the AI-assisted support replies initiative be continued, revised, stopped, or expanded?",
+              "rationale": "Further information is needed to assess whether to continue, revise, stop, or expand the AI-assisted support replies initiative.",
+              "reassessment_conditions": "N/A",
+              "recommendation": "NEEDS_INPUT"
+            }
+          ],
+          "findings": [
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-f6e2af15eb4a43f68df69fc568c57aad",
+                  "quote": "There is no completed pilot result, reviewer training record, verified stop-control test, approved FAQ maintenance process or measured cost baseline."
+                }
+              ],
+              "description": "No completed pilot result or reviewer training record has been collected.",
+              "finding_id": "F-01",
+              "kind": "GAP",
+              "severity": "HIGH",
+              "severity_reason": "Lack of completed pilot results and reviewer training records.",
+              "title": "No completed pilot result or reviewer training record"
+            },
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-f6e2af15eb4a43f68df69fc568c57aad",
+                  "quote": "There is no completed pilot result, reviewer training record, verified stop-control test, approved FAQ maintenance process or measured cost baseline."
+                }
+              ],
+              "description": "No verified stop-control test or approved FAQ maintenance process has been established.",
+              "finding_id": "F-02",
+              "kind": "GAP",
+              "severity": "HIGH",
+              "severity_reason": "Lack of verified stop-control test and approved FAQ maintenance process.",
+              "title": "No verified stop-control test or approved FAQ maintenance process"
+            },
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-f6e2af15eb4a43f68df69fc568c57aad",
+                  "quote": "There is no completed pilot result, reviewer training record, verified stop-control test, approved FAQ maintenance process or measured cost baseline."
+                }
+              ],
+              "description": "No measured cost baseline or production data-handling arrangements have been assessed.",
+              "finding_id": "F-03",
+              "kind": "GAP",
+              "severity": "HIGH",
+              "severity_reason": "Lack of measured cost baseline and production data-handling arrangements.",
+              "title": "No measured cost baseline or production data-handling arrangements"
+            },
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-f6e2af15eb4a43f68df69fc568c57aad",
+                  "quote": "Sending messages without human review, handling sensitive data, or requesting credentials pose significant risks."
+                }
+              ],
+              "description": "Sending messages without human review, handling sensitive data, or requesting credentials pose significant risks.",
+              "finding_id": "F-04",
+              "kind": "RISK",
+              "severity": "HIGH",
+              "severity_reason": "Potential risks associated with improper handling of sensitive data and unauthorized actions.",
+              "title": "Risks associated with sending messages without human review, handling sensitive data, or requesting credentials"
+            }
+          ],
+          "missing_information": [
+            "Completed pilot results",
+            "Reviewer training records",
+            "Verified stop-control test",
+            "Approved FAQ maintenance process",
+            "Measured cost baseline",
+            "Production data-handling arrangements"
+          ],
+          "summary": "The AI-assisted support replies pilot aims to reduce drafting time for support replies using synthetic data. Human review is required before sending any reply. The pilot has not yet been completed, and there are several evidence gaps and risks that need to be addressed before considering production use."
+        },
+        "status": "REJECTED",
+        "validation_errors": [
+          {
+            "code": "EXACT_QUOTE_REQUIRED",
+            "message": "Quote must appear exactly in the cited selected evidence; use a verbatim substring from read_evidence, or remove the citation and retain explicit uncertainty for a GAP/NEEDS_INPUT item",
+            "path": "findings.3.citations.0"
+          }
+        ]
+      }
+    ],
+    "error": {
+      "message": "Bounded assessment attempts exhausted",
+      "type": "EventLoopException"
+    },
+    "failure_classification": "MODEL_OUTPUT_CONTRACT",
+    "identity": {
+      "account": "538522204923",
+      "arn": "arn:aws:sts::538522204923:assumed-role/authority-delta-business-model/BedrockAgentCore-0d7e8e62-5a6a-4fd0-a415-cdf985f6cf24",
+      "request_id": "8c777f3d-9421-4e9b-8f28-4d908a655167"
+    },
+    "input_hash": "30a930629aafcc12a5da0c376ab209fbb2d4d5d1e6c23dfb85175a333fa31041",
+    "model_calls": [
+      {
+        "http_status": 200,
+        "request_id": "99ab51ae-62fc-4635-b8c6-89af81430ede",
+        "usage": {
+          "inputTokens": 3037,
+          "outputTokens": 62,
+          "totalTokens": 3099
+        }
+      },
+      {
+        "http_status": 200,
+        "request_id": "2744dda3-8c8c-4b8a-898d-e6cf65124444",
+        "usage": {
+          "inputTokens": 4968,
+          "outputTokens": 728,
+          "totalTokens": 5696
+        }
+      },
+      {
+        "http_status": 200,
+        "request_id": "72530513-a8c1-42f6-acf0-d62d30878133",
+        "usage": {
+          "inputTokens": 5754,
+          "outputTokens": 1853,
+          "totalTokens": 7607
+        }
+      },
+      {
+        "http_status": 200,
+        "request_id": "cbc25e92-fec9-4ef3-ac92-5b7ee5910876",
+        "usage": {
+          "inputTokens": 7772,
+          "outputTokens": 1712,
+          "totalTokens": 9484
+        }
+      },
+      {
+        "http_status": 200,
+        "request_id": "7d002815-9bec-492a-95cf-e774e7e3eecb",
+        "usage": {
+          "inputTokens": 9696,
+          "outputTokens": 1770,
+          "totalTokens": 11466
+        }
+      }
+    ],
+    "model_id": "apac.amazon.nova-pro-v1:0",
+    "proposal": null,
+    "reads": [
+      "context",
+      "evidence"
+    ],
+    "result": "HOLD",
+    "runtime_evidence": {
+      "endpoint": "fixed_business",
+      "endpoint_after": {
+        "endpoint_arn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_business-59YQj24fG4/runtime-endpoint/fixed_business",
+        "live_version": "6",
+        "request_id": "41392a0b-c1a0-46dc-b651-69440b73a882"
+      },
+      "endpoint_before": {
+        "endpoint_arn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_business-59YQj24fG4/runtime-endpoint/fixed_business",
+        "live_version": "6",
+        "request_id": "d7768513-d9d4-4caa-a528-9cd3ac158898"
+      },
+      "http_status": 200,
+      "request_id": "41cd60f1-3efd-4c19-b8f5-256b1a893e83",
+      "runtime_arn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_business-59YQj24fG4",
+      "session_id": "readinessops-09f92d450e794e7a85c0da9c51b98f20",
+      "version": "6"
+    },
+    "status": "NEEDS_INPUT"
+  },
+  "context": {
+    "goals": "Measure drafting time, revisions, and incorrect guidance. The baseline has not yet been measured. Human review is required before sending any reply.",
+    "name": "AI-assisted support replies — acceptance test",
+    "owner": "Shinji Okada",
+    "purpose": "Reduce the time needed to draft support replies. A human must review every reply before sending. This test uses synthetic data only.",
+    "question": "Under what conditions can AI classify support inquiries and draft replies? Identify the evidence needed, decisions reserved for humans, and conditions for stopping and resuming the workflow."
+  },
+  "mode": "INITIAL",
+  "selected_evidence_ids": [
+    "e-f6e2af15eb4a43f68df69fc568c57aad"
+  ]
+}

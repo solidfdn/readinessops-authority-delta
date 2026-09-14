@@ -1,0 +1,39 @@
+ReadinessOps AWS — RO-07 synthetic VendorPayment authority lifecycle acceptance
+
+Purpose
+This acceptance verifies a finite, revocable AWS execution authority. It does not
+authorize or perform a real payment, use production customer data, or grant a
+general-purpose AWS permission.
+
+Scope
+The only execution target is the registered account-B VendorPayment sandbox
+adapter. The allowed universe is the immutable request set in the selected
+MAINTAIN profile. The protected operation is prepare_vendor_payment. Requests to
+update vendor bank data, export credentials, use unknown request identifiers, or
+invoke the Runtime outside the authenticated product gate remain forbidden.
+
+Required human separation
+The business assessment, human approval, official publication, AWS delegation,
+and AWS application are separate records. Publishing the business decision alone
+does not apply AWS authority. The reviewer may approve only the exact saved draft
+and must separately approve the fixed adapter, Runtime, request set, Policy hash,
+expiry, and delegation generation.
+
+Success conditions
+One request that is registered as ALLOW completes through the authenticated
+controlled invocation gate and produces correlated Runtime, Gateway, and sandbox
+ledger evidence. The same business key is idempotent. The test then requests an
+explicit stop. The product entry closes at the stop transaction; an invocation
+accepted before that point may finish, while no later invocation may be accepted.
+
+Suspension is confirmed only after account B reads the exactly owned active
+Policy, journals the delete intent, confirms that Policy is absent, and observes
+DENY for every registered request with an unchanged ledger. STOP_REQUESTED or an
+unknown remote result is not suspension proof. Recovery must reuse the same
+immutable operation and retain the writer lock until terminal evidence exists.
+
+Expiry
+The delegation is limited to one day for this acceptance. If explicit stop is not
+performed first, expiry must close the same entry and run the same Policy-removal
+and all-DENY confirmation protocol. Expiry is not permission to reopen or extend
+the delegation.

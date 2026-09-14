@@ -1,0 +1,26 @@
+{
+  "scope": "LOCAL_STDLIB_OPERATOR_PROCESS_TEST_NO_LIVE_AWS",
+  "result": "PASS",
+  "original_failure_reproduced": true,
+  "original_output": "ERROR: Saved launch record is missing. Do not rerun deployment; report this message.",
+  "operator_sha256": "4541cf8bd0164c4ba3d675e52e07cb7df554274bd5375f16c17eb8d0d0ec6d25",
+  "tests": 3,
+  "seconds": 5.668,
+  "process_scenarios": [
+    "CONFIRMED",
+    "PASSWORD_REQUIRED",
+    "PASSWORD_DENIED",
+    "PASSWORD_AMBIGUOUS",
+    "PASSWORD_POLICY",
+    "WRONG_ACCOUNT",
+    "WRONG_VERSION",
+    "FAILED_REPORT",
+    "MISSING_REPORT",
+    "STACK_DRIFT"
+  ],
+  "execution": "Isolated Python -I from an empty working directory; no repository or launch.json supplied",
+  "aws_transport": "CLI subprocess double; real inherited memory FD, JSON file download and output handling",
+  "no_deployment_operations": true,
+  "no_password_disclosure": true,
+  "no_live_aws_test": true
+}

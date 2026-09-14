@@ -1,0 +1,116 @@
+{
+  "scope": "LOCAL_ASSESSMENT_RECOVERY_INCREMENTAL_DELIVERY_NO_LIVE_AWS",
+  "result": "PASS",
+  "observed_at": "2026-09-12T12:29:28.110087+00:00",
+  "aws_execution": "NOT_RUN",
+  "live_model_execution": "NOT_RUN",
+  "arm_runtime_execution": "NOT_RUN",
+  "test_python": "/workspace/scratch/915753951def/budget-test-env/bin/python",
+  "checks": [
+    {
+      "name": "fresh_clone_incremental_fast_forward_matches_commit_and_tree",
+      "status": "PASS",
+      "base_commit": "255e65162e269004290bdb69654de016f59bc0f6",
+      "source_commit": "3b9d93174a4b93a3aef1bfc0967e62305da3939e",
+      "tree": "21de816435c052329240c491694297a5db542a8f"
+    },
+    {
+      "name": "focused_recovery_composition_launcher_and_aws_contract_regressions",
+      "status": "PASS",
+      "modules": [
+        "test_business_assessment_repair",
+        "test_business_field_revision",
+        "test_wiring_composed_delivery",
+        "test_customer_wiring_launcher",
+        "test_customer_wiring_operator",
+        "test_cors_exposure",
+        "test_runtime_policy_order",
+        "test_customer_connector_launcher",
+        "test_business_aws_contracts"
+      ],
+      "output": "exception=<RuntimeError> | event loop cycle failed\nexception=<RuntimeError> | event loop cycle failed\nexception=<RuntimeError> | event loop cycle failed\nexception=<RuntimeError> | event loop cycle failed\nexception=<RuntimeError> | event loop cycle failed\nexception=<RuntimeError> | event loop cycle failed\nexception=<RuntimeError> | event loop cycle failed\nexception=<RuntimeError> | event loop cycle failed\nexception=<RuntimeError> | event loop cycle failed\nexception=<RuntimeError> | event loop cycle failed\nexception=<RuntimeError> | event loop cycle failed\nexception=<RuntimeError> | event loop cycle failed\nexception=<RuntimeError> | event loop cycle failed\nexception=<RuntimeError> | event loop cycle failed\nexception=<RuntimeError> | event loop cycle failed\nexception=<RuntimeError> | event loop cycle failed\nexception=<RuntimeError> | event loop cycle failed\nexception=<RuntimeError> | event loop cycle failed\nexception=<RuntimeError> | event loop cycle failed\nexception=<RuntimeError> | event loop cycle failed\nexception=<RuntimeError> | event loop cycle failed\nexception=<RuntimeError> | event loop cycle failed\nexception=<RuntimeError> | event loop cycle failed\nexception=<RuntimeError> | event loop cycle failed\nexception=<RuntimeError> | event loop cycle failed\n----------------------------------------------------------------------\nRan 48 tests in 61.685s\n\nOK",
+      "interpreter": "Python 3.12.14"
+    },
+    {
+      "name": "delivered_launcher_missing_aws_cli_stops_cleanly",
+      "status": "PASS",
+      "exit_status": 1
+    },
+    {
+      "name": "actual_offline_locked_business_archives_match_repair_sources",
+      "status": "PASS",
+      "artifacts": {
+        "lambda": {
+          "sha256": "0f30f9fcf4df8b71caba35ffce0ce7401f81f372d2ce7f122453e30e0ef03c1d",
+          "size_bytes": 28532197,
+          "architecture": "x86_64"
+        },
+        "runtime": {
+          "sha256": "1b41f9bfd634a7a5df59fb93e5c1848e7faf08dbcfa2896c3abb32a9ee45fd65",
+          "size_bytes": 28373660,
+          "architecture": "aarch64"
+        }
+      },
+      "inspected_members": [
+        "authority_delta/business/contracts.py",
+        "packages/contracts/business.openapi.json",
+        "services/business/requests.schema.json",
+        "services/business_analysis/agent.py"
+      ]
+    },
+    {
+      "name": "extracted_x86_artifact_imports_its_own_fixed_dependencies",
+      "status": "PASS",
+      "modules": [
+        "services.business_analysis.agent",
+        "authority_delta.business.contracts",
+        "pydantic",
+        "strands"
+      ],
+      "scope": "LOCAL_X86_ARCHIVE_IMPORT_ONLY"
+    },
+    {
+      "name": "actual_codebuild_source_entries_and_worker_imports_match",
+      "status": "PASS",
+      "source_zip_sha256": "4b3c10048d39d3ac66a55dc9802513d3589e823db0708193945fd67bdcc64cd7",
+      "inspected_members": [
+        "scripts/deploy_customer_wiring.py",
+        "scripts/deploy_business.py",
+        "scripts/launch_customer_wiring.py",
+        "services/business_analysis/agent.py",
+        "src/authority_delta/business/contracts.py",
+        "buildspec.customer-wiring.yml",
+        "requirements-analysis-x86_64.lock",
+        "requirements-analysis-aarch64.lock"
+      ],
+      "imports": {
+        "modules": [
+          "deploy_customer_wiring",
+          "deploy_business",
+          "services.business_analysis.agent"
+        ],
+        "scope": "SUPPLIED_TEST_INTERPRETER_NO_LIVE_AWS"
+      }
+    }
+  ],
+  "limitations": [
+    "AWS APIs and model responses in tests are local doubles or captured outputs.",
+    "Fresh x86 archive imports do not prove the AWS CodeBuild image or ARM execution.",
+    "Full regressions and live connected acceptance are separate gates."
+  ],
+  "base_bundle_sha256": "98202ce3f0933a3574a7fb0e40f1580b4ae7a93068b7e281bb1342524e3d0595",
+  "update_bundle_sha256": "c64385842988ae56a0db4479eaa7721b7fe945f70691f483c033a3a85b2505f6",
+  "delivered_source_commit": "3b9d93174a4b93a3aef1bfc0967e62305da3939e",
+  "delivered_tree": "21de816435c052329240c491694297a5db542a8f",
+  "elapsed_seconds": 87.313,
+  "full_regression": {
+    "source_commit": "3b9d93174a4b93a3aef1bfc0967e62305da3939e",
+    "count": 333,
+    "seconds": 154.039,
+    "exit_code": 0,
+    "result": "PASS",
+    "command": "PYTHONPATH=src:scripts:tests:. /workspace/scratch/915753951def/budget-test-env/bin/python -m unittest discover -s tests -q",
+    "log_sha256": "7b3fb65e8ee6dc165d807a167898fae6c8b0fccaee2ab38899917591869a99c9"
+  },
+  "packaging_note": "This qualifies implementation commit 3b9d931 and its code bundle. The following metadata-only commit records these results; final delivery is restored again and verified to change only status/evidence files, with identical tested implementation and entrypoint. No live model result is inferred."
+}

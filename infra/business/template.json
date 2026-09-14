@@ -1,0 +1,2065 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "ReadinessOps business intake, assessment, human decision and official publication. Runtime authority publication is separate.",
+  "Parameters": {
+    "ArtifactBucket": {
+      "Type": "String",
+      "AllowedPattern": "^[a-z0-9][a-z0-9.-]{1,61}[a-z0-9]$"
+    },
+    "DeployerRoleArn": {
+      "Type": "String",
+      "AllowedPattern": "^arn:aws:iam::[0-9]{12}:role/ReadinessOpsAuthorityDeltaDeployer$"
+    },
+    "AnalysisArtifactKey": {
+      "Type": "String",
+      "MinLength": 1,
+      "MaxLength": 1024
+    },
+    "AnalysisArtifactVersionId": {
+      "Type": "String",
+      "MinLength": 3,
+      "MaxLength": 1024
+    },
+    "AnalysisModelId": {
+      "Type": "String",
+      "AllowedValues": [
+        "apac.amazon.nova-pro-v1:0"
+      ]
+    },
+    "AnalysisProfileArn": {
+      "Type": "String",
+      "AllowedPattern": "^arn:aws:bedrock:ap-northeast-1:[0-9]{12}:inference-profile/apac\\.amazon\\.nova-pro-v1:0$"
+    },
+    "AnalysisFoundationModelArns": {
+      "Type": "CommaDelimitedList"
+    },
+    "CodeKey": {
+      "Type": "String",
+      "MinLength": 1
+    },
+    "CodeVersion": {
+      "Type": "String",
+      "MinLength": 1
+    },
+    "ExistingApiId": {
+      "Type": "String",
+      "MinLength": 1
+    },
+    "ExistingAuthorizerId": {
+      "Type": "String",
+      "MinLength": 1
+    },
+    "ClientId": {
+      "Type": "String",
+      "MinLength": 1
+    },
+    "ReviewerSub": {
+      "Type": "String",
+      "MinLength": 1
+    },
+    "CustomerPublisherInvokeRoleArn": {
+      "Type": "String",
+      "Default": "arn:aws:iam::000000000000:role/unregistered-authority-delta-publish-invoke",
+      "AllowedPattern": "^arn:aws:iam::[0-9]{12}:role/[A-Za-z0-9+=,.@_-]{1,64}$"
+    },
+    "CustomerRuntimeInvokeRoleArn": {
+      "Type": "String",
+      "Default": "arn:aws:iam::000000000000:role/unregistered-authority-delta-runtime-invoke",
+      "AllowedPattern": "^arn:aws:iam::[0-9]{12}:role/[A-Za-z0-9+=,.@_-]{1,64}$"
+    }
+  },
+  "Resources": {
+    "AnalysisExecutionRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "RoleName": "authority-delta-business-model",
+        "Description": "Read-only analysis: own code and the verified Nova Pro APAC inference profile.",
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "bedrock-agentcore.amazonaws.com"
+              },
+              "Action": "sts:AssumeRole",
+              "Condition": {
+                "StringEquals": {
+                  "aws:SourceAccount": {
+                    "Ref": "AWS::AccountId"
+                  }
+                },
+                "ArnLike": {
+                  "aws:SourceArn": {
+                    "Fn::Sub": "arn:${AWS::Partition}:bedrock-agentcore:${AWS::Region}:${AWS::AccountId}:*"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "Policies": [
+          {
+            "PolicyName": "FixedRuntimePermissions",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Sid": "ReadOwnRuntimeCode",
+                  "Effect": "Allow",
+                  "Action": [
+                    "s3:GetObject",
+                    "s3:GetObjectVersion"
+                  ],
+                  "Resource": {
+                    "Fn::Sub": "arn:${AWS::Partition}:s3:::${ArtifactBucket}/${AnalysisArtifactKey}"
+                  }
+                },
+                {
+                  "Sid": "IdentifyOwnExecution",
+                  "Effect": "Allow",
+                  "Action": "sts:GetCallerIdentity",
+                  "Resource": "*"
+                },
+                {
+                  "Sid": "RuntimeLogGroup",
+                  "Effect": "Allow",
+                  "Action": [
+                    "logs:CreateLogGroup",
+                    "logs:DescribeLogStreams"
+                  ],
+                  "Resource": {
+                    "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/bedrock-agentcore/runtimes/authority_delta_business-*"
+                  }
+                },
+                {
+                  "Sid": "RuntimeLogEvents",
+                  "Effect": "Allow",
+                  "Action": [
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents"
+                  ],
+                  "Resource": {
+                    "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/bedrock-agentcore/runtimes/authority_delta_business-*:log-stream:*"
+                  }
+                },
+                {
+                  "Sid": "DiscoverRuntimeLogs",
+                  "Effect": "Allow",
+                  "Action": "logs:DescribeLogGroups",
+                  "Resource": "*"
+                },
+                {
+                  "Sid": "RuntimeLogResourcePolicy",
+                  "Effect": "Allow",
+                  "Action": "logs:PutResourcePolicy",
+                  "Resource": {
+                    "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/bedrock-agentcore/runtimes/authority_delta_business-*"
+                  }
+                },
+                {
+                  "Sid": "AnalyzeWithNovaProProfile",
+                  "Effect": "Allow",
+                  "Action": [
+                    "bedrock:InvokeModel"
+                  ],
+                  "Resource": {
+                    "Ref": "AnalysisProfileArn"
+                  }
+                },
+                {
+                  "Sid": "NovaProDestinationsThroughProfile",
+                  "Effect": "Allow",
+                  "Action": [
+                    "bedrock:InvokeModel"
+                  ],
+                  "Resource": {
+                    "Ref": "AnalysisFoundationModelArns"
+                  },
+                  "Condition": {
+                    "StringEquals": {
+                      "bedrock:InferenceProfileArn": {
+                        "Ref": "AnalysisProfileArn"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "Tags": [
+          {
+            "Key": "Project",
+            "Value": "ReadinessOpsAuthorityDelta"
+          },
+          {
+            "Key": "Release",
+            "Value": "Analysis"
+          }
+        ]
+      }
+    },
+    "AnalysisRuntime": {
+      "Type": "AWS::BedrockAgentCore::Runtime",
+      "Properties": {
+        "AgentRuntimeName": "authority_delta_business",
+        "AgentRuntimeArtifact": {
+          "CodeConfiguration": {
+            "Code": {
+              "S3": {
+                "Bucket": {
+                  "Ref": "ArtifactBucket"
+                },
+                "Prefix": {
+                  "Ref": "AnalysisArtifactKey"
+                },
+                "VersionId": {
+                  "Ref": "AnalysisArtifactVersionId"
+                }
+              }
+            },
+            "Runtime": "PYTHON_3_12",
+            "EntryPoint": [
+              "runtime.py"
+            ]
+          }
+        },
+        "RoleArn": {
+          "Fn::GetAtt": [
+            "AnalysisExecutionRole",
+            "Arn"
+          ]
+        },
+        "NetworkConfiguration": {
+          "NetworkMode": "PUBLIC"
+        },
+        "ProtocolConfiguration": "HTTP",
+        "LifecycleConfiguration": {
+          "IdleRuntimeSessionTimeout": 60,
+          "MaxLifetime": 600
+        },
+        "EnvironmentVariables": {
+          "AD_ACCOUNT_ID": {
+            "Ref": "AWS::AccountId"
+          },
+          "AD_REGION": {
+            "Ref": "AWS::Region"
+          },
+          "AD_EXPECTED_ROLE_NAME": {
+            "Ref": "AnalysisExecutionRole"
+          },
+          "AD_ANALYSIS_MODEL_ID": {
+            "Ref": "AnalysisModelId"
+          }
+        },
+        "Tags": {
+          "Project": "ReadinessOpsAuthorityDelta",
+          "Release": "Analysis"
+        }
+      }
+    },
+    "AnalysisEndpoint": {
+      "Type": "AWS::BedrockAgentCore::RuntimeEndpoint",
+      "Properties": {
+        "AgentRuntimeId": {
+          "Fn::GetAtt": [
+            "AnalysisRuntime",
+            "AgentRuntimeId"
+          ]
+        },
+        "AgentRuntimeVersion": {
+          "Fn::GetAtt": [
+            "AnalysisRuntime",
+            "AgentRuntimeVersion"
+          ]
+        },
+        "Name": "fixed_business",
+        "Tags": {
+          "Project": "ReadinessOpsAuthorityDelta",
+          "Release": "Analysis"
+        }
+      }
+    },
+    "AnalysisRuntimeResourcePolicy": {
+      "Type": "AWS::BedrockAgentCore::ResourcePolicy",
+      "Properties": {
+        "ResourceArn": {
+          "Fn::GetAtt": [
+            "AnalysisRuntime",
+            "AgentRuntimeArn"
+          ]
+        },
+        "Policy": {
+          "Fn::Sub": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Principal\":{\"AWS\":[\"${DeployerRoleArn}\",\"${WorkerRole.Arn}\"]},\"Action\":[\"bedrock-agentcore:InvokeAgentRuntime\",\"bedrock-agentcore:StopRuntimeSession\"],\"Resource\":\"${AnalysisRuntime.AgentRuntimeArn}\"},{\"Effect\":\"Deny\",\"Principal\":\"*\",\"Action\":[\"bedrock-agentcore:InvokeAgentRuntime\",\"bedrock-agentcore:InvokeAgentRuntimeForUser\",\"bedrock-agentcore:InvokeAgentRuntimeWithWebSocketStream\",\"bedrock-agentcore:InvokeAgentRuntimeCommand\",\"bedrock-agentcore:InvokeAgentRuntimeCommandShell\",\"bedrock-agentcore:InvokeAgentRuntimeWithWebSocketStreamForUser\",\"bedrock-agentcore:StopRuntimeSession\"],\"Resource\":\"${AnalysisRuntime.AgentRuntimeArn}\",\"Condition\":{\"ArnNotEquals\":{\"aws:PrincipalArn\":[\"${DeployerRoleArn}\",\"${WorkerRole.Arn}\"]}}}]}"
+        }
+      }
+    },
+    "DataBucket": {
+      "Type": "AWS::S3::Bucket",
+      "DeletionPolicy": "Retain",
+      "UpdateReplacePolicy": "Retain",
+      "Properties": {
+        "VersioningConfiguration": {
+          "Status": "Enabled"
+        },
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
+                "SSEAlgorithm": "AES256"
+              }
+            }
+          ]
+        },
+        "PublicAccessBlockConfiguration": {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true
+        }
+      }
+    },
+    "AppTable": {
+      "Type": "AWS::DynamoDB::Table",
+      "DeletionPolicy": "Retain",
+      "UpdateReplacePolicy": "Retain",
+      "Properties": {
+        "BillingMode": "PAY_PER_REQUEST",
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "pk",
+            "AttributeType": "S"
+          },
+          {
+            "AttributeName": "sk",
+            "AttributeType": "S"
+          }
+        ],
+        "KeySchema": [
+          {
+            "AttributeName": "pk",
+            "KeyType": "HASH"
+          },
+          {
+            "AttributeName": "sk",
+            "KeyType": "RANGE"
+          }
+        ],
+        "SSESpecification": {
+          "SSEEnabled": true
+        }
+      }
+    },
+    "JobsTable": {
+      "Type": "AWS::DynamoDB::Table",
+      "DeletionPolicy": "Retain",
+      "UpdateReplacePolicy": "Retain",
+      "Properties": {
+        "BillingMode": "PAY_PER_REQUEST",
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "pk",
+            "AttributeType": "S"
+          },
+          {
+            "AttributeName": "sk",
+            "AttributeType": "S"
+          }
+        ],
+        "KeySchema": [
+          {
+            "AttributeName": "pk",
+            "KeyType": "HASH"
+          },
+          {
+            "AttributeName": "sk",
+            "KeyType": "RANGE"
+          }
+        ],
+        "SSESpecification": {
+          "SSEEnabled": true
+        }
+      }
+    },
+    "Queue": {
+      "Type": "AWS::SQS::Queue",
+      "Properties": {
+        "SqsManagedSseEnabled": true,
+        "MessageRetentionPeriod": 1209600,
+        "VisibilityTimeout": 2100,
+        "RedrivePolicy": {
+          "deadLetterTargetArn": {
+            "Fn::GetAtt": [
+              "DeadQueue",
+              "Arn"
+            ]
+          },
+          "maxReceiveCount": 3
+        }
+      }
+    },
+    "DeadQueue": {
+      "Type": "AWS::SQS::Queue",
+      "Properties": {
+        "SqsManagedSseEnabled": true,
+        "MessageRetentionPeriod": 1209600,
+        "VisibilityTimeout": 2100
+      }
+    },
+    "ApplicationQueue": {
+      "Type": "AWS::SQS::Queue",
+      "Properties": {
+        "SqsManagedSseEnabled": true,
+        "MessageRetentionPeriod": 1209600,
+        "VisibilityTimeout": 5100,
+        "RedrivePolicy": {
+          "deadLetterTargetArn": {
+            "Fn::GetAtt": [
+              "ApplicationDeadQueue",
+              "Arn"
+            ]
+          },
+          "maxReceiveCount": 3
+        }
+      }
+    },
+    "ApplicationDeadQueue": {
+      "Type": "AWS::SQS::Queue",
+      "Properties": {
+        "SqsManagedSseEnabled": true,
+        "MessageRetentionPeriod": 1209600,
+        "VisibilityTimeout": 5100
+      }
+    },
+    "InvocationQueue": {
+      "Type": "AWS::SQS::Queue",
+      "Properties": {
+        "SqsManagedSseEnabled": true,
+        "MessageRetentionPeriod": 1209600,
+        "VisibilityTimeout": 3600,
+        "RedrivePolicy": {
+          "deadLetterTargetArn": {
+            "Fn::GetAtt": [
+              "InvocationDeadQueue",
+              "Arn"
+            ]
+          },
+          "maxReceiveCount": 3
+        }
+      }
+    },
+    "InvocationDeadQueue": {
+      "Type": "AWS::SQS::Queue",
+      "Properties": {
+        "SqsManagedSseEnabled": true,
+        "MessageRetentionPeriod": 1209600,
+        "VisibilityTimeout": 3600
+      }
+    },
+    "ApiLogs": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/aws/lambda/authority-delta-business-api",
+        "RetentionInDays": 14
+      }
+    },
+    "WorkerLogs": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/aws/lambda/authority-delta-business-worker",
+        "RetentionInDays": 14
+      }
+    },
+    "DispatcherLogs": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/aws/lambda/authority-delta-business-dispatcher",
+        "RetentionInDays": 14
+      }
+    },
+    "ApplicationWorkerLogs": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/aws/lambda/authority-delta-business-applicationworker",
+        "RetentionInDays": 14
+      }
+    },
+    "ApplicationDispatcherLogs": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/aws/lambda/authority-delta-business-applicationdispatcher",
+        "RetentionInDays": 14
+      }
+    },
+    "InvocationGateLogs": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/aws/lambda/authority-delta-business-invocationgate",
+        "RetentionInDays": 14
+      }
+    },
+    "InvocationWorkerLogs": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/aws/lambda/authority-delta-business-invocationworker",
+        "RetentionInDays": 14
+      }
+    },
+    "ApiRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "RoleName": "authority-delta-business-api",
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              },
+              "Action": "sts:AssumeRole"
+            }
+          ]
+        },
+        "Policies": [
+          {
+            "PolicyName": "BusinessScope",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents"
+                  ],
+                  "Resource": {
+                    "Fn::GetAtt": [
+                      "ApiLogs",
+                      "Arn"
+                    ]
+                  }
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "dynamodb:GetItem",
+                    "dynamodb:Query",
+                    "dynamodb:PutItem",
+                    "dynamodb:DeleteItem",
+                    "dynamodb:TransactWriteItems"
+                  ],
+                  "Resource": [
+                    {
+                      "Fn::GetAtt": [
+                        "AppTable",
+                        "Arn"
+                      ]
+                    },
+                    {
+                      "Fn::GetAtt": [
+                        "JobsTable",
+                        "Arn"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "s3:GetObjectVersion",
+                    "s3:PutObject"
+                  ],
+                  "Resource": {
+                    "Fn::Sub": "arn:${AWS::Partition}:s3:::${DataBucket}/business/*"
+                  }
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": "sqs:SendMessage",
+                  "Resource": [
+                    {
+                      "Fn::GetAtt": [
+                        "Queue",
+                        "Arn"
+                      ]
+                    },
+                    {
+                      "Fn::GetAtt": [
+                        "ApplicationQueue",
+                        "Arn"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "DispatcherRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "RoleName": "authority-delta-business-dispatcher",
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              },
+              "Action": "sts:AssumeRole"
+            }
+          ]
+        },
+        "Policies": [
+          {
+            "PolicyName": "BusinessScope",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents"
+                  ],
+                  "Resource": {
+                    "Fn::GetAtt": [
+                      "DispatcherLogs",
+                      "Arn"
+                    ]
+                  }
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "dynamodb:GetItem",
+                    "dynamodb:Query",
+                    "dynamodb:DeleteItem",
+                    "dynamodb:TransactWriteItems"
+                  ],
+                  "Resource": [
+                    {
+                      "Fn::GetAtt": [
+                        "JobsTable",
+                        "Arn"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": "sqs:SendMessage",
+                  "Resource": {
+                    "Fn::GetAtt": [
+                      "Queue",
+                      "Arn"
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "WorkerRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "RoleName": "authority-delta-business-worker",
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              },
+              "Action": "sts:AssumeRole"
+            }
+          ]
+        },
+        "Policies": [
+          {
+            "PolicyName": "BusinessScope",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents"
+                  ],
+                  "Resource": {
+                    "Fn::GetAtt": [
+                      "WorkerLogs",
+                      "Arn"
+                    ]
+                  }
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "dynamodb:GetItem",
+                    "dynamodb:PutItem",
+                    "dynamodb:TransactWriteItems"
+                  ],
+                  "Resource": [
+                    {
+                      "Fn::GetAtt": [
+                        "JobsTable",
+                        "Arn"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "sqs:ReceiveMessage",
+                    "sqs:DeleteMessage",
+                    "sqs:GetQueueAttributes"
+                  ],
+                  "Resource": [
+                    {
+                      "Fn::GetAtt": [
+                        "Queue",
+                        "Arn"
+                      ]
+                    },
+                    {
+                      "Fn::GetAtt": [
+                        "DeadQueue",
+                        "Arn"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": "s3:GetObjectVersion",
+                  "Resource": [
+                    {
+                      "Fn::Sub": "arn:${AWS::Partition}:s3:::${DataBucket}/business/inputs/*"
+                    },
+                    {
+                      "Fn::Sub": "arn:${AWS::Partition}:s3:::${DataBucket}/business/results/*"
+                    }
+                  ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": "s3:PutObject",
+                  "Resource": {
+                    "Fn::Sub": "arn:${AWS::Partition}:s3:::${DataBucket}/business/results/*"
+                  }
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "bedrock-agentcore:InvokeAgentRuntime",
+                    "bedrock-agentcore:StopRuntimeSession"
+                  ],
+                  "Resource": [
+                    {
+                      "Fn::GetAtt": [
+                        "AnalysisRuntime",
+                        "AgentRuntimeArn"
+                      ]
+                    },
+                    {
+                      "Fn::GetAtt": [
+                        "AnalysisEndpoint",
+                        "AgentRuntimeEndpointArn"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": "bedrock-agentcore:GetAgentRuntimeEndpoint",
+                  "Resource": [
+                    {
+                      "Fn::GetAtt": [
+                        "AnalysisRuntime",
+                        "AgentRuntimeArn"
+                      ]
+                    },
+                    {
+                      "Fn::GetAtt": [
+                        "AnalysisEndpoint",
+                        "AgentRuntimeEndpointArn"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "ApplicationDispatcherRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "RoleName": "authority-delta-application-dispatcher",
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              },
+              "Action": "sts:AssumeRole"
+            }
+          ]
+        },
+        "Policies": [
+          {
+            "PolicyName": "BusinessScope",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents"
+                  ],
+                  "Resource": {
+                    "Fn::GetAtt": [
+                      "ApplicationDispatcherLogs",
+                      "Arn"
+                    ]
+                  }
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "dynamodb:GetItem",
+                    "dynamodb:Query",
+                    "dynamodb:PutItem",
+                    "dynamodb:DeleteItem",
+                    "dynamodb:TransactWriteItems"
+                  ],
+                  "Resource": [
+                    {
+                      "Fn::GetAtt": [
+                        "AppTable",
+                        "Arn"
+                      ]
+                    },
+                    {
+                      "Fn::GetAtt": [
+                        "JobsTable",
+                        "Arn"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "s3:GetObjectVersion",
+                    "s3:PutObject"
+                  ],
+                  "Resource": {
+                    "Fn::Sub": "arn:${AWS::Partition}:s3:::${DataBucket}/business/*"
+                  }
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": "sqs:SendMessage",
+                  "Resource": [
+                    {
+                      "Fn::GetAtt": [
+                        "ApplicationQueue",
+                        "Arn"
+                      ]
+                    },
+                    {
+                      "Fn::GetAtt": [
+                        "InvocationQueue",
+                        "Arn"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "ApplicationWorkerRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "RoleName": "authority-delta-application-worker",
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              },
+              "Action": "sts:AssumeRole"
+            }
+          ]
+        },
+        "Policies": [
+          {
+            "PolicyName": "BusinessScope",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents"
+                  ],
+                  "Resource": {
+                    "Fn::GetAtt": [
+                      "ApplicationWorkerLogs",
+                      "Arn"
+                    ]
+                  }
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "dynamodb:GetItem",
+                    "dynamodb:Query",
+                    "dynamodb:PutItem",
+                    "dynamodb:DeleteItem",
+                    "dynamodb:TransactWriteItems"
+                  ],
+                  "Resource": [
+                    {
+                      "Fn::GetAtt": [
+                        "AppTable",
+                        "Arn"
+                      ]
+                    },
+                    {
+                      "Fn::GetAtt": [
+                        "JobsTable",
+                        "Arn"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "sqs:ReceiveMessage",
+                    "sqs:DeleteMessage",
+                    "sqs:GetQueueAttributes"
+                  ],
+                  "Resource": [
+                    {
+                      "Fn::GetAtt": [
+                        "ApplicationQueue",
+                        "Arn"
+                      ]
+                    },
+                    {
+                      "Fn::GetAtt": [
+                        "ApplicationDeadQueue",
+                        "Arn"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "s3:GetObjectVersion",
+                    "s3:PutObject"
+                  ],
+                  "Resource": {
+                    "Fn::Sub": "arn:${AWS::Partition}:s3:::${DataBucket}/business/*"
+                  }
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": "sts:AssumeRole",
+                  "Resource": {
+                    "Ref": "CustomerPublisherInvokeRoleArn"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "InvocationGateRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "RoleName": "authority-delta-invocation-gate",
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              },
+              "Action": "sts:AssumeRole"
+            }
+          ]
+        },
+        "Policies": [
+          {
+            "PolicyName": "BusinessScope",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents"
+                  ],
+                  "Resource": {
+                    "Fn::GetAtt": [
+                      "InvocationGateLogs",
+                      "Arn"
+                    ]
+                  }
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "dynamodb:GetItem",
+                    "dynamodb:PutItem",
+                    "dynamodb:TransactWriteItems"
+                  ],
+                  "Resource": [
+                    {
+                      "Fn::GetAtt": [
+                        "AppTable",
+                        "Arn"
+                      ]
+                    },
+                    {
+                      "Fn::GetAtt": [
+                        "JobsTable",
+                        "Arn"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": "s3:GetObjectVersion",
+                  "Resource": {
+                    "Fn::Sub": "arn:${AWS::Partition}:s3:::${DataBucket}/business/*"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "InvocationWorkerRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "RoleName": "authority-delta-invocation-worker",
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              },
+              "Action": "sts:AssumeRole"
+            }
+          ]
+        },
+        "Policies": [
+          {
+            "PolicyName": "BusinessScope",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents"
+                  ],
+                  "Resource": {
+                    "Fn::GetAtt": [
+                      "InvocationWorkerLogs",
+                      "Arn"
+                    ]
+                  }
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "dynamodb:GetItem",
+                    "dynamodb:PutItem",
+                    "dynamodb:TransactWriteItems"
+                  ],
+                  "Resource": [
+                    {
+                      "Fn::GetAtt": [
+                        "AppTable",
+                        "Arn"
+                      ]
+                    },
+                    {
+                      "Fn::GetAtt": [
+                        "JobsTable",
+                        "Arn"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "s3:GetObjectVersion",
+                    "s3:PutObject"
+                  ],
+                  "Resource": {
+                    "Fn::Sub": "arn:${AWS::Partition}:s3:::${DataBucket}/business/*"
+                  }
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "sqs:ReceiveMessage",
+                    "sqs:DeleteMessage",
+                    "sqs:GetQueueAttributes"
+                  ],
+                  "Resource": [
+                    {
+                      "Fn::GetAtt": [
+                        "InvocationQueue",
+                        "Arn"
+                      ]
+                    },
+                    {
+                      "Fn::GetAtt": [
+                        "InvocationDeadQueue",
+                        "Arn"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": "sts:AssumeRole",
+                  "Resource": {
+                    "Ref": "CustomerRuntimeInvokeRoleArn"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "ApiFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "FunctionName": "authority-delta-business-api",
+        "Runtime": "python3.12",
+        "Architectures": [
+          "x86_64"
+        ],
+        "Handler": "services.business.handler.handler",
+        "Role": {
+          "Fn::GetAtt": [
+            "ApiRole",
+            "Arn"
+          ]
+        },
+        "Timeout": 29,
+        "MemorySize": 1024,
+        "Code": {
+          "S3Bucket": {
+            "Ref": "ArtifactBucket"
+          },
+          "S3Key": {
+            "Ref": "CodeKey"
+          },
+          "S3ObjectVersion": {
+            "Ref": "CodeVersion"
+          }
+        },
+        "Environment": {
+          "Variables": {
+            "DATA_BUCKET": {
+              "Ref": "DataBucket"
+            },
+            "JOBS_TABLE": {
+              "Ref": "JobsTable"
+            },
+            "QUEUE_URL": {
+              "Ref": "Queue"
+            },
+            "APP_TABLE": {
+              "Ref": "AppTable"
+            },
+            "APPLICATION_QUEUE_URL": {
+              "Ref": "ApplicationQueue"
+            },
+            "CLIENT_ID": {
+              "Ref": "ClientId"
+            },
+            "REVIEWER_SUB": {
+              "Ref": "ReviewerSub"
+            },
+            "REVIEWER_USERNAME": "okada"
+          }
+        }
+      }
+    },
+    "WorkerFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "FunctionName": "authority-delta-business-worker",
+        "Runtime": "python3.12",
+        "Architectures": [
+          "x86_64"
+        ],
+        "Handler": "services.business.worker.handler",
+        "Role": {
+          "Fn::GetAtt": [
+            "WorkerRole",
+            "Arn"
+          ]
+        },
+        "Timeout": 330,
+        "MemorySize": 256,
+        "Code": {
+          "S3Bucket": {
+            "Ref": "ArtifactBucket"
+          },
+          "S3Key": {
+            "Ref": "CodeKey"
+          },
+          "S3ObjectVersion": {
+            "Ref": "CodeVersion"
+          }
+        },
+        "Environment": {
+          "Variables": {
+            "DATA_BUCKET": {
+              "Ref": "DataBucket"
+            },
+            "JOBS_TABLE": {
+              "Ref": "JobsTable"
+            },
+            "QUEUE_URL": {
+              "Ref": "Queue"
+            },
+            "QUEUE_ARN": {
+              "Fn::GetAtt": [
+                "Queue",
+                "Arn"
+              ]
+            },
+            "DLQ_ARN": {
+              "Fn::GetAtt": [
+                "DeadQueue",
+                "Arn"
+              ]
+            },
+            "RUNTIME_ID": {
+              "Fn::GetAtt": [
+                "AnalysisRuntime",
+                "AgentRuntimeId"
+              ]
+            },
+            "RUNTIME_ARN": {
+              "Fn::GetAtt": [
+                "AnalysisRuntime",
+                "AgentRuntimeArn"
+              ]
+            },
+            "RUNTIME_VERSION": {
+              "Fn::GetAtt": [
+                "AnalysisRuntime",
+                "AgentRuntimeVersion"
+              ]
+            },
+            "RUNTIME_ENDPOINT": "fixed_business",
+            "RUNTIME_ACCOUNT": {
+              "Ref": "AWS::AccountId"
+            },
+            "RUNTIME_ROLE_NAME": {
+              "Ref": "AnalysisExecutionRole"
+            },
+            "RUNTIME_ENDPOINT_ARN": {
+              "Fn::GetAtt": [
+                "AnalysisEndpoint",
+                "AgentRuntimeEndpointArn"
+              ]
+            }
+          }
+        }
+      },
+      "DependsOn": [
+        "AnalysisRuntimeResourcePolicy",
+        "WorkerLogs"
+      ]
+    },
+    "DispatcherFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "FunctionName": "authority-delta-business-dispatcher",
+        "Runtime": "python3.12",
+        "Architectures": [
+          "x86_64"
+        ],
+        "Handler": "services.business.worker.dispatch_handler",
+        "Role": {
+          "Fn::GetAtt": [
+            "DispatcherRole",
+            "Arn"
+          ]
+        },
+        "Timeout": 45,
+        "MemorySize": 256,
+        "Code": {
+          "S3Bucket": {
+            "Ref": "ArtifactBucket"
+          },
+          "S3Key": {
+            "Ref": "CodeKey"
+          },
+          "S3ObjectVersion": {
+            "Ref": "CodeVersion"
+          }
+        },
+        "Environment": {
+          "Variables": {
+            "DATA_BUCKET": {
+              "Ref": "DataBucket"
+            },
+            "JOBS_TABLE": {
+              "Ref": "JobsTable"
+            },
+            "QUEUE_URL": {
+              "Ref": "Queue"
+            }
+          }
+        }
+      }
+    },
+    "ApplicationWorkerFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "FunctionName": "authority-delta-business-applicationworker",
+        "Runtime": "python3.12",
+        "Architectures": [
+          "x86_64"
+        ],
+        "Handler": "services.business.application_worker.handler",
+        "Role": {
+          "Fn::GetAtt": [
+            "ApplicationWorkerRole",
+            "Arn"
+          ]
+        },
+        "Timeout": 840,
+        "MemorySize": 256,
+        "Code": {
+          "S3Bucket": {
+            "Ref": "ArtifactBucket"
+          },
+          "S3Key": {
+            "Ref": "CodeKey"
+          },
+          "S3ObjectVersion": {
+            "Ref": "CodeVersion"
+          }
+        },
+        "Environment": {
+          "Variables": {
+            "DATA_BUCKET": {
+              "Ref": "DataBucket"
+            },
+            "APP_TABLE": {
+              "Ref": "AppTable"
+            },
+            "JOBS_TABLE": {
+              "Ref": "JobsTable"
+            },
+            "APPLICATION_QUEUE_ARN": {
+              "Fn::GetAtt": [
+                "ApplicationQueue",
+                "Arn"
+              ]
+            },
+            "APPLICATION_DLQ_ARN": {
+              "Fn::GetAtt": [
+                "ApplicationDeadQueue",
+                "Arn"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "ApplicationDispatcherFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "FunctionName": "authority-delta-business-applicationdispatcher",
+        "Runtime": "python3.12",
+        "Architectures": [
+          "x86_64"
+        ],
+        "Handler": "services.business.application_worker.dispatch_handler",
+        "Role": {
+          "Fn::GetAtt": [
+            "ApplicationDispatcherRole",
+            "Arn"
+          ]
+        },
+        "Timeout": 45,
+        "MemorySize": 256,
+        "Code": {
+          "S3Bucket": {
+            "Ref": "ArtifactBucket"
+          },
+          "S3Key": {
+            "Ref": "CodeKey"
+          },
+          "S3ObjectVersion": {
+            "Ref": "CodeVersion"
+          }
+        },
+        "Environment": {
+          "Variables": {
+            "DATA_BUCKET": {
+              "Ref": "DataBucket"
+            },
+            "APP_TABLE": {
+              "Ref": "AppTable"
+            },
+            "JOBS_TABLE": {
+              "Ref": "JobsTable"
+            },
+            "APPLICATION_QUEUE_URL": {
+              "Ref": "ApplicationQueue"
+            },
+            "INVOCATION_QUEUE_URL": {
+              "Ref": "InvocationQueue"
+            }
+          }
+        }
+      }
+    },
+    "InvocationGateFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "FunctionName": "authority-delta-business-invocation-gate",
+        "Runtime": "python3.12",
+        "Architectures": [
+          "x86_64"
+        ],
+        "Handler": "services.business.invocation_gate.handler",
+        "Role": {
+          "Fn::GetAtt": [
+            "InvocationGateRole",
+            "Arn"
+          ]
+        },
+        "Timeout": 29,
+        "MemorySize": 256,
+        "Code": {
+          "S3Bucket": {
+            "Ref": "ArtifactBucket"
+          },
+          "S3Key": {
+            "Ref": "CodeKey"
+          },
+          "S3ObjectVersion": {
+            "Ref": "CodeVersion"
+          }
+        },
+        "Environment": {
+          "Variables": {
+            "DATA_BUCKET": {
+              "Ref": "DataBucket"
+            },
+            "APP_TABLE": {
+              "Ref": "AppTable"
+            },
+            "JOBS_TABLE": {
+              "Ref": "JobsTable"
+            },
+            "CLIENT_ID": {
+              "Ref": "ClientId"
+            },
+            "REVIEWER_SUB": {
+              "Ref": "ReviewerSub"
+            },
+            "REVIEWER_USERNAME": "okada"
+          }
+        }
+      }
+    },
+    "InvocationWorkerFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "FunctionName": "authority-delta-business-invocation-worker",
+        "Runtime": "python3.12",
+        "Architectures": [
+          "x86_64"
+        ],
+        "Handler": "services.business.invocation_gate.worker_handler",
+        "Role": {
+          "Fn::GetAtt": [
+            "InvocationWorkerRole",
+            "Arn"
+          ]
+        },
+        "Timeout": 600,
+        "MemorySize": 256,
+        "Code": {
+          "S3Bucket": {
+            "Ref": "ArtifactBucket"
+          },
+          "S3Key": {
+            "Ref": "CodeKey"
+          },
+          "S3ObjectVersion": {
+            "Ref": "CodeVersion"
+          }
+        },
+        "Environment": {
+          "Variables": {
+            "DATA_BUCKET": {
+              "Ref": "DataBucket"
+            },
+            "APP_TABLE": {
+              "Ref": "AppTable"
+            },
+            "JOBS_TABLE": {
+              "Ref": "JobsTable"
+            },
+            "CLIENT_ID": {
+              "Ref": "ClientId"
+            },
+            "REVIEWER_SUB": {
+              "Ref": "ReviewerSub"
+            },
+            "REVIEWER_USERNAME": "okada",
+            "INVOCATION_QUEUE_ARN": {
+              "Fn::GetAtt": [
+                "InvocationQueue",
+                "Arn"
+              ]
+            },
+            "INVOCATION_DLQ_ARN": {
+              "Fn::GetAtt": [
+                "InvocationDeadQueue",
+                "Arn"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "QueueMapping": {
+      "Type": "AWS::Lambda::EventSourceMapping",
+      "Properties": {
+        "EventSourceArn": {
+          "Fn::GetAtt": [
+            "Queue",
+            "Arn"
+          ]
+        },
+        "FunctionName": {
+          "Ref": "WorkerFunction"
+        },
+        "BatchSize": 1,
+        "MaximumBatchingWindowInSeconds": 0,
+        "FunctionResponseTypes": [
+          "ReportBatchItemFailures"
+        ],
+        "ScalingConfig": {
+          "MaximumConcurrency": 2
+        },
+        "Enabled": true
+      }
+    },
+    "DeadQueueMapping": {
+      "Type": "AWS::Lambda::EventSourceMapping",
+      "Properties": {
+        "EventSourceArn": {
+          "Fn::GetAtt": [
+            "DeadQueue",
+            "Arn"
+          ]
+        },
+        "FunctionName": {
+          "Ref": "WorkerFunction"
+        },
+        "BatchSize": 1,
+        "MaximumBatchingWindowInSeconds": 0,
+        "FunctionResponseTypes": [
+          "ReportBatchItemFailures"
+        ],
+        "ScalingConfig": {
+          "MaximumConcurrency": 2
+        },
+        "Enabled": true
+      }
+    },
+    "ApplicationQueueMapping": {
+      "Type": "AWS::Lambda::EventSourceMapping",
+      "Properties": {
+        "EventSourceArn": {
+          "Fn::GetAtt": [
+            "ApplicationQueue",
+            "Arn"
+          ]
+        },
+        "FunctionName": {
+          "Ref": "ApplicationWorkerFunction"
+        },
+        "BatchSize": 1,
+        "MaximumBatchingWindowInSeconds": 0,
+        "FunctionResponseTypes": [
+          "ReportBatchItemFailures"
+        ],
+        "ScalingConfig": {
+          "MaximumConcurrency": 2
+        },
+        "Enabled": true
+      }
+    },
+    "ApplicationDeadQueueMapping": {
+      "Type": "AWS::Lambda::EventSourceMapping",
+      "Properties": {
+        "EventSourceArn": {
+          "Fn::GetAtt": [
+            "ApplicationDeadQueue",
+            "Arn"
+          ]
+        },
+        "FunctionName": {
+          "Ref": "ApplicationWorkerFunction"
+        },
+        "BatchSize": 1,
+        "MaximumBatchingWindowInSeconds": 0,
+        "FunctionResponseTypes": [
+          "ReportBatchItemFailures"
+        ],
+        "ScalingConfig": {
+          "MaximumConcurrency": 2
+        },
+        "Enabled": true
+      }
+    },
+    "InvocationQueueMapping": {
+      "Type": "AWS::Lambda::EventSourceMapping",
+      "Properties": {
+        "EventSourceArn": {
+          "Fn::GetAtt": [
+            "InvocationQueue",
+            "Arn"
+          ]
+        },
+        "FunctionName": {
+          "Ref": "InvocationWorkerFunction"
+        },
+        "BatchSize": 1,
+        "MaximumBatchingWindowInSeconds": 0,
+        "FunctionResponseTypes": [
+          "ReportBatchItemFailures"
+        ],
+        "ScalingConfig": {
+          "MaximumConcurrency": 2
+        },
+        "Enabled": true
+      }
+    },
+    "InvocationDeadQueueMapping": {
+      "Type": "AWS::Lambda::EventSourceMapping",
+      "Properties": {
+        "EventSourceArn": {
+          "Fn::GetAtt": [
+            "InvocationDeadQueue",
+            "Arn"
+          ]
+        },
+        "FunctionName": {
+          "Ref": "InvocationWorkerFunction"
+        },
+        "BatchSize": 1,
+        "MaximumBatchingWindowInSeconds": 0,
+        "FunctionResponseTypes": [
+          "ReportBatchItemFailures"
+        ],
+        "ScalingConfig": {
+          "MaximumConcurrency": 2
+        },
+        "Enabled": true
+      }
+    },
+    "RecoverySchedule": {
+      "Type": "AWS::Events::Rule",
+      "Properties": {
+        "ScheduleExpression": "rate(1 minute)",
+        "State": "ENABLED",
+        "Targets": [
+          {
+            "Id": "Dispatch",
+            "Arn": {
+              "Fn::GetAtt": [
+                "DispatcherFunction",
+                "Arn"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "SchedulePermission": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Ref": "DispatcherFunction"
+        },
+        "Principal": "events.amazonaws.com",
+        "SourceArn": {
+          "Fn::GetAtt": [
+            "RecoverySchedule",
+            "Arn"
+          ]
+        }
+      }
+    },
+    "ApplicationRecoverySchedule": {
+      "Type": "AWS::Events::Rule",
+      "Properties": {
+        "ScheduleExpression": "rate(1 minute)",
+        "State": "ENABLED",
+        "Targets": [
+          {
+            "Id": "Dispatch",
+            "Arn": {
+              "Fn::GetAtt": [
+                "ApplicationDispatcherFunction",
+                "Arn"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "ApplicationSchedulePermission": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Ref": "ApplicationDispatcherFunction"
+        },
+        "Principal": "events.amazonaws.com",
+        "SourceArn": {
+          "Fn::GetAtt": [
+            "ApplicationRecoverySchedule",
+            "Arn"
+          ]
+        }
+      }
+    },
+    "Integration": {
+      "Type": "AWS::ApiGatewayV2::Integration",
+      "Properties": {
+        "ApiId": {
+          "Ref": "ExistingApiId"
+        },
+        "IntegrationType": "AWS_PROXY",
+        "IntegrationUri": {
+          "Fn::GetAtt": [
+            "ApiFunction",
+            "Arn"
+          ]
+        },
+        "PayloadFormatVersion": "2.0",
+        "TimeoutInMillis": 29000
+      }
+    },
+    "InvocationIntegration": {
+      "Type": "AWS::ApiGatewayV2::Integration",
+      "Properties": {
+        "ApiId": {
+          "Ref": "ExistingApiId"
+        },
+        "IntegrationType": "AWS_PROXY",
+        "IntegrationUri": {
+          "Fn::GetAtt": [
+            "InvocationGateFunction",
+            "Arn"
+          ]
+        },
+        "PayloadFormatVersion": "2.0",
+        "TimeoutInMillis": 29000
+      }
+    },
+    "InvocationRoute": {
+      "Type": "AWS::ApiGatewayV2::Route",
+      "Properties": {
+        "ApiId": {
+          "Ref": "ExistingApiId"
+        },
+        "RouteKey": "POST /business/objects/{object_id}/invocations",
+        "Target": {
+          "Fn::Sub": "integrations/${InvocationIntegration}"
+        },
+        "AuthorizationType": "JWT",
+        "AuthorizerId": {
+          "Ref": "ExistingAuthorizerId"
+        },
+        "AuthorizationScopes": [
+          "authority-delta/publish"
+        ]
+      }
+    },
+    "InvocationStatusRoute": {
+      "Type": "AWS::ApiGatewayV2::Route",
+      "Properties": {
+        "ApiId": {
+          "Ref": "ExistingApiId"
+        },
+        "RouteKey": "GET /business/objects/{object_id}/invocations/{operation_id}",
+        "Target": {
+          "Fn::Sub": "integrations/${InvocationIntegration}"
+        },
+        "AuthorizationType": "JWT",
+        "AuthorizerId": {
+          "Ref": "ExistingAuthorizerId"
+        },
+        "AuthorizationScopes": [
+          "authority-delta/read"
+        ]
+      }
+    },
+    "InvocationPermission": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Ref": "InvocationGateFunction"
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Sub": "arn:${AWS::Partition}:execute-api:${AWS::Region}:${AWS::AccountId}:${ExistingApiId}/*/POST/business/objects/*/invocations"
+        }
+      }
+    },
+    "InvocationStatusPermission": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Ref": "InvocationGateFunction"
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Sub": "arn:${AWS::Partition}:execute-api:${AWS::Region}:${AWS::AccountId}:${ExistingApiId}/*/GET/business/objects/*/invocations/*"
+        }
+      }
+    },
+    "BusinessRoute": {
+      "Type": "AWS::ApiGatewayV2::Route",
+      "Properties": {
+        "ApiId": {
+          "Ref": "ExistingApiId"
+        },
+        "RouteKey": "ANY /business/{proxy+}",
+        "Target": {
+          "Fn::Sub": "integrations/${Integration}"
+        },
+        "AuthorizationType": "JWT",
+        "AuthorizerId": {
+          "Ref": "ExistingAuthorizerId"
+        },
+        "AuthorizationScopes": [
+          "authority-delta/read"
+        ]
+      }
+    },
+    "BusinessOptionsRoute": {
+      "Type": "AWS::ApiGatewayV2::Route",
+      "Properties": {
+        "ApiId": {
+          "Ref": "ExistingApiId"
+        },
+        "RouteKey": "OPTIONS /business/{proxy+}",
+        "Target": {
+          "Fn::Sub": "integrations/${Integration}"
+        },
+        "AuthorizationType": "NONE"
+      }
+    },
+    "ApiPermission": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Ref": "ApiFunction"
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Sub": "arn:${AWS::Partition}:execute-api:${AWS::Region}:${AWS::AccountId}:${ExistingApiId}/*/*/business/*"
+        }
+      }
+    }
+  },
+  "Outputs": {
+    "AnalysisRuntimeArn": {
+      "Value": {
+        "Fn::GetAtt": [
+          "AnalysisRuntime",
+          "AgentRuntimeArn"
+        ]
+      }
+    },
+    "AnalysisRuntimeId": {
+      "Value": {
+        "Fn::GetAtt": [
+          "AnalysisRuntime",
+          "AgentRuntimeId"
+        ]
+      }
+    },
+    "AnalysisRuntimeVersion": {
+      "Value": {
+        "Fn::GetAtt": [
+          "AnalysisRuntime",
+          "AgentRuntimeVersion"
+        ]
+      }
+    },
+    "AnalysisEndpointArn": {
+      "Value": {
+        "Fn::GetAtt": [
+          "AnalysisEndpoint",
+          "AgentRuntimeEndpointArn"
+        ]
+      }
+    },
+    "AnalysisEndpointName": {
+      "Value": "fixed_business"
+    },
+    "AnalysisExecutionRoleArn": {
+      "Value": {
+        "Fn::GetAtt": [
+          "AnalysisExecutionRole",
+          "Arn"
+        ]
+      }
+    },
+    "AppTable": {
+      "Value": {
+        "Ref": "AppTable"
+      }
+    },
+    "JobsTable": {
+      "Value": {
+        "Ref": "JobsTable"
+      }
+    },
+    "DataBucket": {
+      "Value": {
+        "Ref": "DataBucket"
+      }
+    },
+    "Queue": {
+      "Value": {
+        "Ref": "Queue"
+      }
+    },
+    "ApplicationQueue": {
+      "Value": {
+        "Ref": "ApplicationQueue"
+      }
+    },
+    "InvocationQueue": {
+      "Value": {
+        "Ref": "InvocationQueue"
+      }
+    },
+    "ApiFunction": {
+      "Value": {
+        "Ref": "ApiFunction"
+      }
+    },
+    "WorkerFunction": {
+      "Value": {
+        "Ref": "WorkerFunction"
+      }
+    },
+    "DispatcherFunction": {
+      "Value": {
+        "Ref": "DispatcherFunction"
+      }
+    },
+    "ApplicationWorkerFunction": {
+      "Value": {
+        "Ref": "ApplicationWorkerFunction"
+      }
+    },
+    "ApplicationDispatcherFunction": {
+      "Value": {
+        "Ref": "ApplicationDispatcherFunction"
+      }
+    },
+    "InvocationGateFunction": {
+      "Value": {
+        "Ref": "InvocationGateFunction"
+      }
+    },
+    "InvocationWorkerFunction": {
+      "Value": {
+        "Ref": "InvocationWorkerFunction"
+      }
+    },
+    "InvocationGateRoleArn": {
+      "Value": {
+        "Fn::GetAtt": [
+          "InvocationGateRole",
+          "Arn"
+        ]
+      }
+    },
+    "QueueArn": {
+      "Value": {
+        "Fn::GetAtt": [
+          "Queue",
+          "Arn"
+        ]
+      }
+    },
+    "ApplicationQueueArn": {
+      "Value": {
+        "Fn::GetAtt": [
+          "ApplicationQueue",
+          "Arn"
+        ]
+      }
+    }
+  }
+}

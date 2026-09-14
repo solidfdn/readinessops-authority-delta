@@ -1,0 +1,964 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Account-B bounded Policy publisher and isolated VendorPayment canary. No business approval UI.",
+  "Parameters": {
+    "ArtifactBucket": {
+      "Type": "String",
+      "MinLength": 1,
+      "AllowedPattern": "^[a-z0-9][a-z0-9.-]{1,61}[a-z0-9]$"
+    },
+    "CodeKey": {
+      "Type": "String",
+      "MinLength": 1
+    },
+    "CodeVersion": {
+      "Type": "String",
+      "MinLength": 1
+    },
+    "CodeSha256": {
+      "Type": "String",
+      "MinLength": 1
+    },
+    "SourceAccountId": {
+      "Type": "String",
+      "MinLength": 1,
+      "AllowedPattern": "^[0-9]{12}$"
+    },
+    "SourceDiscoveryRoleArn": {
+      "Type": "String",
+      "MinLength": 1,
+      "AllowedPattern": "^arn:aws:iam::[0-9]{12}:role/ReadinessOpsAuthorityDeltaDeployer$"
+    },
+    "SourceApplicationWorkerRoleArn": {
+      "Type": "String",
+      "MinLength": 1,
+      "AllowedPattern": "^arn:aws:iam::[0-9]{12}:role/authority-delta-application-worker$"
+    },
+    "SourceInvocationWorkerRoleArn": {
+      "Type": "String",
+      "MinLength": 1,
+      "AllowedPattern": "^arn:aws:iam::[0-9]{12}:role/authority-delta-invocation-worker$"
+    },
+    "ExternalId": {
+      "Type": "String",
+      "MinLength": 1,
+      "AllowedPattern": "^[A-Za-z0-9+=,.@:/_-]{32,128}$",
+      "NoEcho": true
+    },
+    "ExternalIdHash": {
+      "Type": "String",
+      "MinLength": 1,
+      "AllowedPattern": "^[0-9a-f]{64}$"
+    },
+    "ConnectionId": {
+      "Type": "String",
+      "MinLength": 1,
+      "AllowedPattern": "^conn-[A-Za-z0-9_-]{4,80}$"
+    },
+    "GatewayArn": {
+      "Type": "String",
+      "MinLength": 1,
+      "AllowedPattern": "^arn:aws:bedrock-agentcore:ap-northeast-1:[0-9]{12}:gateway/[A-Za-z0-9_-]+$"
+    },
+    "PolicyEngineId": {
+      "Type": "String",
+      "MinLength": 1
+    },
+    "PolicyEngineArn": {
+      "Type": "String",
+      "MinLength": 1
+    },
+    "RuntimeArn": {
+      "Type": "String",
+      "MinLength": 1,
+      "AllowedPattern": "^arn:aws:bedrock-agentcore:ap-northeast-1:[0-9]{12}:runtime/[A-Za-z0-9_-]+$"
+    },
+    "RuntimeEndpointArn": {
+      "Type": "String",
+      "MinLength": 1,
+      "AllowedPattern": "^arn:aws:bedrock-agentcore:ap-northeast-1:[0-9]{12}:runtime/[A-Za-z0-9_-]+/runtime-endpoint/[A-Za-z0-9_-]+$"
+    },
+    "RequestRegistryTableName": {
+      "Type": "String",
+      "MinLength": 1
+    },
+    "SandboxLedgerTableName": {
+      "Type": "String",
+      "MinLength": 1
+    },
+    "SandboxToolFunctionArn": {
+      "Type": "String",
+      "MinLength": 1
+    }
+  },
+  "Resources": {
+    "PublisherJournal": {
+      "Type": "AWS::DynamoDB::Table",
+      "DeletionPolicy": "Retain",
+      "UpdateReplacePolicy": "Retain",
+      "Properties": {
+        "BillingMode": "PAY_PER_REQUEST",
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "pk",
+            "AttributeType": "S"
+          },
+          {
+            "AttributeName": "sk",
+            "AttributeType": "S"
+          }
+        ],
+        "KeySchema": [
+          {
+            "AttributeName": "pk",
+            "KeyType": "HASH"
+          },
+          {
+            "AttributeName": "sk",
+            "KeyType": "RANGE"
+          }
+        ],
+        "SSESpecification": {
+          "SSEEnabled": true
+        },
+        "PointInTimeRecoverySpecification": {
+          "PointInTimeRecoveryEnabled": true
+        }
+      }
+    },
+    "PublisherLogs": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/aws/lambda/authority-delta-customer-publisher",
+        "RetentionInDays": 14
+      }
+    },
+    "CanaryLogs": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/aws/lambda/authority-delta-customer-canary",
+        "RetentionInDays": 14
+      }
+    },
+    "InvocationLogs": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/aws/lambda/authority-delta-customer-invocation",
+        "RetentionInDays": 14
+      }
+    },
+    "CanaryRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "RoleName": "authority-delta-customer-canary",
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              },
+              "Action": "sts:AssumeRole"
+            }
+          ]
+        },
+        "Policies": [
+          {
+            "PolicyName": "BoundedCustomerApplication",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents"
+                  ],
+                  "Resource": {
+                    "Fn::GetAtt": [
+                      "CanaryLogs",
+                      "Arn"
+                    ]
+                  }
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": "dynamodb:GetItem",
+                  "Resource": {
+                    "Fn::Sub": "arn:${AWS::Partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${RequestRegistryTableName}"
+                  }
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": "dynamodb:Scan",
+                  "Resource": {
+                    "Fn::Sub": "arn:${AWS::Partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${SandboxLedgerTableName}"
+                  }
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": "bedrock-agentcore:GetAgentRuntimeEndpoint",
+                  "Resource": [
+                    {
+                      "Ref": "RuntimeArn"
+                    },
+                    {
+                      "Ref": "RuntimeEndpointArn"
+                    }
+                  ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "bedrock-agentcore:InvokeAgentRuntime",
+                    "bedrock-agentcore:StopRuntimeSession"
+                  ],
+                  "Resource": [
+                    {
+                      "Ref": "RuntimeArn"
+                    },
+                    {
+                      "Ref": "RuntimeEndpointArn"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "InvocationRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "RoleName": "authority-delta-customer-invocation",
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              },
+              "Action": "sts:AssumeRole"
+            }
+          ]
+        },
+        "Policies": [
+          {
+            "PolicyName": "BoundedCustomerApplication",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents"
+                  ],
+                  "Resource": {
+                    "Fn::GetAtt": [
+                      "InvocationLogs",
+                      "Arn"
+                    ]
+                  }
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": "dynamodb:GetItem",
+                  "Resource": {
+                    "Fn::GetAtt": [
+                      "PublisherJournal",
+                      "Arn"
+                    ]
+                  }
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": "dynamodb:GetItem",
+                  "Resource": {
+                    "Fn::Sub": "arn:${AWS::Partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${RequestRegistryTableName}"
+                  }
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": "dynamodb:Scan",
+                  "Resource": {
+                    "Fn::Sub": "arn:${AWS::Partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${SandboxLedgerTableName}"
+                  }
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": "bedrock-agentcore:GetAgentRuntimeEndpoint",
+                  "Resource": [
+                    {
+                      "Ref": "RuntimeArn"
+                    },
+                    {
+                      "Ref": "RuntimeEndpointArn"
+                    }
+                  ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "bedrock-agentcore:InvokeAgentRuntime",
+                    "bedrock-agentcore:StopRuntimeSession"
+                  ],
+                  "Resource": [
+                    {
+                      "Ref": "RuntimeArn"
+                    },
+                    {
+                      "Ref": "RuntimeEndpointArn"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "PublisherRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "RoleName": "authority-delta-customer-publisher",
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              },
+              "Action": "sts:AssumeRole"
+            }
+          ]
+        },
+        "Policies": [
+          {
+            "PolicyName": "BoundedCustomerApplication",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents"
+                  ],
+                  "Resource": {
+                    "Fn::GetAtt": [
+                      "PublisherLogs",
+                      "Arn"
+                    ]
+                  }
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "dynamodb:GetItem",
+                    "dynamodb:PutItem",
+                    "dynamodb:DeleteItem",
+                    "dynamodb:TransactWriteItems"
+                  ],
+                  "Resource": {
+                    "Fn::GetAtt": [
+                      "PublisherJournal",
+                      "Arn"
+                    ]
+                  }
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "bedrock-agentcore:CreatePolicy",
+                    "bedrock-agentcore:GetPolicy",
+                    "bedrock-agentcore:DeletePolicy",
+                    "bedrock-agentcore:ListPolicies"
+                  ],
+                  "Resource": [
+                    {
+                      "Ref": "PolicyEngineArn"
+                    },
+                    {
+                      "Fn::Sub": "${PolicyEngineArn}/*"
+                    }
+                  ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": "bedrock-agentcore:ManageResourceScopedPolicy",
+                  "Resource": {
+                    "Ref": "GatewayArn"
+                  }
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "bedrock-agentcore:GetGateway",
+                    "bedrock-agentcore:InvokeGateway",
+                    "bedrock-agentcore:ListGatewayTargets",
+                    "bedrock-agentcore:GetGatewayTarget"
+                  ],
+                  "Resource": {
+                    "Ref": "GatewayArn"
+                  }
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": "lambda:InvokeFunction",
+                  "Resource": {
+                    "Fn::Sub": "${CanaryFunction.Arn}:*"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "PublisherFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "FunctionName": "authority-delta-customer-publisher",
+        "Runtime": "python3.12",
+        "Architectures": [
+          "x86_64"
+        ],
+        "Handler": "services.customer_publisher.handler.handler",
+        "Role": {
+          "Fn::GetAtt": [
+            "PublisherRole",
+            "Arn"
+          ]
+        },
+        "Timeout": 600,
+        "MemorySize": 256,
+        "Code": {
+          "S3Bucket": {
+            "Ref": "ArtifactBucket"
+          },
+          "S3Key": {
+            "Ref": "CodeKey"
+          },
+          "S3ObjectVersion": {
+            "Ref": "CodeVersion"
+          }
+        },
+        "Environment": {
+          "Variables": {
+            "CONNECTION_ID": {
+              "Ref": "ConnectionId"
+            },
+            "PUBLISHER_JOURNAL_TABLE": {
+              "Ref": "PublisherJournal"
+            }
+          }
+        }
+      }
+    },
+    "PublisherVersion": {
+      "Type": "AWS::Lambda::Version",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "PublisherFunction"
+        },
+        "CodeSha256": {
+          "Ref": "CodeSha256"
+        }
+      }
+    },
+    "PublisherAlias": {
+      "Type": "AWS::Lambda::Alias",
+      "Properties": {
+        "Name": "live",
+        "FunctionName": {
+          "Ref": "PublisherFunction"
+        },
+        "FunctionVersion": {
+          "Fn::GetAtt": [
+            "PublisherVersion",
+            "Version"
+          ]
+        }
+      }
+    },
+    "CanaryFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "FunctionName": "authority-delta-customer-canary",
+        "Runtime": "python3.12",
+        "Architectures": [
+          "x86_64"
+        ],
+        "Handler": "services.customer_publisher.handler.canary_handler",
+        "Role": {
+          "Fn::GetAtt": [
+            "CanaryRole",
+            "Arn"
+          ]
+        },
+        "Timeout": 180,
+        "MemorySize": 256,
+        "Code": {
+          "S3Bucket": {
+            "Ref": "ArtifactBucket"
+          },
+          "S3Key": {
+            "Ref": "CodeKey"
+          },
+          "S3ObjectVersion": {
+            "Ref": "CodeVersion"
+          }
+        },
+        "Environment": {
+          "Variables": {
+            "CONNECTION_ID": {
+              "Ref": "ConnectionId"
+            },
+            "PUBLISHER_JOURNAL_TABLE": {
+              "Ref": "PublisherJournal"
+            }
+          }
+        }
+      }
+    },
+    "CanaryVersion": {
+      "Type": "AWS::Lambda::Version",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "CanaryFunction"
+        },
+        "CodeSha256": {
+          "Ref": "CodeSha256"
+        }
+      }
+    },
+    "CanaryAlias": {
+      "Type": "AWS::Lambda::Alias",
+      "Properties": {
+        "Name": "live",
+        "FunctionName": {
+          "Ref": "CanaryFunction"
+        },
+        "FunctionVersion": {
+          "Fn::GetAtt": [
+            "CanaryVersion",
+            "Version"
+          ]
+        }
+      }
+    },
+    "InvocationFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "FunctionName": "authority-delta-customer-invocation",
+        "Runtime": "python3.12",
+        "Architectures": [
+          "x86_64"
+        ],
+        "Handler": "services.customer_publisher.handler.invocation_handler",
+        "Role": {
+          "Fn::GetAtt": [
+            "InvocationRole",
+            "Arn"
+          ]
+        },
+        "Timeout": 300,
+        "MemorySize": 256,
+        "Code": {
+          "S3Bucket": {
+            "Ref": "ArtifactBucket"
+          },
+          "S3Key": {
+            "Ref": "CodeKey"
+          },
+          "S3ObjectVersion": {
+            "Ref": "CodeVersion"
+          }
+        },
+        "Environment": {
+          "Variables": {
+            "CONNECTION_ID": {
+              "Ref": "ConnectionId"
+            },
+            "PUBLISHER_JOURNAL_TABLE": {
+              "Ref": "PublisherJournal"
+            }
+          }
+        }
+      }
+    },
+    "InvocationVersion": {
+      "Type": "AWS::Lambda::Version",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "InvocationFunction"
+        },
+        "CodeSha256": {
+          "Ref": "CodeSha256"
+        }
+      }
+    },
+    "InvocationAlias": {
+      "Type": "AWS::Lambda::Alias",
+      "Properties": {
+        "Name": "live",
+        "FunctionName": {
+          "Ref": "InvocationFunction"
+        },
+        "FunctionVersion": {
+          "Fn::GetAtt": [
+            "InvocationVersion",
+            "Version"
+          ]
+        }
+      }
+    },
+    "CanaryPermission": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Ref": "CanaryAlias"
+        },
+        "Principal": {
+          "Fn::GetAtt": [
+            "PublisherRole",
+            "Arn"
+          ]
+        }
+      }
+    },
+    "DiscoveryRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "RoleName": "authority-delta-customer-discovery",
+        "MaxSessionDuration": 3600,
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Sid": "OnlyRegisteredSourceRoleWithExternalId",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Sub": "arn:${AWS::Partition}:iam::${SourceAccountId}:root"
+                }
+              },
+              "Action": "sts:AssumeRole",
+              "Condition": {
+                "ArnEquals": {
+                  "aws:PrincipalArn": {
+                    "Ref": "SourceDiscoveryRoleArn"
+                  }
+                },
+                "StringEquals": {
+                  "sts:ExternalId": {
+                    "Ref": "ExternalId"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "Policies": [
+          {
+            "PolicyName": "BoundedCustomerConnector",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": "dynamodb:GetItem",
+                  "Resource": {
+                    "Fn::GetAtt": [
+                      "PublisherJournal",
+                      "Arn"
+                    ]
+                  }
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": "iam:GetRolePolicy",
+                  "Resource": {
+                    "Fn::GetAtt": [
+                      "PublisherRole",
+                      "Arn"
+                    ]
+                  }
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "bedrock-agentcore:GetGateway",
+                    "bedrock-agentcore:GetGatewayTarget",
+                    "bedrock-agentcore:GetPolicyEngine",
+                    "bedrock-agentcore:GetAgentRuntime",
+                    "bedrock-agentcore:GetAgentRuntimeEndpoint",
+                    "bedrock-agentcore:GetResourcePolicy"
+                  ],
+                  "Resource": [
+                    {
+                      "Ref": "GatewayArn"
+                    },
+                    {
+                      "Ref": "PolicyEngineArn"
+                    },
+                    {
+                      "Ref": "RuntimeArn"
+                    },
+                    {
+                      "Ref": "RuntimeEndpointArn"
+                    }
+                  ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": "bedrock-agentcore:GetPolicy",
+                  "Resource": [
+                    {
+                      "Ref": "PolicyEngineArn"
+                    },
+                    {
+                      "Fn::Sub": "${PolicyEngineArn}/*"
+                    }
+                  ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "bedrock-agentcore:ListGatewayTargets",
+                    "bedrock-agentcore:ListPolicies"
+                  ],
+                  "Resource": "*"
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "dynamodb:DescribeTable",
+                    "dynamodb:GetItem",
+                    "dynamodb:Scan"
+                  ],
+                  "Resource": [
+                    {
+                      "Fn::Sub": "arn:${AWS::Partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${RequestRegistryTableName}"
+                    },
+                    {
+                      "Fn::Sub": "arn:${AWS::Partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${SandboxLedgerTableName}"
+                    }
+                  ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": "lambda:GetFunctionConfiguration",
+                  "Resource": [
+                    {
+                      "Ref": "SandboxToolFunctionArn"
+                    },
+                    {
+                      "Ref": "PublisherAlias"
+                    },
+                    {
+                      "Ref": "CanaryAlias"
+                    },
+                    {
+                      "Ref": "InvocationAlias"
+                    }
+                  ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": "cloudformation:DescribeStacks",
+                  "Resource": [
+                    {
+                      "Fn::Sub": "arn:${AWS::Partition}:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/authority-delta-customer-baseline/*"
+                    },
+                    {
+                      "Fn::Sub": "arn:${AWS::Partition}:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/authority-delta-vendor-runtimes/*"
+                    },
+                    {
+                      "Fn::Sub": "arn:${AWS::Partition}:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/authority-delta-customer-publisher/*"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "PublishInvokeRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "RoleName": "authority-delta-customer-publish-invoke",
+        "MaxSessionDuration": 3600,
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Sid": "OnlyRegisteredSourceRoleWithExternalId",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Sub": "arn:${AWS::Partition}:iam::${SourceAccountId}:root"
+                }
+              },
+              "Action": "sts:AssumeRole",
+              "Condition": {
+                "ArnEquals": {
+                  "aws:PrincipalArn": {
+                    "Ref": "SourceApplicationWorkerRoleArn"
+                  }
+                },
+                "StringEquals": {
+                  "sts:ExternalId": {
+                    "Ref": "ExternalId"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "Policies": [
+          {
+            "PolicyName": "BoundedCustomerConnector",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": "lambda:InvokeFunction",
+                  "Resource": {
+                    "Ref": "PublisherAlias"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "RuntimeInvokeRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "RoleName": "authority-delta-customer-runtime-invoke",
+        "MaxSessionDuration": 3600,
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Sid": "OnlyRegisteredSourceRoleWithExternalId",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Sub": "arn:${AWS::Partition}:iam::${SourceAccountId}:root"
+                }
+              },
+              "Action": "sts:AssumeRole",
+              "Condition": {
+                "ArnEquals": {
+                  "aws:PrincipalArn": {
+                    "Ref": "SourceInvocationWorkerRoleArn"
+                  }
+                },
+                "StringEquals": {
+                  "sts:ExternalId": {
+                    "Ref": "ExternalId"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "Policies": [
+          {
+            "PolicyName": "BoundedCustomerConnector",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": "lambda:InvokeFunction",
+                  "Resource": {
+                    "Ref": "InvocationAlias"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  "Outputs": {
+    "PublisherFunctionArn": {
+      "Value": {
+        "Ref": "PublisherAlias"
+      }
+    },
+    "CanaryFunctionArn": {
+      "Value": {
+        "Ref": "CanaryAlias"
+      }
+    },
+    "CanaryRoleArn": {
+      "Value": {
+        "Fn::GetAtt": [
+          "CanaryRole",
+          "Arn"
+        ]
+      }
+    },
+    "InvocationFunctionArn": {
+      "Value": {
+        "Ref": "InvocationAlias"
+      }
+    },
+    "InvocationRoleArn": {
+      "Value": {
+        "Fn::GetAtt": [
+          "InvocationRole",
+          "Arn"
+        ]
+      }
+    },
+    "DiscoveryRoleArn": {
+      "Value": {
+        "Fn::GetAtt": [
+          "DiscoveryRole",
+          "Arn"
+        ]
+      }
+    },
+    "PublisherInvokeRoleArn": {
+      "Value": {
+        "Fn::GetAtt": [
+          "PublishInvokeRole",
+          "Arn"
+        ]
+      }
+    },
+    "RuntimeInvokeRoleArn": {
+      "Value": {
+        "Fn::GetAtt": [
+          "RuntimeInvokeRole",
+          "Arn"
+        ]
+      }
+    },
+    "ExternalIdHash": {
+      "Value": {
+        "Ref": "ExternalIdHash"
+      }
+    },
+    "PublisherJournalTable": {
+      "Value": {
+        "Ref": "PublisherJournal"
+      }
+    }
+  }
+}

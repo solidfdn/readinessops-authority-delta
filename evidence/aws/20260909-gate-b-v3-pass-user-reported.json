@@ -1,0 +1,82 @@
+{
+  "source": "USER_PROVIDED_LIVE_COMPACT_REPORT",
+  "scope": "GATE_B_SEMANTIC_RUNTIME_PROOF_ONLY",
+  "result": "PASS",
+  "semantic_runtime_proof": "PASS",
+  "gate_b": "NOT_PASSED_UI_PENDING",
+  "sem_01": "PASS",
+  "sem_02": "PASS",
+  "state_unchanged": true,
+  "error": null,
+  "build_id": "authority-delta-deploy:d546c96c-43dc-4e7b-beaf-1bdbae50a474",
+  "source_sha256": "f7ca7cef62f9455dbea675ea4f4fbb743c7d2b09e67655bd8e49de4afd17fe64",
+  "analysis_model_id": "apac.amazon.nova-pro-v1:0",
+  "build_status": "SUCCEEDED",
+  "partial": false,
+  "full_report_retrieved_locally": false,
+  "report_location": {
+    "bucket": "authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp",
+    "key": "evidence/b9074918a5114c34a19f723efb1a9383/gate-b-result.json",
+    "version_id": "k2EAn2Uy7jv5AmISBKnfVQPgOluM560i"
+  },
+  "analysis_diagnostics": {
+    "semantic": {
+      "runtime_call_status": "PASS",
+      "runtime_result": "OBSERVED",
+      "model_id": "apac.amazon.nova-pro-v1:0",
+      "runtime_error": null,
+      "proposal_attempt_count": 1,
+      "proposal_attempt_errors": [],
+      "analysis_status": "VALIDATED",
+      "analysis_error": null,
+      "patch_status": "REVIEW_REQUIRED",
+      "affected_case_ids": [
+        "P-002"
+      ],
+      "expected_case_ids": [
+        "P-002"
+      ],
+      "acceptance_status": "PASS",
+      "reads": [
+        "definitions",
+        "requests",
+        "observations"
+      ],
+      "proposal_recommendation": "HUMAN_REVIEW",
+      "rejected_proposal": null,
+      "checkpoint": {
+        "bucket": "authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp",
+        "key": "evidence/b9074918a5114c34a19f723efb1a9383/gate-b-result-semantic-analysis.json",
+        "version_id": "nOQsKvIAWDn69gAJ_yjDPfCQYuqyUZ3j",
+        "sha256": "ad111b834fb7d09be96adad69b8ebf72b0b8778f5b5f8ac10f813ebf694a6b19"
+      }
+    },
+    "benign": {
+      "runtime_call_status": "PASS",
+      "runtime_result": "OBSERVED",
+      "model_id": "apac.amazon.nova-pro-v1:0",
+      "runtime_error": null,
+      "proposal_attempt_count": 1,
+      "proposal_attempt_errors": [],
+      "analysis_status": "VALIDATED",
+      "analysis_error": null,
+      "patch_status": "NO_DECISION_CHANGE",
+      "affected_case_ids": [],
+      "expected_case_ids": [],
+      "acceptance_status": "PASS",
+      "reads": [
+        "definitions",
+        "observations",
+        "requests"
+      ],
+      "proposal_recommendation": "NO_DECISION_CHANGE",
+      "rejected_proposal": null,
+      "checkpoint": {
+        "bucket": "authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp",
+        "key": "evidence/b9074918a5114c34a19f723efb1a9383/gate-b-result-benign-analysis.json",
+        "version_id": "fzd525eUiX3w4JYiNfXH3W7Fe0rB.2tS",
+        "sha256": "bd00ddb1365179ed41f77c2e7d7e042a34dd13424d4439084471a5d048c957dd"
+      }
+    }
+  }
+}

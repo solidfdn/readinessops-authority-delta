@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0",
+  "scope": "LOCAL_D4_NEGATIVE_TEST_OBSERVABILITY_AND_CLIENT_CONTRACT_NO_LIVE_AWS_BROWSER_HUMAN_OR_GATE_PROMOTION",
+  "result": "PASS",
+  "observed_at": "2026-09-12T00:25:58Z",
+  "source_commit": "39cc8132963a225f686df650ac16a3cc0b6c822f",
+  "implementation": [
+    "one structured audit correlation record for every business API response",
+    "safe Gateway request ID with Lambda invocation fallback",
+    "SHA-256-only object, subject, mutation request ID and response correlation",
+    "no token, request body, response body, evidence, ExternalId, plaintext identity or unmatched path logging",
+    "audit emission cannot alter the already determined API result",
+    "client-generated sign-in, unconfirmed-operation and pending-write error contracts",
+    "product-language render checks across intake and all object workflow tabs"
+  ],
+  "verification": {
+    "fresh_clone_full_regression": {
+      "count": 288,
+      "result": "PASS",
+      "seconds": 62.320,
+      "exit_code": 0
+    },
+    "fresh_clone_focused_d4_contracts": {
+      "count": 15,
+      "result": "PASS",
+      "seconds": 0.546,
+      "exit_code": 0
+    },
+    "business_api_audit_contract_checks": 6,
+    "offline_hash_locked_analysis_dependency_install": "PASS_PYTHON_3_12_X86_64",
+    "generated_openapi_matches_commit": true,
+    "typescript": "PASS",
+    "production_build": "PASS",
+    "workbench_ui_contract_checks": 17,
+    "business_ui_contract_checks": 16,
+    "packaged_assets_match_fresh_build": true,
+    "packaged_app_js_sha256": "e6ae501381ff118509139ad68e30414fae8162b23790816eb85486ff444ac00b",
+    "business_package": {
+      "checks": 10,
+      "result": "PASS_TWICE_DETERMINISTIC",
+      "sha256": "8cd09005c89631d4b7e8385f139ae3782917ee568e9a6be5502d3d6966965a6f",
+      "size_bytes": 28528234
+    },
+    "codebuild_source_archive": {
+      "entries": 261,
+      "sha256": "3e086f7f7a5793452b1be9f20a353394d29fa1ec6e1dadc18b98a8ca07189dae",
+      "contains_business_handler": true,
+      "contains_product_ui": true
+    }
+  },
+  "security": {
+    "plaintext_subject_or_object_logged": false,
+    "request_or_response_body_logged": false,
+    "token_or_external_id_logged": false,
+    "unmatched_path_logged": false,
+    "audit_changes_api_result": false,
+    "audit_alone_claims_negative_test_pass": false,
+    "render_contract_claims_live_browser_pass": false
+  },
+  "deployment": "NOT_RUN",
+  "actual_account_b_identity": "NOT_RUN",
+  "live_negative_operations": "NOT_RUN",
+  "authenticated_browser_operation": "NOT_RUN",
+  "human_approval_or_publication": "NOT_RUN",
+  "actual_policy_write_or_runtime_canary": "NOT_RUN",
+  "judge_access_and_demo": "NOT_RUN",
+  "readinessops_product_ready": "NOT_RUN",
+  "gates_promoted": false,
+  "next_dependency": "Implement the fail-closed live HTTP/audit/before-after export collector and checker; run it only after connected positive-path readiness"
+}

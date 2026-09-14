@@ -1,0 +1,81 @@
+{
+  "record_type": "USER_REPORTED_RESULT",
+  "capture": "SELECTED_FIELDS_FROM_USER_PASTED_REPORT_NOT_S3_DOWNLOAD",
+  "source_commit": "14e5faa44e7588f3ae78e8cdc3eedc2edb2a6f59",
+  "build_id": "authority-delta-deploy:58a425c6-32f5-41a9-9070-6972d43c64e9",
+  "source_sha256": "cdbe393f92e36cc88dfe79e6501ac0b812a44c1d04c3f74d79b0d2c32f617a51",
+  "result": "PASS",
+  "deployment": "PASS",
+  "account": "538522204923",
+  "region": "ap-northeast-1",
+  "started_at": "2026-09-09T08:21:19.456380+00:00",
+  "completed_at": "2026-09-09T08:23:16.429212+00:00",
+  "scope": "AUTHENTICATED_REVIEW_WORKBENCH_NO_APPROVAL_OR_PUBLICATION",
+  "state_unchanged": true,
+  "workspace": {
+    "product": "ReadinessOps",
+    "edition": "AWS",
+    "schema_version": "1.1",
+    "workspace_hash": "b7e04320ef7d9103f7a57048db252f713e4459fc5995ec07e15013d57fb175af",
+    "objects": 1,
+    "evidence_records": 5,
+    "findings": 1,
+    "actions": 1,
+    "capabilities": {
+      "evidence_import": "PINNED_AWS_REPORT",
+      "assessment": "OBSERVED_STRANDS_ANALYSIS",
+      "decision_recording": "NOT_IMPLEMENTED",
+      "policy_publication": "NOT_IMPLEMENTED"
+    }
+  },
+  "resources": {
+    "ApiUrl": "https://ycebapd6i7.execute-api.ap-northeast-1.amazonaws.com",
+    "UserPoolId": "ap-northeast-1_seKBPUFZf",
+    "ReviewerUsername": "okada",
+    "ClientId": "2fqamgtqvtljr0d7a7k2jb98or",
+    "DistributionId": "E3AQILZGOR78PR",
+    "WorkspaceUrl": "https://d3rn3hqm0ax5ux.cloudfront.net/",
+    "ApiId": "ycebapd6i7",
+    "AuthOrigin": "https://authority-delta-538522204923-review.auth.ap-northeast-1.amazoncognito.com",
+    "ReviewFunction": "authority-delta-review",
+    "SiteBucket": "authority-delta-workbench-sitebucket-dgfu3kyqjd8y"
+  },
+  "delivery_checks": {
+    "index.html": {
+      "http_status": 200,
+      "sha256": "9d9e7b3bc746e19f5f8eec331a835d2dcfaecf304e4e1cca8792c3968834bc64"
+    },
+    "app.js": {
+      "http_status": 200,
+      "sha256": "56d7f666ed5866f8d7f055a40221b44ccd40a5916bdb3fdfdfcfe8a44d10320c"
+    },
+    "app.css": {
+      "http_status": 200,
+      "sha256": "f81f8a542b4f79c6813bd24be147a46703529d2c1aa11072b7f348aaaff7d42f"
+    },
+    "config.json": {
+      "http_status": 200,
+      "sha256": "fb21fb3a61412e15a7a6f5d45f9d15419b4b118bba315412df1ac077812bd9a7"
+    },
+    "unauthenticated_review": {
+      "http_status": 401
+    }
+  },
+  "semantic_runtime_proof": "PASS_REUSED",
+  "gate_b": "UI_LOGIN_AND_REVIEW_PENDING",
+  "approval_recorded": false,
+  "publication": "NOT_RUN",
+  "review_document_hash": "7a29fc3ebbaf8d668b37fbbb6546e9cc559400edc35e417ca1695b16ded1366e",
+  "review_data": {
+    "bucket": "authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp",
+    "key": "review/7a29fc3ebbaf8d668b37fbbb6546e9cc559400edc35e417ca1695b16ded1366e.json",
+    "version_id": "E0lM3jYWhORdIGpeuRzBdpgYhboVTozg"
+  },
+  "final_report": {
+    "bucket": "authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp",
+    "key": "evidence/383e7ec7e903466f8228dc10030f1e94/workbench-result.json",
+    "version_id": "mRyYjbOjKlAzuDMuDJQZccd80zl4GrQ8"
+  },
+  "operator_completed": true,
+  "new_screen_review": "NOT_REPORTED"
+}

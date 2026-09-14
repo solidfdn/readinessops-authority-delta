@@ -1,0 +1,592 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Authority Delta fixed V1/V2 Runtime code deployments. Existing Gateway and registry remain external bindings.",
+  "Parameters": {
+    "ArtifactBucket": {
+      "Type": "String",
+      "AllowedPattern": "^[a-z0-9][a-z0-9.-]{1,61}[a-z0-9]$"
+    },
+    "GatewayArn": {
+      "Type": "String",
+      "AllowedPattern": "^arn:aws:bedrock-agentcore:ap-northeast-1:[0-9]{12}:gateway/[a-z0-9-]+$"
+    },
+    "GatewayIdentifier": {
+      "Type": "String",
+      "AllowedPattern": "^[a-z0-9-]+$"
+    },
+    "GatewayUrl": {
+      "Type": "String",
+      "AllowedPattern": "^https://[a-z0-9-]+\\.gateway\\.bedrock-agentcore\\.ap-northeast-1\\.amazonaws\\.com/mcp$"
+    },
+    "RequestRegistryTableName": {
+      "Type": "String",
+      "MinLength": 3,
+      "MaxLength": 255,
+      "AllowedPattern": "^[a-zA-Z0-9_.-]+$"
+    },
+    "DeployerRoleArn": {
+      "Type": "String",
+      "AllowedPattern": "^arn:aws:iam::[0-9]{12}:role/ReadinessOpsAuthorityDeltaDeployer$"
+    },
+    "ApplicationCanaryRoleArn": {
+      "Type": "String",
+      "AllowedPattern": "^arn:aws:iam::[0-9]{12}:role/(ReadinessOpsAuthorityDeltaDeployer|authority-delta-customer-canary)$"
+    },
+    "NormalInvocationRoleArn": {
+      "Type": "String",
+      "AllowedPattern": "^arn:aws:iam::[0-9]{12}:role/(ReadinessOpsAuthorityDeltaDeployer|authority-delta-customer-invocation)$"
+    },
+    "V1ArtifactKey": {
+      "Type": "String",
+      "MinLength": 1,
+      "MaxLength": 1024
+    },
+    "V1ArtifactVersionId": {
+      "Type": "String",
+      "MinLength": 3,
+      "MaxLength": 1024
+    },
+    "V2ArtifactKey": {
+      "Type": "String",
+      "MinLength": 1,
+      "MaxLength": 1024
+    },
+    "V2ArtifactVersionId": {
+      "Type": "String",
+      "MinLength": 3,
+      "MaxLength": 1024
+    }
+  },
+  "Resources": {
+    "V1ExecutionRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "RoleName": "authority-delta-vendor-v1-runtime",
+        "Description": "Fixed V1 execution: immutable registry read and one Gateway only.",
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "bedrock-agentcore.amazonaws.com"
+              },
+              "Action": "sts:AssumeRole",
+              "Condition": {
+                "StringEquals": {
+                  "aws:SourceAccount": {
+                    "Ref": "AWS::AccountId"
+                  }
+                },
+                "ArnLike": {
+                  "aws:SourceArn": {
+                    "Fn::Sub": "arn:${AWS::Partition}:bedrock-agentcore:${AWS::Region}:${AWS::AccountId}:*"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "Policies": [
+          {
+            "PolicyName": "FixedRuntimePermissions",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Sid": "ReadOwnRuntimeCode",
+                  "Effect": "Allow",
+                  "Action": [
+                    "s3:GetObject",
+                    "s3:GetObjectVersion"
+                  ],
+                  "Resource": {
+                    "Fn::Sub": "arn:${AWS::Partition}:s3:::${ArtifactBucket}/${V1ArtifactKey}"
+                  }
+                },
+                {
+                  "Sid": "ReadImmutableRegistry",
+                  "Effect": "Allow",
+                  "Action": "dynamodb:GetItem",
+                  "Resource": {
+                    "Fn::Sub": "arn:${AWS::Partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${RequestRegistryTableName}"
+                  }
+                },
+                {
+                  "Sid": "InvokeOnlyBoundGateway",
+                  "Effect": "Allow",
+                  "Action": "bedrock-agentcore:InvokeGateway",
+                  "Resource": {
+                    "Ref": "GatewayArn"
+                  }
+                },
+                {
+                  "Sid": "IdentifyOwnExecution",
+                  "Effect": "Allow",
+                  "Action": "sts:GetCallerIdentity",
+                  "Resource": "*"
+                },
+                {
+                  "Sid": "RuntimeLogGroup",
+                  "Effect": "Allow",
+                  "Action": [
+                    "logs:CreateLogGroup",
+                    "logs:DescribeLogStreams"
+                  ],
+                  "Resource": {
+                    "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/bedrock-agentcore/runtimes/authority_delta_vendor_v1-*"
+                  }
+                },
+                {
+                  "Sid": "RuntimeLogEvents",
+                  "Effect": "Allow",
+                  "Action": [
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents"
+                  ],
+                  "Resource": {
+                    "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/bedrock-agentcore/runtimes/authority_delta_vendor_v1-*:log-stream:*"
+                  }
+                },
+                {
+                  "Sid": "DiscoverRuntimeLogs",
+                  "Effect": "Allow",
+                  "Action": "logs:DescribeLogGroups",
+                  "Resource": "*"
+                },
+                {
+                  "Sid": "RuntimeLogResourcePolicy",
+                  "Effect": "Allow",
+                  "Action": "logs:PutResourcePolicy",
+                  "Resource": {
+                    "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/bedrock-agentcore/runtimes/authority_delta_vendor_v1-*"
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "Tags": [
+          {
+            "Key": "Project",
+            "Value": "ReadinessOpsAuthorityDelta"
+          },
+          {
+            "Key": "Release",
+            "Value": "V1"
+          }
+        ]
+      }
+    },
+    "V1Runtime": {
+      "Type": "AWS::BedrockAgentCore::Runtime",
+      "Properties": {
+        "AgentRuntimeName": "authority_delta_vendor_v1",
+        "AgentRuntimeArtifact": {
+          "CodeConfiguration": {
+            "Code": {
+              "S3": {
+                "Bucket": {
+                  "Ref": "ArtifactBucket"
+                },
+                "Prefix": {
+                  "Ref": "V1ArtifactKey"
+                },
+                "VersionId": {
+                  "Ref": "V1ArtifactVersionId"
+                }
+              }
+            },
+            "Runtime": "PYTHON_3_12",
+            "EntryPoint": [
+              "runtime.py"
+            ]
+          }
+        },
+        "RoleArn": {
+          "Fn::GetAtt": [
+            "V1ExecutionRole",
+            "Arn"
+          ]
+        },
+        "NetworkConfiguration": {
+          "NetworkMode": "PUBLIC"
+        },
+        "ProtocolConfiguration": "HTTP",
+        "LifecycleConfiguration": {
+          "IdleRuntimeSessionTimeout": 60,
+          "MaxLifetime": 600
+        },
+        "EnvironmentVariables": {
+          "AD_ACCOUNT_ID": {
+            "Ref": "AWS::AccountId"
+          },
+          "AD_REGION": {
+            "Ref": "AWS::Region"
+          },
+          "AD_GATEWAY_URL": {
+            "Ref": "GatewayUrl"
+          },
+          "AD_GATEWAY_ID": {
+            "Ref": "GatewayIdentifier"
+          },
+          "AD_REGISTRY_TABLE": {
+            "Ref": "RequestRegistryTableName"
+          },
+          "AD_EXPECTED_ROLE_NAME": {
+            "Ref": "V1ExecutionRole"
+          }
+        },
+        "Tags": {
+          "Project": "ReadinessOpsAuthorityDelta",
+          "Release": "V1"
+        }
+      }
+    },
+    "V1Endpoint": {
+      "Type": "AWS::BedrockAgentCore::RuntimeEndpoint",
+      "Properties": {
+        "AgentRuntimeId": {
+          "Fn::GetAtt": [
+            "V1Runtime",
+            "AgentRuntimeId"
+          ]
+        },
+        "AgentRuntimeVersion": {
+          "Fn::GetAtt": [
+            "V1Runtime",
+            "AgentRuntimeVersion"
+          ]
+        },
+        "Name": "fixed_v1",
+        "Tags": {
+          "Project": "ReadinessOpsAuthorityDelta",
+          "Release": "V1"
+        }
+      }
+    },
+    "V1RuntimeResourcePolicy": {
+      "Type": "AWS::BedrockAgentCore::ResourcePolicy",
+      "Properties": {
+        "ResourceArn": {
+          "Fn::GetAtt": [
+            "V1Runtime",
+            "AgentRuntimeArn"
+          ]
+        },
+        "Policy": {
+          "Fn::Sub": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Sid\":\"PermitOnlyDeploymentCanary\",\"Effect\":\"Allow\",\"Principal\":{\"AWS\":\"${DeployerRoleArn}\"},\"Action\":[\"bedrock-agentcore:InvokeAgentRuntime\",\"bedrock-agentcore:StopRuntimeSession\"],\"Resource\":\"${V1Runtime.AgentRuntimeArn}\"},{\"Sid\":\"DenyOtherCallers\",\"Effect\":\"Deny\",\"Principal\":\"*\",\"Action\":[\"bedrock-agentcore:InvokeAgentRuntime\",\"bedrock-agentcore:InvokeAgentRuntimeForUser\",\"bedrock-agentcore:InvokeAgentRuntimeCommand\",\"bedrock-agentcore:InvokeAgentRuntimeCommandShell\",\"bedrock-agentcore:InvokeAgentRuntimeWithWebSocketStream\",\"bedrock-agentcore:InvokeAgentRuntimeWithWebSocketStreamForUser\",\"bedrock-agentcore:StopRuntimeSession\"],\"Resource\":\"${V1Runtime.AgentRuntimeArn}\",\"Condition\":{\"ArnNotEquals\":{\"aws:PrincipalArn\":\"${DeployerRoleArn}\"}}}]}"
+        }
+      }
+    },
+    "V2ExecutionRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "RoleName": "authority-delta-vendor-v2-runtime",
+        "Description": "Fixed V2 execution: immutable registry read and one Gateway only.",
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "bedrock-agentcore.amazonaws.com"
+              },
+              "Action": "sts:AssumeRole",
+              "Condition": {
+                "StringEquals": {
+                  "aws:SourceAccount": {
+                    "Ref": "AWS::AccountId"
+                  }
+                },
+                "ArnLike": {
+                  "aws:SourceArn": {
+                    "Fn::Sub": "arn:${AWS::Partition}:bedrock-agentcore:${AWS::Region}:${AWS::AccountId}:*"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "Policies": [
+          {
+            "PolicyName": "FixedRuntimePermissions",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Sid": "ReadOwnRuntimeCode",
+                  "Effect": "Allow",
+                  "Action": [
+                    "s3:GetObject",
+                    "s3:GetObjectVersion"
+                  ],
+                  "Resource": {
+                    "Fn::Sub": "arn:${AWS::Partition}:s3:::${ArtifactBucket}/${V2ArtifactKey}"
+                  }
+                },
+                {
+                  "Sid": "ReadImmutableRegistry",
+                  "Effect": "Allow",
+                  "Action": "dynamodb:GetItem",
+                  "Resource": {
+                    "Fn::Sub": "arn:${AWS::Partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${RequestRegistryTableName}"
+                  }
+                },
+                {
+                  "Sid": "InvokeOnlyBoundGateway",
+                  "Effect": "Allow",
+                  "Action": "bedrock-agentcore:InvokeGateway",
+                  "Resource": {
+                    "Ref": "GatewayArn"
+                  }
+                },
+                {
+                  "Sid": "IdentifyOwnExecution",
+                  "Effect": "Allow",
+                  "Action": "sts:GetCallerIdentity",
+                  "Resource": "*"
+                },
+                {
+                  "Sid": "RuntimeLogGroup",
+                  "Effect": "Allow",
+                  "Action": [
+                    "logs:CreateLogGroup",
+                    "logs:DescribeLogStreams"
+                  ],
+                  "Resource": {
+                    "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/bedrock-agentcore/runtimes/authority_delta_vendor_v2-*"
+                  }
+                },
+                {
+                  "Sid": "RuntimeLogEvents",
+                  "Effect": "Allow",
+                  "Action": [
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents"
+                  ],
+                  "Resource": {
+                    "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/bedrock-agentcore/runtimes/authority_delta_vendor_v2-*:log-stream:*"
+                  }
+                },
+                {
+                  "Sid": "DiscoverRuntimeLogs",
+                  "Effect": "Allow",
+                  "Action": "logs:DescribeLogGroups",
+                  "Resource": "*"
+                },
+                {
+                  "Sid": "RuntimeLogResourcePolicy",
+                  "Effect": "Allow",
+                  "Action": "logs:PutResourcePolicy",
+                  "Resource": {
+                    "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/bedrock-agentcore/runtimes/authority_delta_vendor_v2-*"
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "Tags": [
+          {
+            "Key": "Project",
+            "Value": "ReadinessOpsAuthorityDelta"
+          },
+          {
+            "Key": "Release",
+            "Value": "V2"
+          }
+        ]
+      }
+    },
+    "V2Runtime": {
+      "Type": "AWS::BedrockAgentCore::Runtime",
+      "Properties": {
+        "AgentRuntimeName": "authority_delta_vendor_v2",
+        "AgentRuntimeArtifact": {
+          "CodeConfiguration": {
+            "Code": {
+              "S3": {
+                "Bucket": {
+                  "Ref": "ArtifactBucket"
+                },
+                "Prefix": {
+                  "Ref": "V2ArtifactKey"
+                },
+                "VersionId": {
+                  "Ref": "V2ArtifactVersionId"
+                }
+              }
+            },
+            "Runtime": "PYTHON_3_12",
+            "EntryPoint": [
+              "runtime.py"
+            ]
+          }
+        },
+        "RoleArn": {
+          "Fn::GetAtt": [
+            "V2ExecutionRole",
+            "Arn"
+          ]
+        },
+        "NetworkConfiguration": {
+          "NetworkMode": "PUBLIC"
+        },
+        "ProtocolConfiguration": "HTTP",
+        "LifecycleConfiguration": {
+          "IdleRuntimeSessionTimeout": 60,
+          "MaxLifetime": 600
+        },
+        "EnvironmentVariables": {
+          "AD_ACCOUNT_ID": {
+            "Ref": "AWS::AccountId"
+          },
+          "AD_REGION": {
+            "Ref": "AWS::Region"
+          },
+          "AD_GATEWAY_URL": {
+            "Ref": "GatewayUrl"
+          },
+          "AD_GATEWAY_ID": {
+            "Ref": "GatewayIdentifier"
+          },
+          "AD_REGISTRY_TABLE": {
+            "Ref": "RequestRegistryTableName"
+          },
+          "AD_EXPECTED_ROLE_NAME": {
+            "Ref": "V2ExecutionRole"
+          }
+        },
+        "Tags": {
+          "Project": "ReadinessOpsAuthorityDelta",
+          "Release": "V2"
+        }
+      }
+    },
+    "V2Endpoint": {
+      "Type": "AWS::BedrockAgentCore::RuntimeEndpoint",
+      "Properties": {
+        "AgentRuntimeId": {
+          "Fn::GetAtt": [
+            "V2Runtime",
+            "AgentRuntimeId"
+          ]
+        },
+        "AgentRuntimeVersion": {
+          "Fn::GetAtt": [
+            "V2Runtime",
+            "AgentRuntimeVersion"
+          ]
+        },
+        "Name": "fixed_v2",
+        "Tags": {
+          "Project": "ReadinessOpsAuthorityDelta",
+          "Release": "V2"
+        }
+      }
+    },
+    "V2RuntimeResourcePolicy": {
+      "Type": "AWS::BedrockAgentCore::ResourcePolicy",
+      "Properties": {
+        "ResourceArn": {
+          "Fn::GetAtt": [
+            "V2Runtime",
+            "AgentRuntimeArn"
+          ]
+        },
+        "Policy": {
+          "Fn::Sub": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Sid\":\"PermitOnlyDeploymentCanaryAndInvocation\",\"Effect\":\"Allow\",\"Principal\":{\"AWS\":[\"${DeployerRoleArn}\",\"${ApplicationCanaryRoleArn}\",\"${NormalInvocationRoleArn}\"]},\"Action\":[\"bedrock-agentcore:InvokeAgentRuntime\",\"bedrock-agentcore:StopRuntimeSession\"],\"Resource\":\"${V2Runtime.AgentRuntimeArn}\"},{\"Sid\":\"DenyOtherCallers\",\"Effect\":\"Deny\",\"Principal\":\"*\",\"Action\":[\"bedrock-agentcore:InvokeAgentRuntime\",\"bedrock-agentcore:InvokeAgentRuntimeForUser\",\"bedrock-agentcore:InvokeAgentRuntimeCommand\",\"bedrock-agentcore:InvokeAgentRuntimeCommandShell\",\"bedrock-agentcore:InvokeAgentRuntimeWithWebSocketStream\",\"bedrock-agentcore:InvokeAgentRuntimeWithWebSocketStreamForUser\",\"bedrock-agentcore:StopRuntimeSession\"],\"Resource\":\"${V2Runtime.AgentRuntimeArn}\",\"Condition\":{\"ArnNotEquals\":{\"aws:PrincipalArn\":[\"${DeployerRoleArn}\",\"${ApplicationCanaryRoleArn}\",\"${NormalInvocationRoleArn}\"]}}}]}"
+        }
+      }
+    }
+  },
+  "Outputs": {
+    "V1RuntimeArn": {
+      "Value": {
+        "Fn::GetAtt": [
+          "V1Runtime",
+          "AgentRuntimeArn"
+        ]
+      }
+    },
+    "V1RuntimeId": {
+      "Value": {
+        "Fn::GetAtt": [
+          "V1Runtime",
+          "AgentRuntimeId"
+        ]
+      }
+    },
+    "V1RuntimeVersion": {
+      "Value": {
+        "Fn::GetAtt": [
+          "V1Runtime",
+          "AgentRuntimeVersion"
+        ]
+      }
+    },
+    "V1EndpointArn": {
+      "Value": {
+        "Fn::GetAtt": [
+          "V1Endpoint",
+          "AgentRuntimeEndpointArn"
+        ]
+      }
+    },
+    "V1EndpointName": {
+      "Value": "fixed_v1"
+    },
+    "V1ExecutionRoleArn": {
+      "Value": {
+        "Fn::GetAtt": [
+          "V1ExecutionRole",
+          "Arn"
+        ]
+      }
+    },
+    "V2RuntimeArn": {
+      "Value": {
+        "Fn::GetAtt": [
+          "V2Runtime",
+          "AgentRuntimeArn"
+        ]
+      }
+    },
+    "V2RuntimeId": {
+      "Value": {
+        "Fn::GetAtt": [
+          "V2Runtime",
+          "AgentRuntimeId"
+        ]
+      }
+    },
+    "V2RuntimeVersion": {
+      "Value": {
+        "Fn::GetAtt": [
+          "V2Runtime",
+          "AgentRuntimeVersion"
+        ]
+      }
+    },
+    "V2EndpointArn": {
+      "Value": {
+        "Fn::GetAtt": [
+          "V2Endpoint",
+          "AgentRuntimeEndpointArn"
+        ]
+      }
+    },
+    "V2EndpointName": {
+      "Value": "fixed_v2"
+    },
+    "V2ExecutionRoleArn": {
+      "Value": {
+        "Fn::GetAtt": [
+          "V2ExecutionRole",
+          "Arn"
+        ]
+      }
+    }
+  }
+}

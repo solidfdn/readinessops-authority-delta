@@ -1,0 +1,444 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ReadinessOps AWS evidence workspace 1.1",
+  "description": "Read-only validated workspace projection. Boundary parameters additionally require registered adapter validation. Does not represent completed approval or publication. Legacy authority-delta.schema.json v1 remains unchanged.",
+  "$ref": "#/$defs/Workspace",
+  "$defs": {
+    "Boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "adapter_id",
+        "adapter_version",
+        "adapter_schema_hash",
+        "parameters",
+        "boundary_hash"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "1.1"
+        },
+        "adapter_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+        },
+        "adapter_version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        },
+        "adapter_schema_hash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "parameters": {
+          "type": "object"
+        },
+        "boundary_hash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "Source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "bucket",
+        "key",
+        "version_id"
+      ],
+      "properties": {
+        "bucket": {
+          "type": "string",
+          "minLength": 1
+        },
+        "key": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version_id": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "Workspace": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "product",
+        "edition",
+        "module",
+        "objects",
+        "evidence",
+        "findings",
+        "actions",
+        "history",
+        "decisions",
+        "publications",
+        "review_document_hash",
+        "capabilities",
+        "workspace_hash"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "1.1"
+        },
+        "product": {
+          "const": "ReadinessOps"
+        },
+        "edition": {
+          "const": "AWS"
+        },
+        "module": {
+          "const": "Authority Delta"
+        },
+        "objects": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "object_id",
+              "name",
+              "purpose",
+              "state",
+              "connection_id",
+              "sample",
+              "sample_label",
+              "adapter_id",
+              "adapter_version",
+              "boundary"
+            ],
+            "properties": {
+              "object_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "purpose": {
+                "type": "string",
+                "minLength": 1
+              },
+              "state": {
+                "enum": [
+                  "REVIEW_REQUIRED",
+                  "ASSESSED"
+                ]
+              },
+              "connection_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "sample": {
+                "type": "boolean"
+              },
+              "sample_label": {
+                "type": "string",
+                "minLength": 1
+              },
+              "adapter_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "adapter_version": {
+                "type": "string",
+                "minLength": 1
+              },
+              "boundary": {
+                "$ref": "#/$defs/Boundary"
+              }
+            }
+          }
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "evidence_id",
+              "object_id",
+              "kind",
+              "title",
+              "content_hash",
+              "source",
+              "content"
+            ],
+            "properties": {
+              "evidence_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "object_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "kind": {
+                "enum": [
+                  "RELEASE_DEFINITION",
+                  "OBSERVATION"
+                ]
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "content_hash": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "source": {
+                "$ref": "#/$defs/Source"
+              },
+              "content": {
+                "type": [
+                  "object",
+                  "array"
+                ]
+              }
+            }
+          }
+        },
+        "findings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "finding_id",
+              "object_id",
+              "kind",
+              "state",
+              "case_id",
+              "title",
+              "description",
+              "before",
+              "candidate",
+              "evidence_ids",
+              "evidence_refs",
+              "action_id",
+              "risk"
+            ],
+            "properties": {
+              "finding_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "object_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "kind": {
+                "const": "DELEGATION_GAP"
+              },
+              "state": {
+                "const": "OPEN"
+              },
+              "case_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "description": {
+                "type": "string",
+                "minLength": 1
+              },
+              "before": {
+                "type": "string",
+                "minLength": 1
+              },
+              "candidate": {
+                "type": "string",
+                "minLength": 1
+              },
+              "evidence_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "uniqueItems": true,
+                "minItems": 1
+              },
+              "evidence_refs": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "uniqueItems": true,
+                "minItems": 1
+              },
+              "action_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "risk": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "actions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "action_id",
+              "object_id",
+              "finding_id",
+              "state",
+              "title",
+              "description",
+              "evidence_ids",
+              "route"
+            ],
+            "properties": {
+              "action_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "object_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "finding_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "state": {
+                "const": "REVIEW_REQUIRED"
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "description": {
+                "type": "string",
+                "minLength": 1
+              },
+              "evidence_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "uniqueItems": true,
+                "minItems": 1
+              },
+              "route": {
+                "const": "review"
+              }
+            }
+          }
+        },
+        "history": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "event_id",
+              "kind",
+              "label",
+              "recorded_at",
+              "time_basis",
+              "status",
+              "request_id",
+              "evidence_ids"
+            ],
+            "properties": {
+              "event_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "kind": {
+                "const": "ANALYSIS_OBSERVED"
+              },
+              "label": {
+                "type": "string",
+                "minLength": 1
+              },
+              "recorded_at": {
+                "type": "string",
+                "minLength": 1
+              },
+              "time_basis": {
+                "const": "Saved report completion"
+              },
+              "status": {
+                "type": "string",
+                "minLength": 1
+              },
+              "request_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "evidence_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "uniqueItems": true,
+                "minItems": 1
+              }
+            }
+          }
+        },
+        "decisions": {
+          "type": "array",
+          "maxItems": 0
+        },
+        "publications": {
+          "type": "array",
+          "maxItems": 0
+        },
+        "review_document_hash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "capabilities": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "evidence_import",
+            "assessment",
+            "decision_recording",
+            "policy_publication"
+          ],
+          "properties": {
+            "evidence_import": {
+              "const": "PINNED_AWS_REPORT"
+            },
+            "assessment": {
+              "const": "OBSERVED_STRANDS_ANALYSIS"
+            },
+            "decision_recording": {
+              "const": "NOT_IMPLEMENTED"
+            },
+            "policy_publication": {
+              "const": "NOT_IMPLEMENTED"
+            }
+          }
+        },
+        "workspace_hash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    }
+  }
+}

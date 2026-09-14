@@ -1,0 +1,11 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      python: 3.12
+    commands:
+      - python3 -m venv /tmp/authority-delta-gate-a-env
+      - /tmp/authority-delta-gate-a-env/bin/python -m pip install --no-index --find-links vendor/wheels --require-hashes -r requirements-deploy.lock
+  build:
+    commands:
+      - PYTHONPATH=src /tmp/authority-delta-gate-a-env/bin/python scripts/gate_a.py

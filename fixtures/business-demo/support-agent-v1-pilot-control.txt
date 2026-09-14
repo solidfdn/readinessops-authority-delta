@@ -1,0 +1,29 @@
+READINESSOPS HACKATHON DEMONSTRATION EVIDENCE
+Document: Customer Support Agent V1 Pilot Control Record
+Evidence status: Synthetic demonstration record. It is not customer evidence and does not report production results.
+Owner: SOLIFAN ReadinessOps demonstration team
+Effective version: V1
+
+Purpose
+The V1 pilot assists a human support specialist by drafting responses. A human specialist remains responsible for sending every response.
+
+Permitted scope
+The agent may use public product documentation and internal articles classified Internal. It may prepare a draft only for routine product questions. It may not send a response, change a customer record, issue a refund, or make an eligibility decision.
+
+Data boundary
+The agent must not transmit Customer Confidential data or Personal Data to an external service. V1 does not send ticket text to a third-party endpoint. Test cases use synthetic customer records only.
+
+Human-only cases
+Identity verification, refunds, legal threats, security incidents, account suspension, and any case with uncertain data classification must be routed to a human specialist without an autonomous response.
+
+Model use
+Amazon Nova Pro through the approved APAC inference profile may be used to organize cited evidence for the pilot. The model may propose; it cannot approve the pilot, publish a decision, change AWS permissions, or send a customer response.
+
+Measurement plan
+The pilot goal is to reduce median first-response preparation time while preserving review quality and privacy controls. The measurement period is four weeks. The source records are the support queue audit log, reviewer correction log, and privacy incident register. No measured improvement or production accuracy result is available yet.
+
+Stop and reassessment conditions
+Stop the affected workflow and reassess before use if the agent begins sending messages, a new external data recipient is introduced, the permitted data classification changes, a human-only category is automated, the approved model route changes, or a confirmed privacy incident occurs.
+
+Decision requested
+Decide whether to continue a bounded, human-reviewed V1 pilot under the controls above. Missing production metrics must remain missing and must not be represented as zero or as a successful outcome.

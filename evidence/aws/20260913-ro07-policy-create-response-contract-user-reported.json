@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "scope": "USER_REPORTED_RO07_POLICY_CREATE_RESPONSE_CONTRACT_FAILURE",
+  "source": "USER_PROVIDED_CLOUDSHELL_OUTPUT",
+  "observed_at": "2026-09-13T15:58:36.662934+00:00",
+  "account_a": "538522204923",
+  "account_b": "062788795311",
+  "wiring_build_id": "authority-delta-deploy:ee21cb5b-5539-4fb2-9464-2f26bf3cb579",
+  "application_id": "application-84ed051249524be2adc7d0d46f0503c5",
+  "object_id": "o-8b018b1fb182496ea6749f12c78a65b8",
+  "attempt": 54,
+  "status": "UNKNOWN",
+  "last_error": "Publisher invocation failed: Lambda FunctionError=Unhandled; remote=ValueError: Policy create lacks successful AWS evidence",
+  "policy_delete_response_recovery_attempts": 1,
+  "policy_create_response_recovery_attempts": 0,
+  "pre_dispatch_wiring_result": "PASS",
+  "state_unchanged": true,
+  "policy_count_before_dispatch": 0,
+  "ledger_count_before_dispatch": 0,
+  "terminal_marker": "NEXT_REMOTE_ROOT_CAUSE_CAPTURED_RETRY_PARKED",
+  "live_authority_result": "NOT_ACCEPTED_AS_SUCCESS",
+  "qualification": "USER_REPORTED_NOT_FRESHLY_OBSERVED_BY_CODEX"
+}

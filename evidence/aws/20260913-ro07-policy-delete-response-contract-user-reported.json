@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0",
+  "scope": "USER_REPORTED_ACCOUNT_A_APPLICATION_FAILURE_NOT_INDEPENDENTLY_OBSERVED",
+  "observed_at": "2026-09-13T15:11:06.232831Z",
+  "account_a": "538522204923",
+  "account_b": "062788795311",
+  "region": "ap-northeast-1",
+  "wiring_build_id": "authority-delta-deploy:c333ca1e-f0ef-4d7a-9de5-0ad19496c10c",
+  "application_id": "application-84ed051249524be2adc7d0d46f0503c5",
+  "application_attempt": 53,
+  "enforcement_digest": "af22fb208fa39d585fab31871daa4e9e5176ef1f88c586bcfceece2c3c65d687",
+  "wiring_result": "PASS",
+  "wiring_policy_count_before_recovery": 1,
+  "application_status": "UNKNOWN",
+  "error": {
+    "type": "ValueError",
+    "message": "Failed candidate Policy delete lacks successful AWS evidence"
+  },
+  "pinned_sdk_contract": {
+    "operation": "DeletePolicy",
+    "method": "DELETE",
+    "success_http_status": 202,
+    "accepted_resource_status": "DELETING"
+  },
+  "root_cause": "IMPLEMENTATION_REQUIRED_HTTP_200_FOR_AN_ASYNCHRONOUS_DELETE_OPERATION_WHOSE_PINNED_AWS_SDK_SUCCESS_CODE_IS_202",
+  "safe_recovery_requirement": "RECONCILE_EXACT_POLICY_ABSENCE_OR_DELETING_STATE_REPROVE_ALL_REQUESTS_DENY_THEN_RETRY_WITH_ONE_DETERMINISTIC_NEW_TOKEN",
+  "result_ref": null,
+  "real_payment": "NOT_AUTHORIZED"
+}

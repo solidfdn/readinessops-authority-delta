@@ -1,0 +1,227 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://solid-fdn.co.jp/readinessops/authority-delta/contracts/v1.json",
+  "title": "ReadinessOps Authority Delta Contracts v1",
+  "$defs": {
+    "non_empty_string": {"type": "string", "minLength": 1},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "utc_timestamp": {"type": "string", "format": "date-time", "pattern": "Z$"},
+    "string_set": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/non_empty_string"},
+      "uniqueItems": true
+    },
+    "judgment": {
+      "enum": ["ALLOW", "HUMAN_REVIEW", "DO_NOT_DELEGATE", "UNKNOWN"]
+    },
+    "boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "max_amount_minor", "currency", "require_known_vendor", "require_po_match",
+        "verified_changed_bank_methods", "forbidden_actions"
+      ],
+      "properties": {
+        "max_amount_minor": {"type": "integer", "minimum": 0},
+        "currency": {"type": "string", "const": "USD"},
+        "require_known_vendor": {"type": "boolean"},
+        "require_po_match": {"type": "boolean"},
+        "verified_changed_bank_methods": {"$ref": "#/$defs/string_set"},
+        "forbidden_actions": {"$ref": "#/$defs/string_set"}
+      }
+    },
+    "decision_pack": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version", "decision_pack_id", "governance_object_id", "connection_id",
+        "boundary_version", "evidence_snapshot_hash", "approved_release_id", "boundary",
+        "effective_until", "approver_identity", "approved_at", "origin"
+      ],
+      "properties": {
+        "schema_version": {"const": "1.0"},
+        "decision_pack_id": {"$ref": "#/$defs/non_empty_string"},
+        "governance_object_id": {"$ref": "#/$defs/non_empty_string"},
+        "connection_id": {"$ref": "#/$defs/non_empty_string"},
+        "boundary_version": {"type": "integer", "minimum": 1},
+        "evidence_snapshot_hash": {"$ref": "#/$defs/sha256"},
+        "approved_release_id": {"$ref": "#/$defs/non_empty_string"},
+        "boundary": {"$ref": "#/$defs/boundary"},
+        "effective_until": {"$ref": "#/$defs/utc_timestamp"},
+        "approver_identity": {"$ref": "#/$defs/non_empty_string"},
+        "approved_at": {"$ref": "#/$defs/utc_timestamp"},
+        "origin": {"$ref": "#/$defs/non_empty_string"}
+      }
+    },
+    "release_manifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version", "release_id", "governance_object_id", "connection_id",
+        "artifact_hash", "definition_hash", "tool_schema_hash", "runtime_arn",
+        "runtime_version", "endpoint_arn", "execution_role_arn", "gateway_arn",
+        "policy_engine_id", "account_id", "region", "fixture_snapshot_hash",
+        "registered_at", "registrar_identity"
+      ],
+      "properties": {
+        "schema_version": {"const": "1.0"},
+        "release_id": {"$ref": "#/$defs/non_empty_string"},
+        "governance_object_id": {"$ref": "#/$defs/non_empty_string"},
+        "connection_id": {"$ref": "#/$defs/non_empty_string"},
+        "artifact_hash": {"$ref": "#/$defs/sha256"},
+        "definition_hash": {"$ref": "#/$defs/sha256"},
+        "tool_schema_hash": {"$ref": "#/$defs/sha256"},
+        "runtime_arn": {"$ref": "#/$defs/non_empty_string"},
+        "runtime_version": {"$ref": "#/$defs/non_empty_string"},
+        "endpoint_arn": {"$ref": "#/$defs/non_empty_string"},
+        "execution_role_arn": {"$ref": "#/$defs/non_empty_string"},
+        "gateway_arn": {"$ref": "#/$defs/non_empty_string"},
+        "policy_engine_id": {"$ref": "#/$defs/non_empty_string"},
+        "account_id": {"type": "string", "pattern": "^[0-9]{12}$"},
+        "region": {"$ref": "#/$defs/non_empty_string"},
+        "fixture_snapshot_hash": {"$ref": "#/$defs/sha256"},
+        "registered_at": {"$ref": "#/$defs/utc_timestamp"},
+        "registrar_identity": {"$ref": "#/$defs/non_empty_string"}
+      }
+    },
+    "decision_change": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["case_id", "before_judgment", "after_judgment", "reason", "evidence_refs"],
+      "properties": {
+        "case_id": {"$ref": "#/$defs/non_empty_string"},
+        "before_judgment": {"$ref": "#/$defs/judgment"},
+        "after_judgment": {"$ref": "#/$defs/judgment"},
+        "reason": {"$ref": "#/$defs/non_empty_string"},
+        "evidence_refs": {"$ref": "#/$defs/string_set"}
+      }
+    },
+    "decision_patch": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version", "patch_id", "decision_pack_id", "boundary_version",
+        "before_manifest_hash", "candidate_manifest_hash", "fixture_snapshot_hash",
+        "replay_evidence_hash", "analysis_evidence_hash", "coverage", "affected_case_ids",
+        "unknown_case_ids", "changes", "recommendation", "status", "analysis_status"
+      ],
+      "properties": {
+        "schema_version": {"const": "1.0"},
+        "patch_id": {"$ref": "#/$defs/non_empty_string"},
+        "decision_pack_id": {"$ref": "#/$defs/non_empty_string"},
+        "boundary_version": {"type": "integer", "minimum": 1},
+        "before_manifest_hash": {"$ref": "#/$defs/sha256"},
+        "candidate_manifest_hash": {"$ref": "#/$defs/sha256"},
+        "fixture_snapshot_hash": {"$ref": "#/$defs/sha256"},
+        "replay_evidence_hash": {"$ref": "#/$defs/sha256"},
+        "analysis_evidence_hash": {"$ref": "#/$defs/sha256"},
+        "coverage": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["total", "observed", "unknown"],
+          "properties": {
+            "total": {"type": "integer", "minimum": 0},
+            "observed": {"type": "integer", "minimum": 0},
+            "unknown": {"type": "integer", "minimum": 0}
+          }
+        },
+        "affected_case_ids": {"$ref": "#/$defs/string_set"},
+        "unknown_case_ids": {"$ref": "#/$defs/string_set"},
+        "changes": {"type": "array", "items": {"$ref": "#/$defs/decision_change"}},
+        "recommendation": {"enum": ["HUMAN_REVIEW", "NO_DECISION_CHANGE", "HOLD"]},
+        "status": {"enum": ["REVIEW_REQUIRED", "NO_DECISION_CHANGE", "HOLD"]},
+        "analysis_status": {"enum": ["PENDING_STRANDS", "COMPLETE", "UNKNOWN"]}
+      }
+    },
+    "execution_evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version", "evidence_id", "governance_object_id", "connection_id",
+        "decision_pack_id", "release_id", "manifest_hash", "approval_digest", "policy_hash",
+        "test_id", "case_id", "judgment", "gateway_result", "tool_result", "trace_id",
+        "request_id", "observed_at", "ledger_before_hash", "ledger_after_hash",
+        "artifact_refs", "error_reason"
+      ],
+      "properties": {
+        "schema_version": {"const": "1.0"},
+        "evidence_id": {"$ref": "#/$defs/non_empty_string"},
+        "governance_object_id": {"$ref": "#/$defs/non_empty_string"},
+        "connection_id": {"$ref": "#/$defs/non_empty_string"},
+        "decision_pack_id": {"$ref": "#/$defs/non_empty_string"},
+        "release_id": {"$ref": "#/$defs/non_empty_string"},
+        "manifest_hash": {"$ref": "#/$defs/sha256"},
+        "approval_digest": {"anyOf": [{"$ref": "#/$defs/sha256"}, {"type": "null"}]},
+        "policy_hash": {"anyOf": [{"$ref": "#/$defs/sha256"}, {"type": "null"}]},
+        "test_id": {"$ref": "#/$defs/non_empty_string"},
+        "case_id": {"$ref": "#/$defs/non_empty_string"},
+        "judgment": {"$ref": "#/$defs/judgment"},
+        "gateway_result": {"enum": ["ALLOW", "DENY", "ERROR", "NOT_RUN"]},
+        "tool_result": {"enum": ["EXECUTED", "NOT_EXECUTED", "ERROR", "NOT_RUN"]},
+        "trace_id": {"anyOf": [{"$ref": "#/$defs/non_empty_string"}, {"type": "null"}]},
+        "request_id": {"$ref": "#/$defs/non_empty_string"},
+        "observed_at": {"$ref": "#/$defs/utc_timestamp"},
+        "ledger_before_hash": {"$ref": "#/$defs/sha256"},
+        "ledger_after_hash": {"$ref": "#/$defs/sha256"},
+        "artifact_refs": {"$ref": "#/$defs/string_set"},
+        "error_reason": {"anyOf": [{"$ref": "#/$defs/non_empty_string"}, {"type": "null"}]}
+      }
+    },
+    "approval_payload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version", "baseline_id", "connection_id", "governance_object_id",
+        "decision_pack_id", "boundary_version", "approval_generation", "patch_id",
+        "before_manifest_hash", "candidate_manifest_hash", "fixture_snapshot_hash",
+        "request_registry_snapshot_hash", "replay_evidence_hash", "analysis_evidence_hash",
+        "decision_patch_hash", "target_account_id", "target_region", "runtime_arn",
+        "runtime_version", "execution_role_arn", "gateway_arn", "policy_engine_id",
+        "current_owned_policy_snapshot_hash", "compiler_version", "proposed_policy_hash",
+        "allowed_request_ids", "forbidden_tool_ids", "decision", "resulting_boundary_hash",
+        "approver_identity", "approved_at", "effective_until"
+      ],
+      "properties": {
+        "schema_version": {"const": "1.0"},
+        "baseline_id": {"const": "AD-BASELINE-1.0"},
+        "connection_id": {"$ref": "#/$defs/non_empty_string"},
+        "governance_object_id": {"$ref": "#/$defs/non_empty_string"},
+        "decision_pack_id": {"$ref": "#/$defs/non_empty_string"},
+        "boundary_version": {"type": "integer", "minimum": 1},
+        "approval_generation": {"type": "integer", "minimum": 1},
+        "patch_id": {"$ref": "#/$defs/non_empty_string"},
+        "before_manifest_hash": {"$ref": "#/$defs/sha256"},
+        "candidate_manifest_hash": {"$ref": "#/$defs/sha256"},
+        "fixture_snapshot_hash": {"$ref": "#/$defs/sha256"},
+        "request_registry_snapshot_hash": {"$ref": "#/$defs/sha256"},
+        "replay_evidence_hash": {"$ref": "#/$defs/sha256"},
+        "analysis_evidence_hash": {"$ref": "#/$defs/sha256"},
+        "decision_patch_hash": {"$ref": "#/$defs/sha256"},
+        "target_account_id": {"type": "string", "pattern": "^[0-9]{12}$"},
+        "target_region": {"$ref": "#/$defs/non_empty_string"},
+        "runtime_arn": {"$ref": "#/$defs/non_empty_string"},
+        "runtime_version": {"$ref": "#/$defs/non_empty_string"},
+        "execution_role_arn": {"$ref": "#/$defs/non_empty_string"},
+        "gateway_arn": {"$ref": "#/$defs/non_empty_string"},
+        "policy_engine_id": {"$ref": "#/$defs/non_empty_string"},
+        "current_owned_policy_snapshot_hash": {"$ref": "#/$defs/sha256"},
+        "compiler_version": {"$ref": "#/$defs/non_empty_string"},
+        "proposed_policy_hash": {"$ref": "#/$defs/sha256"},
+        "allowed_request_ids": {"$ref": "#/$defs/string_set"},
+        "forbidden_tool_ids": {"$ref": "#/$defs/string_set"},
+        "decision": {"enum": ["MAINTAIN", "NARROW", "REJECT"]},
+        "resulting_boundary_hash": {"$ref": "#/$defs/sha256"},
+        "approver_identity": {"$ref": "#/$defs/non_empty_string"},
+        "approved_at": {"$ref": "#/$defs/utc_timestamp"},
+        "effective_until": {"$ref": "#/$defs/utc_timestamp"}
+      }
+    }
+  },
+  "oneOf": [
+    {"$ref": "#/$defs/decision_pack"},
+    {"$ref": "#/$defs/release_manifest"},
+    {"$ref": "#/$defs/decision_patch"},
+    {"$ref": "#/$defs/execution_evidence"},
+    {"$ref": "#/$defs/approval_payload"}
+  ]
+}

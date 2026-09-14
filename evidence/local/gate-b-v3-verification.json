@@ -1,0 +1,30 @@
+{
+  "observed_at": "2026-09-09T05:43:38.023342+00:00",
+  "operator_source_commit": "ef486594b51f90001f940530972bf645e85e6c75",
+  "operator_name": "Authority_Delta_Gate_B_V3.py",
+  "operator_sha256": "a9cdafaaee644288d1230ae7d0d1b8c324b2b820dfde0b5d20e2a418dac85d93",
+  "regression": {
+    "test_count": 139,
+    "seconds": 57.44,
+    "delivery_checks": 7,
+    "delivery_result": "PASS",
+    "scope": "LOCAL_ONLY_SCRIPTED_MODEL_AND_AWS_DOUBLES; actual V2 rejected proposal replayed; live Nova Pro NOT_RUN",
+    "evidence": "evidence/local/gate-b-v3-verification.json"
+  },
+  "delivery": {
+    "scope": "LOCAL_OPERATOR_PROCESS_TEST_NO_LIVE_AWS",
+    "result": "PASS",
+    "checks": [
+      "same_build_resume",
+      "PASS",
+      "FAIL",
+      "FINAL_MISSING",
+      "WRONG_ACCOUNT",
+      "ACTIVE_BUILD",
+      "CLEANUP_UNCONFIRMED"
+    ],
+    "entrypoint_sha256": "a9cdafaaee644288d1230ae7d0d1b8c324b2b820dfde0b5d20e2a418dac85d93"
+  },
+  "live_v3": "NOT_RUN",
+  "gate_promoted": false
+}

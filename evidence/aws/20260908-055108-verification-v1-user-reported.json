@@ -1,0 +1,150 @@
+{
+  "schema_version": "1.0",
+  "baseline_id": "AD-BASELINE-1.0",
+  "result": "FAIL",
+  "scope": "LIVE_BASELINE_VERIFICATION_NOT_FULL_GATE_A",
+  "started_at": "2026-09-08T05:51:06.486725+00:00",
+  "build_id": "authority-delta-deploy:ae695157-48e2-4b5e-a366-8e0fded3e418",
+  "source_sha256": "db7b4b8dbb4f75a9bb5b0bb4b3ff07240cc00bf8bd1500dc701f85c8eda02d6c",
+  "gate_a": "NOT_RUN",
+  "model_invocation": {
+    "status": "FAIL",
+    "attempts": [
+      {
+        "model_id": "openai.gpt-5.6-terra",
+        "max_output_tokens": 128,
+        "status": "FAIL",
+        "catalog_evidence": {
+          "request_id": "7d1522d9-edec-45d1-97ef-464d68fe995c",
+          "http_status": 200
+        },
+        "reason": "Model is not ACTIVE with on-demand text inference. No invocation attempted."
+      },
+      {
+        "model_id": "amazon.nova-lite-v1:0",
+        "max_output_tokens": 128,
+        "status": "FAIL",
+        "catalog_evidence": {
+          "request_id": "3751f8bc-f00c-4b76-835e-ed3b409fbb67",
+          "http_status": 200
+        },
+        "error": {
+          "type": "AccessDeniedException",
+          "code": "AccessDeniedException",
+          "message": "Your account is currently being verified. Verification normally takes less than 2 hours. Until your account is verified, you may not have access to this operation. If you are still receiving this message after more than 2 hours, please let us know by writing to aws-verification@amazon.com. We appreciate your patience.",
+          "request_id": "be031652-ed89-4dfd-be40-4469ec64a4d8",
+          "http_status": 403
+        }
+      }
+    ],
+    "strands_invocation": "NOT_RUN"
+  },
+  "credentials_recorded": false,
+  "sdk_versions": {
+    "boto3": "1.43.89",
+    "botocore": "1.43.89"
+  },
+  "account": "538522204923",
+  "region": "ap-northeast-1",
+  "caller_arn": "arn:aws:sts::538522204923:assumed-role/ReadinessOpsAuthorityDeltaDeployer/AWSCodeBuild-ae695157-48e2-4b5e-a366-8e0fded3e418",
+  "identity_evidence": {
+    "request_id": "15c729eb-5f93-4618-9f8e-a69b04d0b017",
+    "http_status": 200
+  },
+  "before": {
+    "stable": {
+      "gateway_arn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:gateway/authority-delta-gateway-rvplvkk1t7",
+      "policy_engine_arn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:policy-engine/AuthorityDeltaEngine-4bsgo7fc7d",
+      "policy_mode": "ENFORCE",
+      "policy_count": 0,
+      "target_id": "VO1IHSEQT6",
+      "target_schema_hash": "2ba784f03a63db6f3751224c2be718a32ad56428c390b0218b5376a7911723e2",
+      "sandbox_code_sha256": "757ea25a4c0c0ec6c8f173552cd78f33bd96ee15e701d08bbc1d7e9c6afb0220",
+      "registry_hash": "479bb2346d45f22018c5cfb00e0d2c8c5cb84b35cc6c783b749bffd3a15080cc",
+      "ledger_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "registry_count": 7,
+      "ledger_count": 0
+    },
+    "api_evidence": {
+      "gateway": {
+        "request_id": "4cad12b7-7d44-4e04-8c01-7229432e0cd5",
+        "http_status": 200
+      },
+      "policy_engine": {
+        "request_id": "ffccd56a-8f0a-48fb-b332-722df94c2e25",
+        "http_status": 200
+      },
+      "target": {
+        "request_id": "64bbbf71-da72-4f57-bbdc-f770dc3ca7b2",
+        "http_status": 200
+      }
+    }
+  },
+  "fixture_snapshot_hash": "8936e00ddae655624519e7b88eb5cfa96b2023b003323b39cbaeac7709f995ec",
+  "gateway_calls": [
+    {
+      "case_id": "P-001",
+      "request_id": "req-c9ca1b643f97a69a4b182cb88548c84325055cf1ecefc36c44ded4570e6b827c",
+      "mcp_id": "ad-verify-a37d45c17d424c19929aa588e5da6f65",
+      "tool": "VendorPaymentTools___prepare_vendor_payment",
+      "observed_at": "2026-09-08T05:51:07.490735+00:00",
+      "status": "FAIL",
+      "response": {
+        "http_status": 200,
+        "headers": {
+          "x-amzn-requestid": "9194ab47-cda4-4738-be28-0c52f1a43ac7"
+        },
+        "body": {
+          "jsonrpc": "2.0",
+          "id": "ad-verify-a37d45c17d424c19929aa588e5da6f65",
+          "error": {
+            "code": -32002,
+            "message": "Tool Execution Denied: Tool call not allowed due to policy enforcement [No policy applies to the request (denied by default).]"
+          }
+        }
+      }
+    }
+  ],
+  "gateway_default_deny": {
+    "status": "FAIL",
+    "required_calls": 7,
+    "observed_calls": 1,
+    "state_unchanged": true
+  },
+  "after": {
+    "stable": {
+      "gateway_arn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:gateway/authority-delta-gateway-rvplvkk1t7",
+      "policy_engine_arn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:policy-engine/AuthorityDeltaEngine-4bsgo7fc7d",
+      "policy_mode": "ENFORCE",
+      "policy_count": 0,
+      "target_id": "VO1IHSEQT6",
+      "target_schema_hash": "2ba784f03a63db6f3751224c2be718a32ad56428c390b0218b5376a7911723e2",
+      "sandbox_code_sha256": "757ea25a4c0c0ec6c8f173552cd78f33bd96ee15e701d08bbc1d7e9c6afb0220",
+      "registry_hash": "479bb2346d45f22018c5cfb00e0d2c8c5cb84b35cc6c783b749bffd3a15080cc",
+      "ledger_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "registry_count": 7,
+      "ledger_count": 0
+    },
+    "api_evidence": {
+      "gateway": {
+        "request_id": "1dd0c524-a9ae-4c40-97f7-2621de172c46",
+        "http_status": 200
+      },
+      "policy_engine": {
+        "request_id": "f9ac0f3d-4b42-46cf-b72b-5180750771c5",
+        "http_status": 200
+      },
+      "target": {
+        "request_id": "fc3b5315-c4c2-4e24-aade-b4a54a410d60",
+        "http_status": 200
+      }
+    }
+  },
+  "gate_0": "NOT_PASSED",
+  "remaining_gate_a": [
+    "Immutable V1/V2 runtimes and distinct caller principals",
+    "AUTH-01 unapproved V2 denial",
+    "AUTH-02 scoped permit and other-principal/input/tool denial"
+  ],
+  "completed_at": "2026-09-08T05:51:08.761457+00:00"
+}

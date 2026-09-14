@@ -1,0 +1,429 @@
+{
+  "provenance": {
+    "kind": "USER_PROVIDED_LIVE_DIAGNOSTIC",
+    "build_id": "authority-delta-deploy:f72be181-80d7-4276-adc9-f6fa5c7c504b",
+    "attachment_sha256": "657de36b9ee9c133e69ea50e4b6a7635195ab70f15901df485225954c8f802a3",
+    "input_snapshot_supplied": false,
+    "note": "Original attempts unchanged; test input reconstructed from known canary text and supplied IDs."
+  },
+  "analysis": {
+    "attempts": [
+      {
+        "error": "summary: String should have at most 2400 characters",
+        "proposal": {
+          "actions": [
+            {
+              "description": "Collect baseline measurements for current preparation time, model comparisons, and operating costs.",
+              "finding_ids": [
+                "F-01"
+              ],
+              "title": "Gather baseline measurements"
+            },
+            {
+              "description": "Secure owner approval and processor contract for sharing personal data externally.",
+              "finding_ids": [
+                "F-02"
+              ],
+              "title": "Obtain owner approval and processor contract"
+            }
+          ],
+          "decision_items": [
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-9cb95ab440d24ea8b098ed735f2acffe",
+                  "quote": "The internal rule requires a documented purpose and the data owner’s approval before sharing personal data externally."
+                }
+              ],
+              "conditions": "Obtain owner approval and processor contract.",
+              "decision_item_id": "di-c4610bab61104f21a96db5e83976494d",
+              "perspective": "GOVERNANCE",
+              "question": "What constraints, accountability, and human judgment are required for external data sharing?",
+              "rationale": "The internal rule requires a documented purpose and the data owner’s approval before sharing personal data externally. (e-9cb95ab440d24ea8b098ed735f2acffe)",
+              "reassessment_conditions": "When owner approval and processor contract are obtained.",
+              "recommendation": "NEEDS_INPUT"
+            },
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-9cb95ab440d24ea8b098ed735f2acffe",
+                  "quote": "The current preparation time, model comparisons and operating costs have not been measured."
+                }
+              ],
+              "conditions": "Gather baseline measurements.",
+              "decision_item_id": "di-e16165f052b145c4933e9309a51abe75",
+              "perspective": "VALUE",
+              "question": "How will the business outcome be measured and what is the expected value?",
+              "rationale": "The intended outcome is to reduce weekly report preparation time, but no baseline measurements have been provided. (e-9cb95ab440d24ea8b098ed735f2acffe)",
+              "reassessment_conditions": "When baseline measurements are gathered.",
+              "recommendation": "NEEDS_INPUT"
+            },
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-9cb95ab440d24ea8b098ed735f2acffe",
+                  "quote": "The current preparation time, model comparisons and operating costs have not been measured."
+                }
+              ],
+              "conditions": "Gather model comparisons.",
+              "decision_item_id": "di-5269c485ad6c4d19ac1e711104b6dccc",
+              "perspective": "MODEL_ROUTING",
+              "question": "What evidence is needed to choose a model or return a task to a person?",
+              "rationale": "No model comparisons have been provided. (e-9cb95ab440d24ea8b098ed735f2acffe)",
+              "reassessment_conditions": "When model comparisons are gathered.",
+              "recommendation": "NEEDS_INPUT"
+            },
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-9cb95ab440d24ea8b098ed735f2acffe",
+                  "quote": "No owner approval or processor contract has been supplied. The current preparation time, model comparisons and operating costs have not been measured."
+                }
+              ],
+              "conditions": "Gather baseline measurements, obtain owner approval, and processor contract.",
+              "decision_item_id": "di-ae445597a5104594b76338f244fa13ee",
+              "perspective": "PORTFOLIO",
+              "question": "Should the initiative continue, be revised, stopped, or expanded?",
+              "rationale": "The initiative lacks baseline measurements, owner approval, and processor contract. (e-9cb95ab440d24ea8b098ed735f2acffe)",
+              "reassessment_conditions": "When baseline measurements, owner approval, and processor contract are obtained.",
+              "recommendation": "NEEDS_INPUT"
+            }
+          ],
+          "findings": [
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-9cb95ab440d24ea8b098ed735f2acffe",
+                  "quote": "The current preparation time, model comparisons and operating costs have not been measured."
+                }
+              ],
+              "description": "No baseline measurements for current preparation time, model comparisons, and operating costs have been provided.",
+              "finding_id": "F-01",
+              "kind": "GAP",
+              "severity": "MEDIUM",
+              "severity_reason": "Lack of baseline measurements prevents accurate assessment of the initiative's impact.",
+              "title": "No baseline measurements provided"
+            },
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-9cb95ab440d24ea8b098ed735f2acffe",
+                  "quote": "No owner approval or processor contract has been supplied."
+                }
+              ],
+              "description": "No owner approval or processor contract has been supplied for sharing personal data externally.",
+              "finding_id": "F-02",
+              "kind": "GAP",
+              "severity": "HIGH",
+              "severity_reason": "Lack of owner approval and processor contract violates internal rules and poses legal risks.",
+              "title": "No owner approval or processor contract"
+            }
+          ],
+          "missing_information": [],
+          "summary": "Based on the context and evidence provided, here is the assessment of the fixed business input:\n\n**Summary:**\nThe business input is a synthetic deployment check for a proposed process of sharing customer names and email addresses with an external analytics service. The goal is to reduce weekly report preparation time, but no baseline measurements or owner approval have been provided. The internal rule requires a documented purpose and the data owner’s approval before sharing personal data externally.\n\n**Findings:**\n- **F-01:** GAP - No baseline measurements for current preparation time, model comparisons, and operating costs have been provided. (e-9cb95ab440d24ea8b098ed735f2acffe)\n- **F-02:** GAP - No owner approval or processor contract has been supplied for sharing personal data externally. (e-9cb95ab440d24ea8b098ed735f2acffe)\n\n**Actions:**\n- **A-01:** Gather baseline measurements for current preparation time, model comparisons, and operating costs. (F-01)\n- **A-02:** Obtain owner approval and processor contract for sharing personal data externally. (F-02)\n\n**Decision Items:**\n- **GOVERNANCE (di-c4610bab61104f21a96db5e83976494d):** \n  - Question: What constraints, accountability, and human judgment are required for external data sharing?\n  - Recommendation: NEEDS_INPUT\n  - Rationale: The internal rule requires a documented purpose and the data owner’s approval before sharing personal data externally. (e-9cb95ab440d24ea8b098ed735f2acffe)\n  - Conditions: Obtain owner approval and processor contract.\n  - Reassessment Conditions: When owner approval and processor contract are obtained.\n  - Citations: [{\"evidence_id\": \"e-9cb95ab440d24ea8b098ed735f2acffe\", \"quote\": \"The internal rule requires a documented purpose and the data owner’s approval before sharing personal data externally.\"}]\n- **VALUE (di-e16165f052b145c4933e9309a51abe75):**\n  - Question: How will the business outcome be measured and what is the expected value?\n  - Recommendation: NEEDS_INPUT\n  - Rationale: The intended outcome is to reduce weekly report preparation time, but no baseline measurements have been provided. (e-9cb95ab440d24ea8b098ed735f2acffe)\n  - Conditions: Gather baseline measurements.\n  - Reassessment Conditions: When baseline measurements are gathered.\n  - Citations: [{\"evidence_id\": \"e-9cb95ab440d24ea8b098ed735f2acffe\", \"quote\": \"The current preparation time, model comparisons and operating costs have not been measured.\"}]\n- **MODEL_ROUTING (di-5269c485ad6c4d19ac1e711104b6dccc):**\n  - Question: What evidence is needed to choose a model or return a task to a person?\n  - Recommendation: NEEDS_INPUT\n  - Rationale: No model comparisons have been provided. (e-9cb95ab440d24ea8b098ed735f2acffe)\n  - Conditions: Gather model comparisons.\n  - Reassessment Conditions: When model comparisons are gathered.\n  - Citations: [{\"evidence_id\": \"e-9cb95ab440d24ea8b098ed735f2acffe\", \"quote\": \"The current preparation time, model comparisons and operating costs have not been measured.\"}]\n- **PORTFOLIO (di-ae445597a5104594b76338f244fa13ee):**\n  - Question: Should the initiative continue, be revised, stopped, or expanded?\n  - Recommendation: NEEDS_INPUT\n  - Rationale: The initiative lacks baseline measurements, owner approval, and processor contract. (e-9cb95ab440d24ea8b098ed735f2acffe)\n  - Conditions: Gather baseline measurements, obtain owner approval, and processor contract.\n  - Reassessment Conditions: When baseline measurements, owner approval, and processor contract are obtained.\n  - Citations: [{\"evidence_id\": \"e-9cb95ab440d24ea8b098ed735f2acffe\", \"quote\": \"No owner approval or processor contract has been supplied. The current preparation time, model comparisons and operating costs have not been measured.\"}]\n\n**Missing Information:**\n- Baseline measurements for current preparation time, model comparisons, and operating costs.\n- Owner approval and processor contract for sharing personal data externally.\n\nThis assessment identifies the gaps and risks in the current proposal and provides actions and decision items for the owner to review before external sharing."
+        },
+        "status": "REJECTED",
+        "validation_errors": [
+          {
+            "code": "string_too_long",
+            "message": "String should have at most 2400 characters",
+            "path": "summary"
+          }
+        ]
+      },
+      {
+        "error": "summary: String should have at most 2400 characters",
+        "proposal": {
+          "actions": [
+            {
+              "description": "Collect baseline measurements for current preparation time, model comparisons, and operating costs.",
+              "finding_ids": [
+                "F-01"
+              ],
+              "title": "Gather baseline measurements"
+            },
+            {
+              "description": "Secure owner approval and processor contract for sharing personal data externally.",
+              "finding_ids": [
+                "F-02"
+              ],
+              "title": "Obtain owner approval and processor contract"
+            }
+          ],
+          "decision_items": [
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-9cb95ab440d24ea8b098ed735f2acffe",
+                  "quote": "The internal rule requires a documented purpose and the data owner’s approval before sharing personal data externally."
+                }
+              ],
+              "conditions": "Obtain owner approval and processor contract.",
+              "decision_item_id": "di-c4610bab61104f21a96db5e83976494d",
+              "perspective": "GOVERNANCE",
+              "question": "What constraints, accountability, and human judgment are required for external data sharing?",
+              "rationale": "The internal rule requires a documented purpose and the data owner’s approval before sharing personal data externally. (e-9cb95ab440d24ea8b098ed735f2acffe)",
+              "reassessment_conditions": "When owner approval and processor contract are obtained.",
+              "recommendation": "NEEDS_INPUT"
+            },
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-9cb95ab440d24ea8b098ed735f2acffe",
+                  "quote": "The current preparation time, model comparisons and operating costs have not been measured."
+                }
+              ],
+              "conditions": "Gather baseline measurements.",
+              "decision_item_id": "di-e16165f052b145c4933e9309a51abe75",
+              "perspective": "VALUE",
+              "question": "How will the business outcome be measured and what is the expected value?",
+              "rationale": "The intended outcome is to reduce weekly report preparation time, but no baseline measurements have been provided. (e-9cb95ab440d24ea8b098ed735f2acffe)",
+              "reassessment_conditions": "When baseline measurements are gathered.",
+              "recommendation": "NEEDS_INPUT"
+            },
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-9cb95ab440d24ea8b098ed735f2acffe",
+                  "quote": "The current preparation time, model comparisons and operating costs have not been measured."
+                }
+              ],
+              "conditions": "Gather model comparisons.",
+              "decision_item_id": "di-5269c485ad6c4d19ac1e711104b6dccc",
+              "perspective": "MODEL_ROUTING",
+              "question": "What evidence is needed to choose a model or return a task to a person?",
+              "rationale": "No model comparisons have been provided. (e-9cb95ab440d24ea8b098ed735f2acffe)",
+              "reassessment_conditions": "When model comparisons are gathered.",
+              "recommendation": "NEEDS_INPUT"
+            },
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-9cb95ab440d24ea8b098ed735f2acffe",
+                  "quote": "No owner approval or processor contract has been supplied. The current preparation time, model comparisons and operating costs have not been measured."
+                }
+              ],
+              "conditions": "Gather baseline measurements, obtain owner approval, and processor contract.",
+              "decision_item_id": "di-ae445597a5104594b76338f244fa13ee",
+              "perspective": "PORTFOLIO",
+              "question": "Should the initiative continue, be revised, stopped, or expanded?",
+              "rationale": "The initiative lacks baseline measurements, owner approval, and processor contract. (e-9cb95ab440d24ea8b098ed735f2acffe)",
+              "reassessment_conditions": "When baseline measurements, owner approval, and processor contract are obtained.",
+              "recommendation": "NEEDS_INPUT"
+            }
+          ],
+          "findings": [
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-9cb95ab440d24ea8b098ed735f2acffe",
+                  "quote": "The current preparation time, model comparisons and operating costs have not been measured."
+                }
+              ],
+              "description": "No baseline measurements for current preparation time, model comparisons, and operating costs have been provided.",
+              "finding_id": "F-01",
+              "kind": "GAP",
+              "severity": "MEDIUM",
+              "severity_reason": "Lack of baseline measurements prevents accurate assessment of the initiative's impact.",
+              "title": "No baseline measurements provided"
+            },
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-9cb95ab440d24ea8b098ed735f2acffe",
+                  "quote": "No owner approval or processor contract has been supplied."
+                }
+              ],
+              "description": "No owner approval or processor contract has been supplied for sharing personal data externally.",
+              "finding_id": "F-02",
+              "kind": "GAP",
+              "severity": "HIGH",
+              "severity_reason": "Lack of owner approval and processor contract violates internal rules and poses legal risks.",
+              "title": "No owner approval or processor contract"
+            }
+          ],
+          "missing_information": [],
+          "summary": "Based on the context and evidence provided, here is the assessment of the fixed business input:\n\n**Summary:**\nThe business input is a synthetic deployment check for a proposed process of sharing customer names and email addresses with an external analytics service. The goal is to reduce weekly report preparation time, but no baseline measurements or owner approval have been provided. The internal rule requires a documented purpose and the data owner’s approval before sharing personal data externally.\n\n**Findings:**\n- **F-01:** GAP - No baseline measurements for current preparation time, model comparisons, and operating costs have been provided. (e-9cb95ab440d24ea8b098ed735f2acffe)\n- **F-02:** GAP - No owner approval or processor contract has been supplied for sharing personal data externally. (e-9cb95ab440d24ea8b098ed735f2acffe)\n\n**Actions:**\n- **A-01:** Gather baseline measurements for current preparation time, model comparisons, and operating costs. (F-01)\n- **A-02:** Obtain owner approval and processor contract for sharing personal data externally. (F-02)\n\n**Decision Items:**\n- **GOVERNANCE (di-c4610bab61104f21a96db5e83976494d):** \n  - Question: What constraints, accountability, and human judgment are required for external data sharing?\n  - Recommendation: NEEDS_INPUT\n  - Rationale: The internal rule requires a documented purpose and the data owner’s approval before sharing personal data externally. (e-9cb95ab440d24ea8b098ed735f2acffe)\n  - Conditions: Obtain owner approval and processor contract.\n  - Reassessment Conditions: When owner approval and processor contract are obtained.\n  - Citations: [{\"evidence_id\": \"e-9cb95ab440d24ea8b098ed735f2acffe\", \"quote\": \"The internal rule requires a documented purpose and the data owner’s approval before sharing personal data externally.\"}]\n- **VALUE (di-e16165f052b145c4933e9309a51abe75):**\n  - Question: How will the business outcome be measured and what is the expected value?\n  - Recommendation: NEEDS_INPUT\n  - Rationale: The intended outcome is to reduce weekly report preparation time, but no baseline measurements have been provided. (e-9cb95ab440d24ea8b098ed735f2acffe)\n  - Conditions: Gather baseline measurements.\n  - Reassessment Conditions: When baseline measurements are gathered.\n  - Citations: [{\"evidence_id\": \"e-9cb95ab440d24ea8b098ed735f2acffe\", \"quote\": \"The current preparation time, model comparisons and operating costs have not been measured.\"}]\n- **MODEL_ROUTING (di-5269c485ad6c4d19ac1e711104b6dccc):**\n  - Question: What evidence is needed to choose a model or return a task to a person?\n  - Recommendation: NEEDS_INPUT\n  - Rationale: No model comparisons have been provided. (e-9cb95ab440d24ea8b098ed735f2acffe)\n  - Conditions: Gather model comparisons.\n  - Reassessment Conditions: When model comparisons are gathered.\n  - Citations: [{\"evidence_id\": \"e-9cb95ab440d24ea8b098ed735f2acffe\", \"quote\": \"The current preparation time, model comparisons and operating costs have not been measured.\"}]\n- **PORTFOLIO (di-ae445597a5104594b76338f244fa13ee):**\n  - Question: Should the initiative continue, be revised, stopped, or expanded?\n  - Recommendation: NEEDS_INPUT\n  - Rationale: The initiative lacks baseline measurements, owner approval, and processor contract. (e-9cb95ab440d24ea8b098ed735f2acffe)\n  - Conditions: Gather baseline measurements, obtain owner approval, and processor contract.\n  - Reassessment Conditions: When baseline measurements, owner approval, and processor contract are obtained.\n  - Citations: [{\"evidence_id\": \"e-9cb95ab440d24ea8b098ed735f2acffe\", \"quote\": \"No owner approval or processor contract has been supplied. The current preparation time, model comparisons and operating costs have not been measured.\"}]\n\n**Missing Information:**\n- Baseline measurements for current preparation time, model comparisons, and operating costs.\n- Owner approval and processor contract for sharing personal data externally.\n\nThis assessment identifies the gaps and risks in the current proposal and provides actions and decision items for the owner to review before external sharing."
+        },
+        "status": "REJECTED",
+        "validation_errors": [
+          {
+            "code": "string_too_long",
+            "message": "String should have at most 2400 characters",
+            "path": "summary"
+          }
+        ]
+      },
+      {
+        "error": "summary: String should have at most 2400 characters",
+        "proposal": {
+          "actions": [
+            {
+              "description": "Collect baseline measurements for current preparation time, model comparisons, and operating costs.",
+              "finding_ids": [
+                "F-01"
+              ],
+              "title": "Gather baseline measurements"
+            },
+            {
+              "description": "Secure owner approval and processor contract for sharing personal data externally.",
+              "finding_ids": [
+                "F-02"
+              ],
+              "title": "Obtain owner approval and processor contract"
+            }
+          ],
+          "decision_items": [
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-9cb95ab440d24ea8b098ed735f2acffe",
+                  "quote": "The internal rule requires a documented purpose and the data owner’s approval before sharing personal data externally."
+                }
+              ],
+              "conditions": "Obtain owner approval and processor contract.",
+              "decision_item_id": "di-c4610bab61104f21a96db5e83976494d",
+              "perspective": "GOVERNANCE",
+              "question": "What constraints, accountability, and human judgment are required for external data sharing?",
+              "rationale": "The internal rule requires a documented purpose and the data owner’s approval before sharing personal data externally. (e-9cb95ab440d24ea8b098ed735f2acffe)",
+              "reassessment_conditions": "When owner approval and processor contract are obtained.",
+              "recommendation": "NEEDS_INPUT"
+            },
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-9cb95ab440d24ea8b098ed735f2acffe",
+                  "quote": "The current preparation time, model comparisons and operating costs have not been measured."
+                }
+              ],
+              "conditions": "Gather baseline measurements.",
+              "decision_item_id": "di-e16165f052b145c4933e9309a51abe75",
+              "perspective": "VALUE",
+              "question": "How will the business outcome be measured and what is the expected value?",
+              "rationale": "The intended outcome is to reduce weekly report preparation time, but no baseline measurements have been provided. (e-9cb95ab440d24ea8b098ed735f2acffe)",
+              "reassessment_conditions": "When baseline measurements are gathered.",
+              "recommendation": "NEEDS_INPUT"
+            },
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-9cb95ab440d24ea8b098ed735f2acffe",
+                  "quote": "The current preparation time, model comparisons and operating costs have not been measured."
+                }
+              ],
+              "conditions": "Gather model comparisons.",
+              "decision_item_id": "di-5269c485ad6c4d19ac1e711104b6dccc",
+              "perspective": "MODEL_ROUTING",
+              "question": "What evidence is needed to choose a model or return a task to a person?",
+              "rationale": "No model comparisons have been provided. (e-9cb95ab440d24ea8b098ed735f2acffe)",
+              "reassessment_conditions": "When model comparisons are gathered.",
+              "recommendation": "NEEDS_INPUT"
+            },
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-9cb95ab440d24ea8b098ed735f2acffe",
+                  "quote": "No owner approval or processor contract has been supplied. The current preparation time, model comparisons and operating costs have not been measured."
+                }
+              ],
+              "conditions": "Gather baseline measurements, obtain owner approval, and processor contract.",
+              "decision_item_id": "di-ae445597a5104594b76338f244fa13ee",
+              "perspective": "PORTFOLIO",
+              "question": "Should the initiative continue, be revised, stopped, or expanded?",
+              "rationale": "The initiative lacks baseline measurements, owner approval, and processor contract. (e-9cb95ab440d24ea8b098ed735f2acffe)",
+              "reassessment_conditions": "When baseline measurements, owner approval, and processor contract are obtained.",
+              "recommendation": "NEEDS_INPUT"
+            }
+          ],
+          "findings": [
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-9cb95ab440d24ea8b098ed735f2acffe",
+                  "quote": "The current preparation time, model comparisons and operating costs have not been measured."
+                }
+              ],
+              "description": "No baseline measurements for current preparation time, model comparisons, and operating costs have been provided.",
+              "finding_id": "F-01",
+              "kind": "GAP",
+              "severity": "MEDIUM",
+              "severity_reason": "Lack of baseline measurements prevents accurate assessment of the initiative's impact.",
+              "title": "No baseline measurements provided"
+            },
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-9cb95ab440d24ea8b098ed735f2acffe",
+                  "quote": "No owner approval or processor contract has been supplied."
+                }
+              ],
+              "description": "No owner approval or processor contract has been supplied for sharing personal data externally.",
+              "finding_id": "F-02",
+              "kind": "GAP",
+              "severity": "HIGH",
+              "severity_reason": "Lack of owner approval and processor contract violates internal rules and poses legal risks.",
+              "title": "No owner approval or processor contract"
+            }
+          ],
+          "missing_information": [],
+          "summary": "Based on the context and evidence provided, here is the assessment of the fixed business input:\n\n**Summary:**\nThe business input is a synthetic deployment check for a proposed process of sharing customer names and email addresses with an external analytics service. The goal is to reduce weekly report preparation time, but no baseline measurements or owner approval have been provided. The internal rule requires a documented purpose and the data owner’s approval before sharing personal data externally.\n\n**Findings:**\n- **F-01:** GAP - No baseline measurements for current preparation time, model comparisons, and operating costs have been provided. (e-9cb95ab440d24ea8b098ed735f2acffe)\n- **F-02:** GAP - No owner approval or processor contract has been supplied for sharing personal data externally. (e-9cb95ab440d24ea8b098ed735f2acffe)\n\n**Actions:**\n- **A-01:** Gather baseline measurements for current preparation time, model comparisons, and operating costs. (F-01)\n- **A-02:** Obtain owner approval and processor contract for sharing personal data externally. (F-02)\n\n**Decision Items:**\n- **GOVERNANCE (di-c4610bab61104f21a96db5e83976494d):** \n  - Question: What constraints, accountability, and human judgment are required for external data sharing?\n  - Recommendation: NEEDS_INPUT\n  - Rationale: The internal rule requires a documented purpose and the data owner’s approval before sharing personal data externally. (e-9cb95ab440d24ea8b098ed735f2acffe)\n  - Conditions: Obtain owner approval and processor contract.\n  - Reassessment Conditions: When owner approval and processor contract are obtained.\n  - Citations: [{\"evidence_id\": \"e-9cb95ab440d24ea8b098ed735f2acffe\", \"quote\": \"The internal rule requires a documented purpose and the data owner’s approval before sharing personal data externally.\"}]\n- **VALUE (di-e16165f052b145c4933e9309a51abe75):**\n  - Question: How will the business outcome be measured and what is the expected value?\n  - Recommendation: NEEDS_INPUT\n  - Rationale: The intended outcome is to reduce weekly report preparation time, but no baseline measurements have been provided. (e-9cb95ab440d24ea8b098ed735f2acffe)\n  - Conditions: Gather baseline measurements.\n  - Reassessment Conditions: When baseline measurements are gathered.\n  - Citations: [{\"evidence_id\": \"e-9cb95ab440d24ea8b098ed735f2acffe\", \"quote\": \"The current preparation time, model comparisons and operating costs have not been measured.\"}]\n- **MODEL_ROUTING (di-5269c485ad6c4d19ac1e711104b6dccc):**\n  - Question: What evidence is needed to choose a model or return a task to a person?\n  - Recommendation: NEEDS_INPUT\n  - Rationale: No model comparisons have been provided. (e-9cb95ab440d24ea8b098ed735f2acffe)\n  - Conditions: Gather model comparisons.\n  - Reassessment Conditions: When model comparisons are gathered.\n  - Citations: [{\"evidence_id\": \"e-9cb95ab440d24ea8b098ed735f2acffe\", \"quote\": \"The current preparation time, model comparisons and operating costs have not been measured.\"}]\n- **PORTFOLIO (di-ae445597a5104594b76338f244fa13ee):**\n  - Question: Should the initiative continue, be revised, stopped, or expanded?\n  - Recommendation: NEEDS_INPUT\n  - Rationale: The initiative lacks baseline measurements, owner approval, and processor contract. (e-9cb95ab440d24ea8b098ed735f2acffe)\n  - Conditions: Gather baseline measurements, obtain owner approval, and processor contract.\n  - Reassessment Conditions: When baseline measurements, owner approval, and processor contract are obtained.\n  - Citations: [{\"evidence_id\": \"e-9cb95ab440d24ea8b098ed735f2acffe\", \"quote\": \"No owner approval or processor contract has been supplied. The current preparation time, model comparisons and operating costs have not been measured.\"}]\n\n**Missing Information:**\n- Baseline measurements for current preparation time, model comparisons, and operating costs.\n- Owner approval and processor contract for sharing personal data externally.\n\nThis assessment identifies the gaps and risks in the current proposal and provides actions and decision items for the owner to review before external sharing."
+        },
+        "status": "REJECTED",
+        "validation_errors": [
+          {
+            "code": "string_too_long",
+            "message": "String should have at most 2400 characters",
+            "path": "summary"
+          }
+        ]
+      }
+    ],
+    "model_calls": [
+      {
+        "http_status": 200,
+        "request_id": "825f816c-6038-44cd-80a4-2f50dadc4342",
+        "usage": {
+          "inputTokens": 2959,
+          "outputTokens": 63,
+          "totalTokens": 3022
+        }
+      },
+      {
+        "http_status": 200,
+        "request_id": "5d6f74a1-82c2-4116-89fc-69a84b114eb6",
+        "usage": {
+          "inputTokens": 3659,
+          "outputTokens": 1142,
+          "totalTokens": 4801
+        }
+      },
+      {
+        "http_status": 200,
+        "request_id": "72a86d5d-999b-4b7e-8ab6-31c6dc7cbe3a",
+        "usage": {
+          "inputTokens": 4741,
+          "outputTokens": 2531,
+          "totalTokens": 7272
+        }
+      },
+      {
+        "http_status": 200,
+        "request_id": "afff065c-497b-480c-8cc7-690a11cbbedd",
+        "usage": {
+          "inputTokens": 7292,
+          "outputTokens": 2469,
+          "totalTokens": 9761
+        }
+      },
+      {
+        "http_status": 200,
+        "request_id": "290673c3-4136-47d7-a643-ffe63cb507a8",
+        "usage": {
+          "inputTokens": 9843,
+          "outputTokens": 2469,
+          "totalTokens": 12312
+        }
+      }
+    ]
+  }
+}

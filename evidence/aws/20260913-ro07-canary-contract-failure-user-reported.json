@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0",
+  "scope": "USER_REPORTED_RO07_APPLICATION_FAILURE_AFTER_DELETE_ITEM_RECOVERY",
+  "source_authority": "user-provided-cloudshell-output",
+  "account_a_id": "538522204923",
+  "account_b_id": "062788795311",
+  "application_id": "application-84ed051249524be2adc7d0d46f0503c5",
+  "attempt": 49,
+  "status": "UNKNOWN",
+  "updated_at": "2026-09-13T11:23:17.178847+00:00",
+  "last_error": "Publisher invocation failed: Lambda FunctionError=Unhandled; remote=ValueError: Canary Lambda result differs",
+  "publisher_delete_item_recovery_attempts": 1,
+  "publisher_fence_recovery_attempts": 1,
+  "policy_result_ref": null,
+  "interpretation": {
+    "publisher_delete_item_permission_failure": "RESOLVED_BY_OBSERVED_NEXT_PHASE",
+    "canary_result_contract": "FAILED",
+    "application_terminal_state": "PARKED_UNKNOWN",
+    "live_authority_verified": false
+  },
+  "limitations": [
+    "This file records user-provided terminal output; Codex did not independently call AWS.",
+    "The output does not include the account-B publisher journal row or worker-fence readback.",
+    "No VERIFIED, ALLOW, stop, policy deletion, all-DENY, or unchanged-ledger completion is claimed."
+  ]
+}

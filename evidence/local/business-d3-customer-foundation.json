@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0",
+  "scope": "LOCAL_D3_ACCOUNT_B_CLEAN_FOUNDATION_OPERATOR_NO_LIVE_AWS_CONNECTOR_POLICY_CANARY_BROWSER_OR_HUMAN",
+  "result": "PASS",
+  "observed_at": "2026-09-11T06:39:21+00:00",
+  "source_commit": "c2da529d87149d9c6826abe7f502919832964d86",
+  "source_base_commit": "a21541afee0c29dc63921ef69c0c399a53dc9834",
+  "implementation": [
+    "distinct-account-B launcher checks root MFA and the fixed USD 50 budget before creating or updating the same-account CodeBuild bootstrap",
+    "CodeBuild worker deploys the synthetic-only customer baseline and fixed V1/V2 Runtime stacks from immutable versioned artifacts",
+    "empty request registry is seeded once; exact replay is accepted; changed existing registry, Policy or ledger state is preserved and rejected",
+    "worker performs full Gateway, Policy Engine, target, Lambda, registry and Runtime readback before reporting PASS",
+    "resume collects the same build; explicit recovery reuses the same source version and never starts while the prior build is active",
+    "foundation result keeps connector, Policy write, live canary, business publication and human approval NOT_RUN"
+  ],
+  "security": {
+    "account_a_id": "538522204923",
+    "account_b_id": null,
+    "account_a_substituted_for_account_b": false,
+    "root_credentials_forwarded_to_codebuild": false,
+    "existing_nonempty_registry_normalized": false,
+    "existing_policy_deleted": false,
+    "existing_ledger_deleted": false
+  },
+  "tests": {
+    "fresh_clone_full_regression": {
+      "command": "PYTHONPATH=src:scripts:tests:. <fresh-venv>/bin/python -m unittest discover -s tests -q",
+      "count": 248,
+      "seconds": 52.434,
+      "result": "PASS",
+      "dependency_install": "PYTHON_3_12_OFFLINE_REQUIRE_HASHES_FROM_VENDOR_ANALYSIS_X86_64"
+    },
+    "focused_foundation_and_adjacent_delivery": {
+      "count": 42,
+      "seconds": 31.691,
+      "result": "PASS"
+    },
+    "workbench": {
+      "typescript_no_emit": "PASS",
+      "production_build": "PASS",
+      "workbench_contract_checks": 15,
+      "business_contract_checks": 11
+    },
+    "actual_launcher_help": "PASS",
+    "source_archive_entries": 254,
+    "source_archive_sha256": "e1af0eeb68892304f983ab5270359c687afb5aa549dae841c98e1ebef82b76e6"
+  },
+  "delivery": {
+    "launcher_sha256": "33c24415960299496a6bb604bbdad58679c7668e6facde21a0b8090cd748db95",
+    "worker_sha256": "e71e010252324abac84c5e4ebb0e409b128f4ed0f811b2f0afb662669f8052f8",
+    "buildspec_sha256": "e21b5b569d4f48b3b28553f412323fc997cc740f41ff1aa9a8f27d798320693d"
+  },
+  "not_run": [
+    "AWS account-B identity or budget readback",
+    "CloudFormation or CodeBuild deployment",
+    "connector or STS AssumeRole",
+    "Policy write or live Gateway canary",
+    "account-A registry wiring",
+    "human approval or publication",
+    "D2 or D3 live acceptance"
+  ],
+  "gates_promoted": false,
+  "next": "Confirm a distinct account B; run the clean-foundation operator only if prerequisites are absent, then run the connector operator, import its observed registry into account A and execute one bounded D3 acceptance."
+}

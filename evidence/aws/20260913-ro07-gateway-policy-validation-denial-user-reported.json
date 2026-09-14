@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "scope": "USER_REPORTED_ACCOUNT_A_DURABLE_APPLICATION_STATE_NO_NEW_LIVE_ACTION",
+  "reported_at": "2026-09-13T13:24:06.568708+00:00",
+  "account_a": "538522204923",
+  "account_b": "062788795311",
+  "object_id": "o-8b018b1fb182496ea6749f12c78a65b8",
+  "application_id": "application-84ed051249524be2adc7d0d46f0503c5",
+  "status": "UNKNOWN",
+  "attempt": 51,
+  "last_error": "Publisher invocation failed: Lambda FunctionError=Unhandled; remote=AccessDeniedException: An error occurred (AccessDeniedException) when calling the CreatePolicy operation: Failed to confirm existence on AgentCore Gateway \"authority-delta-gateway-hhnckywugl\", please make sure you have \"bedrock-agentcore:GetGateway\" permissions",
+  "result_ref": null,
+  "next_attempt_at": null,
+  "lease_until": null,
+  "resource_scoped_policy_recovery_attempts": 1,
+  "live_allow": "NOT_OBSERVED",
+  "real_payment": "NOT_AUTHORIZED",
+  "classification": "ACCOUNT_B_PUBLISHER_GATEWAY_POLICY_VALIDATION_IAM"
+}

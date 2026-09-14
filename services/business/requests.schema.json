@@ -1,0 +1,943 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "schema_version": "1.2",
+  "$defs": {
+    "Action": {
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "maxLength": 200,
+          "minLength": 3,
+          "title": "Title",
+          "type": "string"
+        },
+        "description": {
+          "maxLength": 1500,
+          "minLength": 5,
+          "title": "Description",
+          "type": "string"
+        },
+        "finding_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 12,
+          "minItems": 1,
+          "title": "Finding Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "title",
+        "description",
+        "finding_ids"
+      ],
+      "title": "Action",
+      "type": "object"
+    },
+    "Citation": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence_id": {
+          "description": "Exact evidence_id returned by read_evidence, never a new identifier.",
+          "title": "Evidence Id",
+          "type": "string"
+        },
+        "quote": {
+          "description": "Exact contiguous text from that evidence. Never paraphrase, infer absence, or invent a quotation. For an unsupported NEEDS_INPUT item use an empty citations list.",
+          "maxLength": 800,
+          "minLength": 3,
+          "title": "Quote",
+          "type": "string"
+        }
+      },
+      "required": [
+        "evidence_id",
+        "quote"
+      ],
+      "title": "Citation",
+      "type": "object"
+    },
+    "DecisionImpact": {
+      "additionalProperties": false,
+      "properties": {
+        "decision_item_id": {
+          "pattern": "^di-[A-Za-z0-9_-]{16,80}$",
+          "title": "Decision Item Id",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "AFFECTED",
+            "UNCHANGED",
+            "UNKNOWN"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "reason": {
+          "maxLength": 1600,
+          "minLength": 8,
+          "title": "Reason",
+          "type": "string"
+        },
+        "citations": {
+          "items": {
+            "$ref": "#/$defs/Citation"
+          },
+          "maxItems": 8,
+          "title": "Citations",
+          "type": "array"
+        },
+        "unknowns": {
+          "items": {
+            "maxLength": 700,
+            "minLength": 3,
+            "type": "string"
+          },
+          "maxItems": 8,
+          "title": "Unknowns",
+          "type": "array"
+        }
+      },
+      "required": [
+        "decision_item_id",
+        "status",
+        "reason",
+        "citations",
+        "unknowns"
+      ],
+      "title": "DecisionImpact",
+      "type": "object"
+    },
+    "DecisionItem": {
+      "additionalProperties": false,
+      "properties": {
+        "decision_item_id": {
+          "anyOf": [
+            {
+              "pattern": "^di-[A-Za-z0-9_-]{16,80}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Decision Item Id"
+        },
+        "perspective": {
+          "enum": [
+            "GOVERNANCE",
+            "VALUE",
+            "MODEL_ROUTING",
+            "PORTFOLIO"
+          ],
+          "title": "Perspective",
+          "type": "string"
+        },
+        "question": {
+          "maxLength": 700,
+          "minLength": 3,
+          "title": "Question",
+          "type": "string"
+        },
+        "recommendation": {
+          "enum": [
+            "CONTINUE",
+            "REVISE",
+            "STOP",
+            "EXPAND",
+            "NEEDS_INPUT"
+          ],
+          "title": "Recommendation",
+          "type": "string"
+        },
+        "rationale": {
+          "maxLength": 2200,
+          "minLength": 8,
+          "title": "Rationale",
+          "type": "string"
+        },
+        "conditions": {
+          "maxLength": 1600,
+          "title": "Conditions",
+          "type": "string"
+        },
+        "reassessment_conditions": {
+          "maxLength": 1000,
+          "minLength": 3,
+          "title": "Reassessment Conditions",
+          "type": "string"
+        },
+        "citations": {
+          "items": {
+            "$ref": "#/$defs/Citation"
+          },
+          "maxItems": 8,
+          "title": "Citations",
+          "type": "array"
+        }
+      },
+      "required": [
+        "perspective",
+        "question",
+        "recommendation",
+        "rationale",
+        "conditions",
+        "reassessment_conditions",
+        "citations"
+      ],
+      "title": "DecisionItem",
+      "type": "object"
+    },
+    "Finding": {
+      "additionalProperties": false,
+      "properties": {
+        "finding_id": {
+          "pattern": "^F-[0-9]{2}$",
+          "title": "Finding Id",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "GAP",
+            "RISK"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "title": {
+          "maxLength": 160,
+          "minLength": 3,
+          "title": "Title",
+          "type": "string"
+        },
+        "description": {
+          "maxLength": 2000,
+          "minLength": 8,
+          "title": "Description",
+          "type": "string"
+        },
+        "severity": {
+          "enum": [
+            "LOW",
+            "MEDIUM",
+            "HIGH",
+            "UNKNOWN"
+          ],
+          "title": "Severity",
+          "type": "string"
+        },
+        "severity_reason": {
+          "maxLength": 700,
+          "minLength": 3,
+          "title": "Severity Reason",
+          "type": "string"
+        },
+        "citations": {
+          "items": {
+            "$ref": "#/$defs/Citation"
+          },
+          "maxItems": 8,
+          "title": "Citations",
+          "type": "array"
+        }
+      },
+      "required": [
+        "finding_id",
+        "kind",
+        "title",
+        "description",
+        "severity",
+        "severity_reason",
+        "citations"
+      ],
+      "title": "Finding",
+      "type": "object"
+    },
+    "ReassessmentComparison": {
+      "additionalProperties": false,
+      "properties": {
+        "compared_publication_id": {
+          "pattern": "^pub-[0-9a-f]{32}$",
+          "title": "Compared Publication Id",
+          "type": "string"
+        },
+        "compared_decision_digest": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Compared Decision Digest",
+          "type": "string"
+        },
+        "impacts": {
+          "items": {
+            "$ref": "#/$defs/DecisionImpact"
+          },
+          "maxItems": 4,
+          "minItems": 4,
+          "title": "Impacts",
+          "type": "array"
+        }
+      },
+      "required": [
+        "compared_publication_id",
+        "compared_decision_digest",
+        "impacts"
+      ],
+      "title": "ReassessmentComparison",
+      "type": "object"
+    },
+    "Proposal": {
+      "additionalProperties": false,
+      "description": "Accepted wire contract retains its mandatory, verified input digest.",
+      "properties": {
+        "summary": {
+          "maxLength": 2400,
+          "minLength": 8,
+          "title": "Summary",
+          "type": "string"
+        },
+        "findings": {
+          "items": {
+            "$ref": "#/$defs/Finding"
+          },
+          "maxItems": 16,
+          "title": "Findings",
+          "type": "array"
+        },
+        "actions": {
+          "items": {
+            "$ref": "#/$defs/Action"
+          },
+          "maxItems": 16,
+          "title": "Actions",
+          "type": "array"
+        },
+        "decision_items": {
+          "items": {
+            "$ref": "#/$defs/DecisionItem"
+          },
+          "maxItems": 4,
+          "minItems": 4,
+          "title": "Decision Items",
+          "type": "array"
+        },
+        "reassessment": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ReassessmentComparison"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "missing_information": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 16,
+          "title": "Missing Information",
+          "type": "array"
+        },
+        "input_hash": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Input Hash",
+          "type": "string"
+        }
+      },
+      "required": [
+        "summary",
+        "findings",
+        "actions",
+        "decision_items",
+        "missing_information",
+        "input_hash"
+      ],
+      "title": "Proposal",
+      "type": "object"
+    }
+  },
+  "commands": {
+    "create": {
+      "type": "object",
+      "properties": {
+        "request_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{16,80}$"
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "purpose": {
+          "type": "string",
+          "maxLength": 1600
+        },
+        "question": {
+          "type": "string",
+          "maxLength": 4000
+        },
+        "owner": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "goals": {
+          "type": "string",
+          "maxLength": 1600
+        }
+      },
+      "required": [
+        "request_id",
+        "name",
+        "purpose",
+        "question",
+        "owner"
+      ],
+      "additionalProperties": false
+    },
+    "evidence": {
+      "type": "object",
+      "properties": {
+        "request_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{16,80}$"
+        },
+        "expected_revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "filename": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "source": {
+          "type": "string",
+          "maxLength": 1000
+        },
+        "content_base64": {
+          "type": "string",
+          "maxLength": 2700000
+        }
+      },
+      "required": [
+        "request_id",
+        "expected_revision",
+        "filename",
+        "content_base64"
+      ],
+      "additionalProperties": false
+    },
+    "runs": {
+      "type": "object",
+      "properties": {
+        "request_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{16,80}$"
+        },
+        "expected_revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "evidence_ids": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 8,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^e-[0-9a-f]{32}$"
+          }
+        }
+      },
+      "required": [
+        "request_id",
+        "expected_revision",
+        "evidence_ids"
+      ],
+      "additionalProperties": false
+    },
+    "draft": {
+      "type": "object",
+      "properties": {
+        "request_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{16,80}$"
+        },
+        "expected_revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "run_id": {
+          "type": "string",
+          "pattern": "^run-[0-9a-f]{32}$"
+        },
+        "proposal": {
+          "$ref": "#/$defs/Proposal"
+        },
+        "change_reason": {
+          "type": "string",
+          "maxLength": 1600
+        }
+      },
+      "required": [
+        "request_id",
+        "expected_revision",
+        "run_id",
+        "proposal",
+        "change_reason"
+      ],
+      "additionalProperties": false
+    },
+    "review": {
+      "type": "object",
+      "properties": {
+        "request_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{16,80}$"
+        },
+        "expected_revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "digest": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "decision": {
+          "enum": [
+            "APPROVE",
+            "REJECT",
+            "RETURN"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "maxLength": 1600
+        },
+        "valid_days": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 30
+        }
+      },
+      "required": [
+        "request_id",
+        "expected_revision",
+        "digest",
+        "decision",
+        "reason"
+      ],
+      "additionalProperties": false
+    },
+    "publish": {
+      "type": "object",
+      "properties": {
+        "request_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{16,80}$"
+        },
+        "expected_revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "receipt_id": {
+          "type": "string",
+          "pattern": "^receipt-[0-9a-f]{32}$"
+        }
+      },
+      "required": [
+        "request_id",
+        "expected_revision",
+        "receipt_id"
+      ],
+      "additionalProperties": false
+    },
+    "delegation": {
+      "type": "object",
+      "properties": {
+        "request_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{16,80}$"
+        },
+        "expected_revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "publication_id": {
+          "type": "string",
+          "pattern": "^pub-[0-9a-f]{32}$"
+        },
+        "publication_digest": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "adapter_id": {
+          "const": "vendor_payment"
+        },
+        "adapter_version": {
+          "const": "1.0.0"
+        },
+        "connection_id": {
+          "type": "string",
+          "pattern": "^conn-[A-Za-z0-9_-]{4,80}$"
+        },
+        "profile_id": {
+          "enum": [
+            "MAINTAIN",
+            "NARROW"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1600
+        },
+        "valid_days": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 30
+        }
+      },
+      "required": [
+        "request_id",
+        "expected_revision",
+        "publication_id",
+        "publication_digest",
+        "adapter_id",
+        "adapter_version",
+        "connection_id",
+        "profile_id",
+        "reason"
+      ],
+      "additionalProperties": false
+    },
+    "applications": {
+      "type": "object",
+      "properties": {
+        "request_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{16,80}$"
+        },
+        "expected_revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "delegation_receipt_id": {
+          "type": "string",
+          "pattern": "^delegation-[0-9a-f]{32}$"
+        }
+      },
+      "required": [
+        "request_id",
+        "expected_revision",
+        "delegation_receipt_id"
+      ],
+      "additionalProperties": false
+    },
+    "revocations": {
+      "type": "object",
+      "properties": {
+        "request_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{16,80}$"
+        },
+        "expected_revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "application_id": {
+          "type": "string",
+          "pattern": "^application-[0-9a-f]{32}$"
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1600
+        }
+      },
+      "required": [
+        "request_id",
+        "expected_revision",
+        "application_id",
+        "reason"
+      ],
+      "additionalProperties": false
+    },
+    "outcomes": {
+      "type": "object",
+      "properties": {
+        "request_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{16,80}$"
+        },
+        "expected_revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "target": {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "enum": [
+                "DECISION_PUBLICATION",
+                "AWS_APPLICATION",
+                "TRACE"
+              ]
+            },
+            "id": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 200
+            },
+            "digest": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          },
+          "required": [
+            "kind",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "authority_result": {
+          "enum": [
+            "ALLOW",
+            "DENY",
+            "ERROR"
+          ]
+        },
+        "business_result": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1600
+        },
+        "metrics": {
+          "type": "array",
+          "maxItems": 16,
+          "items": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 160
+                  },
+                  "measurement_status": {
+                    "const": "MEASURED"
+                  },
+                  "value": {
+                    "type": "number"
+                  },
+                  "unit": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 80
+                  },
+                  "period": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 160
+                  },
+                  "source": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 1000
+                  },
+                  "basis": {
+                    "enum": [
+                      "OBSERVED",
+                      "ESTIMATED"
+                    ]
+                  }
+                },
+                "required": [
+                  "name",
+                  "measurement_status",
+                  "value",
+                  "unit",
+                  "period",
+                  "source",
+                  "basis"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 160
+                  },
+                  "measurement_status": {
+                    "const": "NOT_MEASURED"
+                  },
+                  "source": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 1000
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 700
+                  }
+                },
+                "required": [
+                  "name",
+                  "measurement_status",
+                  "source",
+                  "reason"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        }
+      },
+      "required": [
+        "request_id",
+        "expected_revision",
+        "target",
+        "authority_result",
+        "business_result",
+        "metrics"
+      ],
+      "additionalProperties": false
+    },
+    "imports": {
+      "type": "object",
+      "properties": {
+        "request_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{16,80}$"
+        },
+        "expected_revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "document": {
+          "type": "object",
+          "maxProperties": 20
+        }
+      },
+      "required": [
+        "request_id",
+        "expected_revision",
+        "document"
+      ],
+      "additionalProperties": false
+    },
+    "action_update": {
+      "type": "object",
+      "properties": {
+        "request_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{16,80}$"
+        },
+        "expected_revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "expected_action_revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "status": {
+          "enum": [
+            "ACTIVE",
+            "IN_PROGRESS",
+            "COMPLETED",
+            "CANCELLED"
+          ]
+        },
+        "owner": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "due_on": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1600
+        },
+        "resolution_evidence_ids": {
+          "type": "array",
+          "maxItems": 8,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^e-[0-9a-f]{32}$"
+          }
+        }
+      },
+      "required": [
+        "request_id",
+        "expected_revision",
+        "expected_action_revision",
+        "status",
+        "reason",
+        "resolution_evidence_ids"
+      ],
+      "additionalProperties": false
+    },
+    "connection": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "request_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{16,80}$"
+        },
+        "expected_revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "adapter_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "adapter_version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "connection_id": {
+          "type": "string",
+          "pattern": "^conn-[A-Za-z0-9_-]{4,80}$"
+        },
+        "registration_hash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1600
+        }
+      },
+      "required": [
+        "request_id",
+        "expected_revision",
+        "adapter_id",
+        "adapter_version",
+        "connection_id",
+        "registration_hash",
+        "reason"
+      ]
+    }
+  }
+}

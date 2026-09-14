@@ -1,0 +1,14 @@
+{
+  "scope": "LOCAL_OPERATOR_PROCESS_TEST_NO_LIVE_AWS",
+  "result": "PASS",
+  "checks": [
+    "same_build_resume",
+    "PASS",
+    "FAIL",
+    "FINAL_MISSING",
+    "WRONG_ACCOUNT",
+    "ACTIVE_BUILD",
+    "CLEANUP_UNCONFIRMED"
+  ],
+  "entrypoint_sha256": "a9cdafaaee644288d1230ae7d0d1b8c324b2b820dfde0b5d20e2a418dac85d93"
+}

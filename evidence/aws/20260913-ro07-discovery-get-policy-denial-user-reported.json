@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "scope": "USER_REPORTED_ACCOUNT_A_CODEBUILD_FAILURE_NOT_INDEPENDENTLY_OBSERVED",
+  "observed_at": "2026-09-13T14:52:16Z",
+  "account_a": "538522204923",
+  "account_b": "062788795311",
+  "region": "ap-northeast-1",
+  "build_id": "authority-delta-deploy:7835e383-df9e-4492-94cd-6c692a3d630e",
+  "application_id": "application-84ed051249524be2adc7d0d46f0503c5",
+  "error": {
+    "type": "AccessDeniedException",
+    "operation": "GetPolicy",
+    "principal": "arn:aws:sts::062788795311:assumed-role/authority-delta-customer-discovery/readinessops-wiring-loy-7835e383-df9e-4492-94cd-6c692a3d630e",
+    "resource": "arn:aws:bedrock-agentcore:ap-northeast-1:062788795311:policy-engine/AuthorityDeltaEngine-ct5rx0yah8",
+    "request_id": "51736c1e-ed4a-4346-afee-acdb8d31e49a",
+    "http_status": 403
+  },
+  "execution_boundary": "FAILURE_DURING_READ_ONLY_CUSTOMER_RECOVERY_PREFLIGHT_BEFORE_APPLICATION_DISPATCH",
+  "application_attempt_expected_unchanged": 52,
+  "policy_write_by_failed_build": "NOT_RUN",
+  "live_canary_by_failed_build": "NOT_RUN",
+  "real_payment": "NOT_AUTHORIZED"
+}

@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0",
+  "scope": "LOCAL_D3_CONNECTED_ACCEPTANCE_START_GATE_NO_LIVE_AWS_BROWSER_HUMAN_POLICY_OR_RUNTIME_ACTION",
+  "result": "PASS",
+  "observed_at": "2026-09-11T15:18:42Z",
+  "source_commit": "57bcfe41c32f88b04387f57ac4b59cdb2bec1f6a",
+  "implementation": [
+    "foundation, connector and wiring launchers record COLLECTED only after the complete downloaded report passes its stage identity, source, version and no-side-effect contract",
+    "account-A wiring evidence explicitly records zero Policy and ledger counts from its live account-B readback",
+    "offline readiness gate binds collected connector and wiring launches and reports, exact connector report bytes, accounts, Region, registration and readback state",
+    "foundation launch and result continuity are required when the clean foundation operator was actually run and omitted together when an existing matching foundation correctly avoids a redundant deployment",
+    "duplicate-member, non-finite, oversized, mixed-run, mixed-account, changed-ExternalId, changed-registration, non-empty-state and premature-authority evidence fails closed",
+    "readiness output omits the ExternalId and states that AWS execution, authenticated acceptance and runtime authority were not performed"
+  ],
+  "verification": {
+    "fresh_clone_full_regression": {
+      "count": 273,
+      "result": "PASS",
+      "seconds": 62.972,
+      "exit_code": 0
+    },
+    "fresh_clone_connected_operator_suite": {
+      "count": 24,
+      "result": "PASS",
+      "seconds": 25.806,
+      "exit_code": 0
+    },
+    "offline_hash_locked_analysis_dependency_install": "PASS_PYTHON_3_12_X86_64",
+    "cloudshell_stdlib_launcher_import": "PASS_WITH_PYTHON_S_NO_SITE_PACKAGES",
+    "delivered_worker_import_with_buildspec_dependencies": "PASS",
+    "codebuild_source_archive": {
+      "entries": 259,
+      "sha256": "fd0bfc6449cb1588ae8389aaa6ea50aea1d900fe723f3145f8da61cab14f4e1b",
+      "contains_connected_readiness_checker": true
+    },
+    "workbench_tree_unchanged": true,
+    "workbench_tree": "707de148e937e112a130935346b92e57cf58e273"
+  },
+  "security": {
+    "unsafe_success_report_marked_collected": false,
+    "external_id_emitted_by_readiness_output": false,
+    "foundation_forced_when_not_needed": false,
+    "account_a_substituted_for_account_b": false,
+    "checker_performs_aws_calls": false,
+    "checker_grants_runtime_authority": false,
+    "checker_records_human_approval": false
+  },
+  "aws_execution": "NOT_RUN",
+  "actual_account_b_identity": "NOT_RUN",
+  "deployment": "NOT_RUN",
+  "authenticated_browser_operation": "NOT_RUN",
+  "human_approval_or_publication": "NOT_RUN",
+  "actual_policy_write_or_runtime_canary": "NOT_RUN",
+  "d2_live_acceptance": "NOT_RUN",
+  "d3_live_acceptance": "NOT_RUN",
+  "gates_promoted": false,
+  "next_dependency": "Confirm a distinct account B; run foundation only if its matching prerequisites are absent, then connector and verified account-A wiring; require the offline READY_FOR_AUTHENTICATED_ACCEPTANCE result before the single bounded live acceptance"
+}

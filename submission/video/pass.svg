@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <rect width="1920" height="1080" fill="#ffffff"/>
+  <text x="960" y="225" text-anchor="middle" font-family="Arial" font-size="30" font-weight="700" fill="#1261ae">AUTHENTICATED LIVE EVIDENCE</text>
+  <rect x="220" y="320" width="1480" height="390" rx="20" fill="#eef8f5" stroke="#288a70" stroke-width="4"/>
+  <text x="960" y="430" text-anchor="middle" font-family="Arial" font-size="42" font-weight="700" fill="#1d6f5c">PASS</text>
+  <text x="960" y="530" text-anchor="middle" font-family="Arial" font-size="44" font-weight="700" fill="#071d3a">RO07 LIVE AUTHORITY LIFECYCLE</text>
+  <text x="960" y="605" text-anchor="middle" font-family="Arial" font-size="30" fill="#334b65">ALLOW → entry closed → Policy removed → all-request DENY</text>
+  <text x="960" y="655" text-anchor="middle" font-family="Arial" font-size="30" fill="#334b65">unchanged ledger · retained evidence</text>
+  <text x="960" y="820" text-anchor="middle" font-family="monospace" font-size="28" fill="#1261ae">RO07_LIVE_AUTHORITY_LIFECYCLE_CONFIRMED</text>
+</svg>

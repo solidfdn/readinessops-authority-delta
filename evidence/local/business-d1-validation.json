@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0",
+  "scope": "LOCAL_BUSINESS_D1_VALIDATION_NO_LIVE_AWS",
+  "operator": {
+    "filename": "ReadinessOps_AWS_Business_Workflow.py",
+    "source_commit": "399ac1ff0b6f174f59c01c65cc4d94296ff9ad9b",
+    "sha256": "a25224050ca4f86a3199ae7ee6b4c41bc2452d35a8e568085d859d238ae0ceef",
+    "size_bytes": 1307280
+  },
+  "business_tests": {
+    "status": "PASS",
+    "count": 22,
+    "command": "PYTHONPATH=src:scripts:tests .venv-analysis/bin/python -m unittest discover -s tests -p test_business*.py -v"
+  },
+  "react": {
+    "scope": "LOCAL_REACT_RENDER_AND_CLIENT_CONTRACT_NO_BROWSER_OR_LIVE_AWS",
+    "result": "PASS",
+    "checks": [
+      "business_intake_fields_without_payment_requirement",
+      "evidence_review_history_render",
+      "four_decision_perspectives",
+      "approval_publication_and_runtime_distinct",
+      "untrusted_text_escaped",
+      "old_read_only_session_requires_new_scopes",
+      "lost_response_recovery_same_request_id",
+      "pending_write_blocks_different_command",
+      "stale_request_cleared",
+      "expired_auth_retains_command"
+    ]
+  },
+  "package": {
+    "result": "PASS",
+    "checks": [
+      "fresh_imports",
+      "packaged_request_schema",
+      "text_pdf",
+      "encrypted_pdf_needs_input",
+      "scan_pdf_needs_input",
+      "broken_pdf_needs_input",
+      "utf8_txt",
+      "invalid_json_needs_input",
+      "filename_boundary",
+      "unauthenticated_api"
+    ],
+    "scope": "LOCAL_DISTRIBUTION_PACKAGE_NO_LIVE_AWS",
+    "artifact": {
+      "path": "/tmp/readinessops-package-nqs651ya/business.zip",
+      "sha256": "0a84fadb7f47e46affb97b5947ac3c0bdc607bdfa6bdaeaa07135b59fdfcd63a",
+      "size_bytes": 28485518,
+      "uncompressed_bytes": 61902725,
+      "architecture": "x86_64"
+    }
+  },
+  "delivery": {
+    "scope": "LOCAL_OPERATOR_PROCESS_TEST_NO_LIVE_AWS",
+    "result": "PASS",
+    "source_commit": "399ac1ff0b6f174f59c01c65cc4d94296ff9ad9b",
+    "entrypoint_sha256": "a25224050ca4f86a3199ae7ee6b4c41bc2452d35a8e568085d859d238ae0ceef",
+    "checks": [
+      "exact_committed_source_restoration",
+      "remote_record_recovery_without_new_build",
+      "PASS",
+      "FAIL",
+      "WRONG_ACCOUNT",
+      "ACTIVE_BUILD",
+      "SIGN_IN_UNCONFIRMED",
+      "REPORT_MISMATCH",
+      "STATE_CHANGED",
+      "FINAL_MISSING",
+      "START_RESPONSE_LOST"
+    ]
+  },
+  "browser": {
+    "scope": "LOCAL_BROWSER_UI_VERIFICATION",
+    "status": "NOT_RUN_BLOCKED",
+    "reason": "Cloud browser URL security policy rejected localhost and shared local file navigation. No alternate browser control or policy workaround attempted after rejection.",
+    "live_aws": "NOT_RUN"
+  },
+  "live_deployment": "NOT_RUN",
+  "human_workflow": "NOT_RUN",
+  "existing_deployed_source": "14e5faa44e7588f3ae78e8cdc3eedc2edb2a6f59"
+}

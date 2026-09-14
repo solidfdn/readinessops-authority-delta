@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0",
+  "baseline_id": "AD-BASELINE-1.0",
+  "source": "USER_PROVIDED_AWS_CLOUDSHELL_STDOUT",
+  "observed_at": "2026-09-08T04:03:31Z",
+  "updated_at": "2026-09-08T04:47:09Z",
+  "scope": "READ_ONLY_G0_PREFLIGHT_NO_RESOURCES_CREATED",
+  "identity": {
+    "account": "538522204923",
+    "arn": "arn:aws:iam::538522204923:root",
+    "account_name": "solifan001"
+  },
+  "region": "ap-northeast-1",
+  "cloudformation": {
+    "types": {
+      "AWS::BedrockAgentCore::PolicyEngine": {
+        "provisioning_type": "FULLY_MUTABLE",
+        "default_version_id": null,
+        "describe_type_call": "PASS"
+      },
+      "AWS::BedrockAgentCore::Gateway": {
+        "provisioning_type": "FULLY_MUTABLE",
+        "default_version_id": null,
+        "describe_type_call": "PASS"
+      },
+      "AWS::BedrockAgentCore::GatewayTarget": {
+        "provisioning_type": "FULLY_MUTABLE",
+        "default_version_id": null,
+        "describe_type_call": "PASS"
+      }
+    },
+    "template_validation_call": "NOT_RUN"
+  },
+  "agentcore": {
+    "gateway_list_call": "PASS",
+    "gateway_count": 0,
+    "policy_engine_list_call": "PASS",
+    "policy_engine_count": 0
+  },
+  "bedrock": {
+    "initial_count_query": "INTERRUPTED_MANUALLY",
+    "bounded_list_foundation_models_call": "PASS",
+    "observed_model_sample": [
+      {"model_id": "nvidia.nemotron-nano-12b-v2", "provider": "NVIDIA", "status": "ACTIVE"},
+      {"model_id": "openai.gpt-5.6-terra", "provider": "OpenAI", "status": "ACTIVE"},
+      {"model_id": "anthropic.claude-sonnet-4-20250514-v1:0", "provider": "Anthropic", "status": "LEGACY"},
+      {"model_id": "anthropic.claude-haiku-4-5-20251001-v1:0", "provider": "Anthropic", "status": "ACTIVE"},
+      {"model_id": "qwen.qwen3-235b-a22b-2507-v1:0", "provider": "Qwen", "status": "ACTIVE"},
+      {"model_id": "moonshotai.kimi-k2.5", "provider": "Moonshot AI", "status": "ACTIVE"},
+      {"model_id": "openai.gpt-oss-120b-1:0", "provider": "OpenAI", "status": "ACTIVE"},
+      {"model_id": "qwen.qwen3-next-80b-a3b", "provider": "Qwen", "status": "ACTIVE"},
+      {"model_id": "anthropic.claude-fable-5", "provider": "Anthropic", "status": "ACTIVE"},
+      {"model_id": "deepseek.v3.2", "provider": "DeepSeek", "status": "ACTIVE"}
+    ],
+    "selected_candidate_model_id": "openai.gpt-5.6-terra",
+    "model_invocation_tested": false
+  },
+  "security": {
+    "caller_is_root": true,
+    "root_mfa_verified": true,
+    "root_mfa_enabled": true,
+    "administrative_role_verified": false,
+    "deployment_allowed": false
+  },
+  "budget": {
+    "describe_budgets_call": "PASS",
+    "query_error": null,
+    "budget_count": 1,
+    "budget_name": "ReadinessOps-Authority-Delta",
+    "limit": {"amount": "50.0", "unit": "USD"},
+    "time_unit": "MONTHLY",
+    "budget_type": "COST",
+    "notification_count": 4,
+    "notifications": [
+      {"type": "ACTUAL", "threshold": 20.0, "state": "OK"},
+      {"type": "ACTUAL", "threshold": 50.0, "state": "OK"},
+      {"type": "FORECASTED", "threshold": 80.0, "state": "OK"},
+      {"type": "ACTUAL", "threshold": 100.0, "state": "OK"}
+    ],
+    "budget_guard_verified": true,
+    "notifications_verified": true
+  },
+  "result": "SERVICE_PREFLIGHT_PASS_DEPLOYMENT_BLOCKED",
+  "credentials_recorded": false,
+  "resources_created": false
+}

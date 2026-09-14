@@ -1,0 +1,22 @@
+{
+  "source_commit": "53358d0fe44174490fcca09b9d68bf52d9fdeaf1",
+  "operator_sha256": "a13ac9f04e34f744c5aa92ce3e9c53ce0f8b1791bf6479454e396ab262d5f357",
+  "unit_tests": 133,
+  "unit_test_seconds": 55.5,
+  "unit_test_result": "PASS",
+  "delivery": {
+    "scope": "LOCAL_OPERATOR_PROCESS_TEST_NO_LIVE_AWS",
+    "result": "PASS",
+    "checks": [
+      "same_build_resume",
+      "PASS",
+      "FAIL",
+      "FINAL_MISSING",
+      "WRONG_ACCOUNT",
+      "ACTIVE_BUILD",
+      "CLEANUP_UNCONFIRMED"
+    ],
+    "entrypoint_sha256": "a13ac9f04e34f744c5aa92ce3e9c53ce0f8b1791bf6479454e396ab262d5f357"
+  },
+  "live_repair": "NOT_RUN"
+}

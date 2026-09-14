@@ -1,0 +1,22 @@
+{
+  "scope": "LOCAL_COMPILER_OUTPUT_COMPARISON_NO_AWS",
+  "prior_source": "a1af458",
+  "result": "PASS",
+  "checks": [
+    {
+      "decision": "MAINTAIN",
+      "byte_and_binding_match": true,
+      "policy_hash": "d6bed4d293b88d1314d96cb3586bff37258ccb814f72abc3345dd4c9a94827e3"
+    },
+    {
+      "decision": "NARROW",
+      "byte_and_binding_match": true,
+      "policy_hash": "e0f4bd42f23169b04f29695338bb9aadac8c154f3c37a666a5546a1597c0843f"
+    },
+    {
+      "decision": "REJECT",
+      "byte_and_binding_match": true,
+      "policy_hash": null
+    }
+  ]
+}

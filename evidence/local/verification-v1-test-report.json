@@ -1,0 +1,15 @@
+{
+  "scope": "LOCAL_ONLY_NO_AWS_VERIFICATION",
+  "tested_source_commit": "9d98d2f5ec6cf7c9dab53816e86f6d86680f86dd",
+  "observed_at": "2026-09-08T05:44:32.772792+00:00",
+  "test_command": "python -m unittest discover -s tests -q",
+  "environment": "Python 3.12; full git archive extracted to fresh directory",
+  "test_count": 41,
+  "exit_code": 0,
+  "status": "PASS",
+  "stderr": "----------------------------------------------------------------------\nRan 41 tests in 0.637s\n\nOK",
+  "gateway_enforcement": "NOT_RUN_IN_AWS",
+  "model_invocation": "NOT_RUN_IN_AWS",
+  "source_allowlist": "PASS",
+  "shell_syntax": "PASS"
+}

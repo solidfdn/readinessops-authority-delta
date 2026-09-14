@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0",
+  "scope": "LOCAL_D3_AWS_PUBLISHER_CANARY_QUEUE_CONTRACT_NO_LIVE_AWS_BROWSER_OR_HUMAN",
+  "observed_at": "2026-09-11T02:52:30+00:00",
+  "source_base_commit": "35a7bbb92f7385a3cb452d4ff6e6f7ac4cc2a471",
+  "inputs": [
+    "ReadinessOps_AWS_Source_20260910(1).bundle",
+    "support-agent-v1-pilot-control(1).txt"
+  ],
+  "result": "PASS_LOCAL_ONLY",
+  "implemented": {
+    "account_a": [
+      "transactional application outbox",
+      "dedicated application SQS and DLQ",
+      "scheduled failed-send recovery",
+      "bounded UNKNOWN reconciliation",
+      "qualified registered Publisher Lambda transport",
+      "strict AWS invocation request/version correlation"
+    ],
+    "account_b": [
+      "persistent publisher phase journal",
+      "deny-first finite request canary",
+      "exact ACTIVE Policy readback",
+      "separate qualified Runtime canary",
+      "same-token create reconciliation",
+      "exact owned Policy cleanup and closed readback"
+    ],
+    "authority_separation": {
+      "account_a_application_worker_policy_actions": false,
+      "account_a_application_worker_runtime_actions": false,
+      "account_b_publisher_runtime_actions": false,
+      "account_b_canary_policy_actions": false,
+      "browser_supplied_arn_policy_or_request_set": false
+    }
+  },
+  "verification": {
+    "full_python": {
+      "command": "PYTHONPATH=src:scripts:tests:. .venv-analysis/bin/python -m unittest discover -s tests -q",
+      "tests": 228,
+      "seconds": 35.693,
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    "focused_d3": {
+      "command": "PYTHONPATH=src:scripts:tests:. .venv-analysis/bin/python -m unittest test_business_delegation test_business_application_aws -q",
+      "tests": 22,
+      "seconds": 0.541,
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    "typescript": "PASS",
+    "production_assets": "PASS",
+    "workbench_contract_checks": 15,
+    "business_ui_contract_checks": 11,
+    "generated_templates_match": "PASS",
+    "fixed_sdk_shapes": "PASS"
+  },
+  "packages": {
+    "lambda": {
+      "sha256": "ef4612c54c555345134888e82512fd2821e8915bc93bfe59149adace899d5508",
+      "size_bytes": 28513210,
+      "architecture": "x86_64"
+    },
+    "runtime": {
+      "sha256": "89a58e9d98b5bd344951ffd87c116caf248c8702eb173556505f3f51a8421321",
+      "size_bytes": 28354673,
+      "architecture": "aarch64"
+    }
+  },
+  "packaged_registry": {
+    "registration_count": 0,
+    "reason": "Actual account B and its Publisher/Canary bindings are unconfirmed",
+    "account_a_substitution": false,
+    "behavior": "FAIL_CLOSED"
+  },
+  "not_run": [
+    "AWS deployment",
+    "account-B registration",
+    "AgentCore Policy create/delete",
+    "Gateway deny-first and ALLOW/DENY probes",
+    "live browser flow",
+    "human approval or delegation",
+    "D2 or D3 live acceptance",
+    "gate promotion"
+  ],
+  "next": "Confirm observed account-B values, build the packaged registration, deploy Publisher/Canary then account-A application wiring, and execute one bounded live D3 acceptance."
+}

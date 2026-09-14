@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0",
+  "scope": "LOCAL_SYNTHETIC_ACCOUNT_IN_MEMORY_STORES_AND_SCRIPTED_PUBLISHER_NO_LIVE_AWS_BROWSER_OR_HUMAN",
+  "observed_at": "2026-09-11T02:05:32+00:00",
+  "source_base_commit": "ef057e5745b8f6c25d2ff9bd7068ddae6296b551",
+  "result": "PASS",
+  "implementation_checks": [
+    "business approval and official publication do not imply AWS authority",
+    "unregistered adapter stays closed",
+    "typed receipt binds exact publication, adapter, connection, boundary, Runtime, role, finite request universe, policy, expiry and generation",
+    "browser cannot supply ARN, Cedar or request IDs",
+    "same request ID replays the same application",
+    "one writer lock spans objects sharing one connection and policy engine",
+    "AppliedBinding switches only after exact terminal canary evidence",
+    "publish timeout or malformed evidence becomes UNKNOWN and retains lock and previous binding",
+    "UNKNOWN retry uses reconcile",
+    "verified closed recovery installs no binding",
+    "empty registry UI offers no AWS authority action",
+    "registered adapter UI keeps delegation separate from business approval"
+  ],
+  "python": {
+    "command": "PYTHONPATH=src:tests:scripts .venv-analysis/bin/python -m unittest discover -s tests -q",
+    "tests": 218,
+    "seconds": 33.790,
+    "result": "PASS",
+    "exit_code": 0
+  },
+  "focused_d3": {
+    "command": "PYTHONPATH=src:tests .venv-analysis/bin/python -m unittest tests.test_business_delegation -q",
+    "tests": 12,
+    "result": "PASS",
+    "exit_code": 0
+  },
+  "workbench": {
+    "commands": [
+      "npm test",
+      "npm run build"
+    ],
+    "ui_contract_checks": 15,
+    "contract_result": "PASS",
+    "adjacent_business_ui_contract_checks": 11,
+    "adjacent_business_ui_contract_result": "PASS",
+    "typescript_result": "PASS",
+    "production_build_result": "PASS"
+  },
+  "package_build": {
+    "lambda_sha256": "6d214bf7a88af0ee4a09c414cdb5812146166339260d70e4bdbe5200bf4d5d63",
+    "runtime_sha256": "c6a9ee77c896c3ce71aa87bfd4b41a5b4d2fc8d35422f2aae60dd4c507ec091b",
+    "result": "PASS",
+    "deployment": "NOT_RUN"
+  },
+  "limits": {
+    "adapter_registry": "Packaged registrations list is empty; synthetic registration exists only in local test support",
+    "publisher": "Scripted local publisher exercises the strict result port and recovery state machine; an AWS SDK Publisher and actual invocation probe are not implemented or run",
+    "aws_calls": "NOT_RUN",
+    "deployment": "NOT_RUN",
+    "account_b": "UNCONFIRMED",
+    "human_approval": "NOT_RUN",
+    "browser_acceptance": "NOT_RUN",
+    "gate_promotion": false
+  }
+}

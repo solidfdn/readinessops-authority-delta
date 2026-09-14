@@ -1,0 +1,18 @@
+{
+  "scope": "USER_PROVIDED_TERMINAL_DEPLOYMENT_RESULT",
+  "source_commit_reported": "f339cf5",
+  "build_id": "authority-delta-deploy:acb925a1-d4ff-4740-95e4-07ae51eba6d7",
+  "account": "538522204923",
+  "region": "ap-northeast-1",
+  "result": "PASS",
+  "customer_registry": "VERIFIED_AND_DEPLOYED",
+  "business_assessment_canary": "PASS",
+  "human_workflow": "NOT_RUN",
+  "policy_write": "NOT_RUN",
+  "live_customer_canary": "NOT_RUN",
+  "state_unchanged": true,
+  "policy_count": 0,
+  "ledger_count": 0,
+  "independent_aws_readback": "NOT_RUN_BY_THIS_RECORD",
+  "note": "Deployment summary precedes the separate user RO09 operation; do not reinterpret NOT_RUN as overriding its later supplied export."
+}

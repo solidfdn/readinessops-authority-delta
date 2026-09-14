@@ -1,0 +1,23 @@
+CUSTOMER DATA SHARING: INITIAL REVIEW EVIDENCE
+Version: 1.0
+Source: SOLIFAN synthetic acceptance scenario
+Date: 2026-09-12
+This is fictional test material. It is not a company approval or a record of production operation.
+
+Purpose
+A support team proposes sharing customer inquiry data with an external analytics provider to prepare weekly service reports. The team wants to reduce report preparation effort while preserving a documented decision trail.
+
+Proposed boundary
+The first pilot would use synthetic customer records only. No actual customer information is included in this test. Sending real customer names, email addresses or inquiry text requires the data owner's explicit approval of the purpose, fields, recipient and retention period. Such approval has not been supplied. Processor terms and the provider's deletion arrangements have not been verified.
+
+Human decisions and stop conditions
+A human must approve the precise sharing scope before real customer data is sent. New data fields, a new recipient or a changed business purpose require reassessment. Stop sharing if data exceeds the approved scope or the provider cannot meet the agreed retention conditions. Resumption requires corrective evidence and a new human decision. These are proposed controls, not verified technical enforcement.
+
+Business value
+Measure weekly report preparation and review time before and during a bounded pilot. No baseline, pilot timing, cost or accuracy measurements exist yet. A shorter preparation time is a goal, not an achieved result.
+
+AI and human work
+AI may identify topics in synthetic inquiries and draft a report for human review. No model comparison has been performed. Unsupported conclusions, conflicting evidence or requests outside the agreed scope must return to a human. Model selection remains open until measured quality and cost results are available.
+
+Initiative decision
+Assess whether a synthetic pilot can proceed under explicit limits, and what is still needed before production data sharing. Do not infer readiness for production or compare this initiative with an undocumented portfolio.

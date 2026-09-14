@@ -1,0 +1,7 @@
+{
+  "scope": "LOCAL_SDK_STUBBER_AND_SCRIPTED_PRIOR_NO_LIVE_WORKBENCH",
+  "command": "PYTHONPATH=src:scripts:tests:. .venv-analysis/bin/python -m unittest test_workbench -q",
+  "tests": 10,
+  "result": "PASS",
+  "seconds": 2.194
+}

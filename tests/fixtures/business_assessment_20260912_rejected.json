@@ -1,0 +1,399 @@
+{
+  "provenance": {
+    "kind": "USER_PROVIDED_LIVE_DIAGNOSTIC",
+    "build_id": "authority-delta-deploy:2785d0e9-ce9a-45b6-9148-eb2ef940e1e5",
+    "attachment_sha256": "a8ec841f7be1b2b875580ff57d53c0f80ff83c57d5ef117fb9516797d77aa087",
+    "input_snapshot_supplied": false,
+    "note": "Rejected model outputs retained unchanged. Replay reconstructs a local synthetic snapshot from the deployment canary text and these item/evidence IDs; it is not the original live snapshot."
+  },
+  "analysis": {
+    "attempts": [
+      {
+        "error": "1 validation error for ValidatorCallable\ninput_hash\n  Field required [type=missing, input_value={'summary': 'Based on the...ive on the portfolio.']}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/missing",
+        "proposal": {
+          "actions": [
+            {
+              "description": "Ensure compliance with internal rules before external data sharing.",
+              "finding_ids": [
+                "F-01"
+              ],
+              "title": "Obtain owner approval and processor contract"
+            },
+            {
+              "description": "Establish a baseline for evaluating the initiative's impact.",
+              "finding_ids": [
+                "F-02"
+              ],
+              "title": "Measure current preparation time, model comparisons, and operating costs"
+            }
+          ],
+          "decision_items": [
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-bad6a2758b2345d2937fcffb6d8f3736",
+                  "quote": "No owner approval or processor contract has been supplied."
+                }
+              ],
+              "conditions": "Owner approval and processor contract are obtained.",
+              "decision_item_id": "di-72d741266c7a497791bbf420e25e2166",
+              "perspective": "GOVERNANCE",
+              "question": "Which decisions and missing evidence should the owner review before external sharing?",
+              "rationale": "Missing owner approval and processor contract pose a high risk of non-compliance with internal rules.",
+              "reassessment_conditions": "New evidence on owner approval and processor contract.",
+              "recommendation": "NEEDS_INPUT"
+            },
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-bad6a2758b2345d2937fcffb6d8f3736",
+                  "quote": "The current preparation time, model comparisons and operating costs have not been measured."
+                }
+              ],
+              "conditions": "Current preparation time, model comparisons, and operating costs are measured.",
+              "decision_item_id": "di-6fee15c305b7460186246179863a7ff1",
+              "perspective": "VALUE",
+              "question": "Which decisions and missing evidence should the owner review before external sharing?",
+              "rationale": "Missing measurements of current preparation time, model comparisons, and operating costs prevent evaluating the initiative's impact.",
+              "reassessment_conditions": "New evidence on current preparation time, model comparisons, and operating costs.",
+              "recommendation": "NEEDS_INPUT"
+            },
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-bad6a2758b2345d2937fcffb6d8f3736",
+                  "quote": "No evidence on model comparisons."
+                }
+              ],
+              "conditions": "Model comparisons are conducted.",
+              "decision_item_id": "di-5c88afe4fa9e400f8b791f0c750ad90f",
+              "perspective": "MODEL_ROUTING",
+              "question": "Which decisions and missing evidence should the owner review before external sharing?",
+              "rationale": "Missing evidence on model comparisons prevents informed decision-making on model routing.",
+              "reassessment_conditions": "New evidence on model comparisons.",
+              "recommendation": "NEEDS_INPUT"
+            },
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-bad6a2758b2345d2937fcffb6d8f3736",
+                  "quote": "No evidence on the impact of the initiative on the portfolio."
+                }
+              ],
+              "conditions": "Impact of the initiative on the portfolio is assessed.",
+              "decision_item_id": "di-cf48423b83e148e6a1f4c4c631ee9847",
+              "perspective": "PORTFOLIO",
+              "question": "Which decisions and missing evidence should the owner review before external sharing?",
+              "rationale": "Missing evidence on the impact of the initiative on the portfolio prevents informed decision-making on portfolio management.",
+              "reassessment_conditions": "New evidence on the impact of the initiative on the portfolio.",
+              "recommendation": "NEEDS_INPUT"
+            }
+          ],
+          "findings": [
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-bad6a2758b2345d2937fcffb6d8f3736",
+                  "quote": "No owner approval or processor contract has been supplied."
+                }
+              ],
+              "description": "No owner approval or processor contract has been supplied for external data sharing.",
+              "finding_id": "F-01",
+              "kind": "GAP",
+              "severity": "HIGH",
+              "severity_reason": "High risk of non-compliance with internal rules.",
+              "title": "Missing owner approval and processor contract"
+            }
+          ],
+          "missing_information": [
+            "Impact of the initiative on the portfolio."
+          ],
+          "summary": "Based on the context and evidence, the following decision items are proposed:\n\nGOVERNANCE: NEEDS_INPUT - Missing owner approval and processor contract.\nVALUE: NEEDS_INPUT - Current preparation time, model comparisons, and operating costs have not been measured.\nMODEL_ROUTING: NEEDS_INPUT - No evidence on model comparisons.\nPORTFOLIO: NEEDS_INPUT - No evidence on the impact of the initiative on the portfolio.\n\nFindings:\nF-01: GAP - Missing owner approval and processor contract.\nF-02: GAP - Current preparation time, model comparisons, and operating costs have not been measured.\n\nActions:\nA-01: Obtain owner approval and processor contract.\nA-02: Measure current preparation time, model comparisons, and operating costs.\n\nMissing Information:\nMI-01: Impact of the initiative on the portfolio.\n\ninput_hash="
+        },
+        "status": "REJECTED"
+      },
+      {
+        "error": "1 validation error for ValidatorCallable\ninput_hash\n  Field required [type=missing, input_value={'summary': 'Based on the...ive on the portfolio.']}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/missing",
+        "proposal": {
+          "actions": [
+            {
+              "description": "Ensure compliance with internal rules before external data sharing.",
+              "finding_ids": [
+                "F-01"
+              ],
+              "title": "Obtain owner approval and processor contract"
+            },
+            {
+              "description": "Establish a baseline for evaluating the initiative's impact.",
+              "finding_ids": [
+                "F-02"
+              ],
+              "title": "Measure current preparation time, model comparisons, and operating costs"
+            }
+          ],
+          "decision_items": [
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-bad6a2758b2345d2937fcffb6d8f3736",
+                  "quote": "No owner approval or processor contract has been supplied."
+                }
+              ],
+              "conditions": "Owner approval and processor contract are obtained.",
+              "decision_item_id": "di-72d741266c7a497791bbf420e25e2166",
+              "perspective": "GOVERNANCE",
+              "question": "Which decisions and missing evidence should the owner review before external sharing?",
+              "rationale": "Missing owner approval and processor contract pose a high risk of non-compliance with internal rules.",
+              "reassessment_conditions": "New evidence on owner approval and processor contract.",
+              "recommendation": "NEEDS_INPUT"
+            },
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-bad6a2758b2345d2937fcffb6d8f3736",
+                  "quote": "The current preparation time, model comparisons and operating costs have not been measured."
+                }
+              ],
+              "conditions": "Current preparation time, model comparisons, and operating costs are measured.",
+              "decision_item_id": "di-6fee15c305b7460186246179863a7ff1",
+              "perspective": "VALUE",
+              "question": "Which decisions and missing evidence should the owner review before external sharing?",
+              "rationale": "Missing measurements of current preparation time, model comparisons, and operating costs prevent evaluating the initiative's impact.",
+              "reassessment_conditions": "New evidence on current preparation time, model comparisons, and operating costs.",
+              "recommendation": "NEEDS_INPUT"
+            },
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-bad6a2758b2345d2937fcffb6d8f3736",
+                  "quote": "No evidence on model comparisons."
+                }
+              ],
+              "conditions": "Model comparisons are conducted.",
+              "decision_item_id": "di-5c88afe4fa9e400f8b791f0c750ad90f",
+              "perspective": "MODEL_ROUTING",
+              "question": "Which decisions and missing evidence should the owner review before external sharing?",
+              "rationale": "Missing evidence on model comparisons prevents informed decision-making on model routing.",
+              "reassessment_conditions": "New evidence on model comparisons.",
+              "recommendation": "NEEDS_INPUT"
+            },
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-bad6a2758b2345d2937fcffb6d8f3736",
+                  "quote": "No evidence on the impact of the initiative on the portfolio."
+                }
+              ],
+              "conditions": "Impact of the initiative on the portfolio is assessed.",
+              "decision_item_id": "di-cf48423b83e148e6a1f4c4c631ee9847",
+              "perspective": "PORTFOLIO",
+              "question": "Which decisions and missing evidence should the owner review before external sharing?",
+              "rationale": "Missing evidence on the impact of the initiative on the portfolio prevents informed decision-making on portfolio management.",
+              "reassessment_conditions": "New evidence on the impact of the initiative on the portfolio.",
+              "recommendation": "NEEDS_INPUT"
+            }
+          ],
+          "findings": [
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-bad6a2758b2345d2937fcffb6d8f3736",
+                  "quote": "No owner approval or processor contract has been supplied."
+                }
+              ],
+              "description": "No owner approval or processor contract has been supplied for external data sharing.",
+              "finding_id": "F-01",
+              "kind": "GAP",
+              "severity": "HIGH",
+              "severity_reason": "High risk of non-compliance with internal rules.",
+              "title": "Missing owner approval and processor contract"
+            }
+          ],
+          "missing_information": [
+            "Impact of the initiative on the portfolio."
+          ],
+          "summary": "Based on the context and evidence, the following decision items are proposed:\n\nGOVERNANCE: NEEDS_INPUT - Missing owner approval and processor contract.\nVALUE: NEEDS_INPUT - Current preparation time, model comparisons, and operating costs have not been measured.\nMODEL_ROUTING: NEEDS_INPUT - No evidence on model comparisons.\nPORTFOLIO: NEEDS_INPUT - No evidence on the impact of the initiative on the portfolio.\n\nFindings:\nF-01: GAP - Missing owner approval and processor contract.\nF-02: GAP - Current preparation time, model comparisons, and operating costs have not been measured.\n\nActions:\nA-01: Obtain owner approval and processor contract.\nA-02: Measure current preparation time, model comparisons, and operating costs.\n\nMissing Information:\nMI-01: Impact of the initiative on the portfolio.\n\ninput_hash=ac6e4c7ba91602892818db6114253de12e71b47f22cba3a707c7251c91710846"
+        },
+        "status": "REJECTED"
+      },
+      {
+        "error": "1 validation error for ValidatorCallable\ninput_hash\n  Field required [type=missing, input_value={'summary': \"Based on the...ive on the portfolio.']}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/missing",
+        "proposal": {
+          "actions": [
+            {
+              "description": "Ensure compliance with internal rules before external data sharing.",
+              "finding_ids": [
+                "F-01"
+              ],
+              "title": "Obtain owner approval and processor contract"
+            },
+            {
+              "description": "Establish a baseline for evaluating the initiative's impact.",
+              "finding_ids": [
+                "F-02"
+              ],
+              "title": "Measure current preparation time, model comparisons, and operating costs"
+            }
+          ],
+          "decision_items": [
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-bad6a2758b2345d2937fcffb6d8f3736",
+                  "quote": "No owner approval or processor contract has been supplied."
+                }
+              ],
+              "conditions": "Owner approval and processor contract are obtained.",
+              "decision_item_id": "di-72d741266c7a497791bbf420e25e2166",
+              "perspective": "GOVERNANCE",
+              "question": "Which decisions and missing evidence should the owner review before external sharing?",
+              "rationale": "Missing owner approval and processor contract pose a high risk of non-compliance with internal rules.",
+              "reassessment_conditions": "New evidence on owner approval and processor contract.",
+              "recommendation": "NEEDS_INPUT"
+            },
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-bad6a2758b2345d2937fcffb6d8f3736",
+                  "quote": "The current preparation time, model comparisons and operating costs have not been measured."
+                }
+              ],
+              "conditions": "Current preparation time, model comparisons, and operating costs are measured.",
+              "decision_item_id": "di-6fee15c305b7460186246179863a7ff1",
+              "perspective": "VALUE",
+              "question": "Which decisions and missing evidence should the owner review before external sharing?",
+              "rationale": "Missing measurements of current preparation time, model comparisons, and operating costs prevent evaluating the initiative's impact.",
+              "reassessment_conditions": "New evidence on current preparation time, model comparisons, and operating costs.",
+              "recommendation": "NEEDS_INPUT"
+            },
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-bad6a2758b2345d2937fcffb6d8f3736",
+                  "quote": "No evidence on model comparisons."
+                }
+              ],
+              "conditions": "Model comparisons are conducted.",
+              "decision_item_id": "di-5c88afe4fa9e400f8b791f0c750ad90f",
+              "perspective": "MODEL_ROUTING",
+              "question": "Which decisions and missing evidence should the owner review before external sharing?",
+              "rationale": "Missing evidence on model comparisons prevents informed decision-making on model routing.",
+              "reassessment_conditions": "New evidence on model comparisons.",
+              "recommendation": "NEEDS_INPUT"
+            },
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-bad6a2758b2345d2937fcffb6d8f3736",
+                  "quote": "No evidence on the impact of the initiative on the portfolio."
+                }
+              ],
+              "conditions": "Impact of the initiative on the portfolio is assessed.",
+              "decision_item_id": "di-cf48423b83e148e6a1f4c4c631ee9847",
+              "perspective": "PORTFOLIO",
+              "question": "Which decisions and missing evidence should the owner review before external sharing?",
+              "rationale": "Missing evidence on the impact of the initiative on the portfolio prevents informed decision-making on portfolio management.",
+              "reassessment_conditions": "New evidence on the impact of the initiative on the portfolio.",
+              "recommendation": "NEEDS_INPUT"
+            }
+          ],
+          "findings": [
+            {
+              "citations": [
+                {
+                  "evidence_id": "e-bad6a2758b2345d2937fcffb6d8f3736",
+                  "quote": "No owner approval or processor contract has been supplied."
+                }
+              ],
+              "description": "No owner approval or processor contract has been supplied for external data sharing.",
+              "finding_id": "F-01",
+              "kind": "GAP",
+              "severity": "HIGH",
+              "severity_reason": "High risk of non-compliance with internal rules.",
+              "title": "Missing owner approval and processor contract"
+            }
+          ],
+          "missing_information": [
+            "Impact of the initiative on the portfolio."
+          ],
+          "summary": "Based on the context and evidence, the following decision items are proposed:\n\nGOVERNANCE: NEEDS_INPUT - Missing owner approval and processor contract.\nVALUE: NEEDS_INPUT - Current preparation time, model comparisons, and operating costs have not been measured.\nMODEL_ROUTING: NEEDS_INPUT - No evidence on model comparisons.\nPORTFOLIO: NEEDS_INPUT - No evidence on the impact of the initiative on the portfolio.\n\nFindings:\nF-01: GAP - Missing owner approval and processor contract.\nF-02: GAP - Current preparation time, model comparisons, and operating costs have not been measured.\n\nActions:\nA-01: Obtain owner approval and processor contract.\nA-02: Measure current preparation time, model comparisons, and operating costs.\n\nMissing Information:\nMI-01: Impact of the initiative on the portfolio.\n\ninput_hash='ac6e4c7ba91602892818db6114253de12e71b47f22cba3a707c7251c91710846'"
+        },
+        "status": "REJECTED"
+      }
+    ],
+    "error": {
+      "message": "Bounded assessment attempts exhausted",
+      "type": "EventLoopException"
+    },
+    "identity": {
+      "account": "538522204923",
+      "arn": "arn:aws:sts::538522204923:assumed-role/authority-delta-business-model/BedrockAgentCore-c2cea986-263b-4522-8e82-7def63d679e0",
+      "request_id": "0d2cb41d-5d45-456f-aa9a-01f2a31f5dcc"
+    },
+    "input_hash": "ac6e4c7ba91602892818db6114253de12e71b47f22cba3a707c7251c91710846",
+    "model_calls": [
+      {
+        "http_status": 200,
+        "request_id": "65861f4c-5f19-4fef-91d0-d8ec2c6b4d76",
+        "usage": {
+          "inputTokens": 2751,
+          "outputTokens": 151,
+          "totalTokens": 2902
+        }
+      },
+      {
+        "http_status": 200,
+        "request_id": "5f6e8666-2a60-457e-a5d7-ca7b5566bb97",
+        "usage": {
+          "inputTokens": 3610,
+          "outputTokens": 1404,
+          "totalTokens": 5014
+        }
+      },
+      {
+        "http_status": 200,
+        "request_id": "6b8a5e02-c59e-4155-b57c-4eefd6b52cde",
+        "usage": {
+          "inputTokens": 5132,
+          "outputTokens": 1406,
+          "totalTokens": 6538
+        }
+      },
+      {
+        "http_status": 200,
+        "request_id": "f09afd3e-6e64-48f0-8e22-e78ba1dcc39c",
+        "usage": {
+          "inputTokens": 6655,
+          "outputTokens": 1353,
+          "totalTokens": 8008
+        }
+      }
+    ],
+    "model_id": "apac.amazon.nova-pro-v1:0",
+    "proposal": null,
+    "reads": [
+      "context",
+      "evidence"
+    ],
+    "result": "HOLD",
+    "runtime_evidence": {
+      "endpoint": "fixed_business",
+      "endpoint_after": {
+        "endpoint_arn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_business-59YQj24fG4/runtime-endpoint/fixed_business",
+        "live_version": "4",
+        "request_id": "773b3b5c-b227-4808-8d22-59698278e9b4"
+      },
+      "endpoint_before": {
+        "endpoint_arn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_business-59YQj24fG4/runtime-endpoint/fixed_business",
+        "live_version": "4",
+        "request_id": "a0fe2375-a502-4a48-a441-8a7efcf980de"
+      },
+      "http_status": 200,
+      "request_id": "e9347ad5-a1c7-4034-ad19-5aa2f86020ec",
+      "runtime_arn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_business-59YQj24fG4",
+      "session_id": "readinessops-df94cf75eb59445cb6804b9562540f7c",
+      "version": "4"
+    },
+    "status": "NEEDS_INPUT"
+  }
+}

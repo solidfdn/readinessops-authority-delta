@@ -1,22 +1,26 @@
 # ReadinessOps — AWS edition
 
-**Evidence → cited agent proposal → human decision → finite AWS authority → verified removal.**
+**The accountable path from evidence to human decision to finite AWS authority—and verifiable removal.**
 
 [Live product](https://d3rn3hqm0ax5ux.cloudfront.net/) ·
 [Judge guide](submission/JUDGE_GUIDE.md) ·
 [Architecture](docs/ARCHITECTURE.svg) ·
 [RO-07 live acceptance](docs/RO07_LIVE_ACCEPTANCE.md) ·
 [Implementation](docs/IMPLEMENTATION.md) ·
-[Acceptance contract](docs/ACCEPTANCE_READINESSOPS_v1.2.md)
+[Acceptance evidence contract](docs/INTEGRATED_ACCEPTANCE_EVIDENCE.md)
 
-![ReadinessOps Authority Delta architecture](docs/ARCHITECTURE.svg)
+![The complete ReadinessOps workspace: business objects, evidence, cited assessment, human decisions, actions, outcomes and history](docs/product-screens/viewport-01-overview.jpg)
 
-ReadinessOps connects business and AI initiatives with evidence, gaps, risks,
-actions, human decisions, publication and operational history. **Authority Delta**
-is its reassessment feature: when an agent release changes, check whether earlier
-human judgments still hold and return the affected decisions for review.
-**VendorPayment** is the first synthetic business adapter used to demonstrate this
-flow. It does not define the product's business scope.
+ReadinessOps is a shared operating record for consequential AI work. It keeps the
+business question, versioned evidence, cited agent analysis, human judgment,
+publication, accountable follow-up, measured outcomes and operational history in
+one place. **Authority Delta** is the AWS control plane behind that record: it
+turns one published decision into narrowly bounded, time-limited authority and
+proves when that authority has been removed.
+
+**VendorPayment is a synthetic acceptance adapter, not the product boundary.** The
+same workflow supports other business objects, evidence sets and registered
+adapters without giving an agent open-ended AWS access.
 
 Created for the AWS Agents for Humans Hackathon, Professional Agents track.
 Apache-2.0. Prior ReadinessOps projects informed the design; no prior application
@@ -33,6 +37,38 @@ When authority is stopped, the product closes its entry first and does not repor
 completion until the exactly owned Policy is absent and every registered request
 returns a live DENY result.
 
+## The complete product journey
+
+These are live screens from one completed VendorPayment acceptance—not mockups.
+Each screen preserves the full workspace context: the business-object portfolio,
+the seven-stage workflow and the current published state.
+
+| 1. Versioned evidence | 2. Cited agent assessment |
+| --- | --- |
+| Originals and extracted text are retained; a new version never rewrites the evidence used by an earlier assessment. | A Strands agent returns gaps, risks and next actions tied to the fixed evidence snapshot. |
+| [![Evidence workspace](docs/product-screens/viewport-02-evidence-v2.jpg)](docs/product-screens/readinessops-02-evidence-clean.jpg) | [![Assessment with cited gaps and risks](docs/product-screens/viewport-03-assessment.jpg)](docs/product-screens/03-assessment-v2.jpg) |
+
+| 3. Human review and publication | 4. Accountable actions |
+| --- | --- |
+| A signed-in reviewer edits the proposal, records judgment and publishes an official revision explicitly. | Published actions receive an owner, due date, status and new resolution evidence before completion. |
+| [![Human review and publish workspace](docs/product-screens/viewport-04-review-v2.jpg)](docs/product-screens/readinessops-04-review-and-publish-clean.jpg) | [![Accountable actions workspace](docs/product-screens/viewport-05-actions.jpg)](docs/product-screens/readinessops-05-actions-clean.jpg) |
+
+| 5. Outcomes and exchange | 6. Retained history |
+| --- | --- |
+| Outcomes attach to the official decision or completed AWS application; unmeasured metrics remain explicit and external packs are immutable references. | Evidence, assessments, human decisions, publications and AWS lifecycle events remain downloadable and reviewable. |
+| [![Outcome recording and fixed-version exchange](docs/product-screens/viewport-06-outcomes-v2.jpg)](docs/product-screens/06-outcomes-v2.jpg) | [![Retained decision and authority history](docs/product-screens/viewport-07-history.jpg)](docs/product-screens/07-history-v2.jpg) |
+
+## Authority Delta — finite AWS authority with proof
+
+Business approval does not silently become runtime permission. An authenticated
+person separately approves a registered boundary containing the publication,
+connection, Runtime release, finite request set, policy hash and expiry. The entry
+starts closed, opens only after verification, and closes before revocation begins.
+
+| Registered execution | Revocation in progress | Verified suspension |
+| --- | --- | --- |
+| [![One registered request returns ALLOW](submission/video/live_screens/execution-allow.png)](submission/video/live_screens/execution-allow.png) | [![The product entry is closed while AWS proof is collected](submission/video/live_screens/stop-verifying.png)](submission/video/live_screens/stop-verifying.png) | [![The owned Policy is absent and every registered request returns live DENY](submission/video/live_screens/suspension-confirmed.png)](submission/video/live_screens/suspension-confirmed.png) |
+
 ## Live result — 2026-09-14
 
 The two-account VendorPayment acceptance completed in `ap-northeast-1`:
@@ -48,7 +84,7 @@ The two-account VendorPayment acceptance completed in `ap-northeast-1`:
 See [the live acceptance record](docs/RO07_LIVE_ACCEPTANCE.md). The check is
 offline and performs no AWS action.
 
-## Product workflow
+## How it works
 
 1. Register a business question, owner, goals and versioned evidence.
 2. Run a Strands agent that returns cited Gap, Risk, Action and Decision proposals.
@@ -57,6 +93,8 @@ offline and performs no AWS action.
 5. Apply only after live canary verification; record controlled outcomes.
 6. Reassess affected decisions when evidence or an agent release changes.
 7. Close the entry, remove exact authority, prove DENY and retain the history.
+
+![ReadinessOps Authority Delta architecture](docs/ARCHITECTURE.svg)
 
 ## Evidence-backed state
 
@@ -81,8 +119,9 @@ replace the AWS workspace's official decision or AppliedBinding. See
 | Live authority lifecycle | Registered ALLOW execution, entry closure, exact Policy removal, all-request DENY and unchanged-ledger export: PASS |
 | Submission readiness | Public repository, public video and Devpost publication are external release steps |
 
-The product target is [AD-BASELINE-1.2](docs/PRODUCT_BASELINE_v1.2.md).
-Historical AD-BASELINE-1.0 contracts and AWS proofs remain unchanged. No local
+The implemented product boundary is summarized in the
+[implementation record](docs/IMPLEMENTATION.md) and acceptance evidence contracts.
+Historical AWS proofs remain unchanged. No local
 calculation, view or test is claimed as a live Gateway authorization result.
 
 ## Existing environment update
@@ -120,7 +159,7 @@ operator file from an isolated directory through a local AWS CLI double.
   boundary envelope v1.1; legacy `authority-delta.schema.json` is retained unchanged.
 - `workbench/`, `services/workbench/`: authenticated UI and version-pinned read API.
 - `infra/`, `services/`, `scripts/`: AWS resources, runtimes and delivery.
-- `evidence/`, `status/`: observed results, exact scope and implementation handoff.
+- `evidence/`: observed results and exact acceptance scope.
 
 The general workflow, reassessment contract and bounded VendorPayment application
 path are implemented. Published action proposals remain unstarted until

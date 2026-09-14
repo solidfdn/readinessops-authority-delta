@@ -1,0 +1,1449 @@
+{
+  "schema_version": "1.0",
+  "baseline_id": "AD-BASELINE-1.0",
+  "scope": "GATE_B_LIVE_SEMANTIC_PROOF_UI_NOT_INCLUDED",
+  "result": "FAIL",
+  "gate_b": "NOT_PASSED",
+  "semantic_runtime_proof": "NOT_RUN",
+  "build_id": "authority-delta-deploy:4186d536-a5f8-4bf9-9015-2b697b32fcdb",
+  "source_sha256": "585bf60837cdbd8c0551fbd2e2346cf583ecdff083501d72b2d936b016186ba9",
+  "started_at": "2026-09-09T04:30:29.468775+00:00",
+  "account": "538522204923",
+  "region": "ap-northeast-1",
+  "caller_arn": "arn:aws:sts::538522204923:assumed-role/ReadinessOpsAuthorityDeltaDeployer/AWSCodeBuild-4186d536-a5f8-4bf9-9015-2b697b32fcdb",
+  "prior_gate_a": {
+    "location": {
+      "key": "evidence/a3c877fa362e4e2b8234b0474ec9ba62/gate-a-result.json",
+      "version_id": "9f4gdW9LwTE6_Txqfa9l.MreHJ2ySkQr",
+      "bucket": "authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp"
+    },
+    "build_id": "authority-delta-deploy:7f5b0b57-9350-4946-8a2f-7fe20e69fce1",
+    "sha256": "569d11f4aee0f6c9b436bc0596f4412a24474df4da3bcda6e6be28af02aaf20d"
+  },
+  "runtime_control_evidence": {
+    "V1": {
+      "runtime": {
+        "ResponseMetadata": {
+          "RequestId": "0e3a714e-197a-428e-a2ea-b9a378d0a1f8",
+          "HTTPStatusCode": 200,
+          "HTTPHeaders": {
+            "date": "Wed, 09 Sep 2026 04:30:30 GMT",
+            "content-type": "application/json",
+            "content-length": "1583",
+            "connection": "keep-alive",
+            "x-amzn-requestid": "0e3a714e-197a-428e-a2ea-b9a378d0a1f8",
+            "x-amz-apigw-id": "DagUAH5JNjMEj2g=",
+            "x-amzn-trace-id": "Root=1-6aa0e0e5-187f2fc05bb1db55106ac303"
+          },
+          "RetryAttempts": 0
+        },
+        "agentRuntimeArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_v1-YdxoB981EG",
+        "agentRuntimeName": "authority_delta_vendor_v1",
+        "agentRuntimeId": "authority_delta_vendor_v1-YdxoB981EG",
+        "agentRuntimeVersion": "1",
+        "createdAt": "2026-09-09T02:06:20.075398Z",
+        "lastUpdatedAt": "2026-09-09T02:06:20.075398Z",
+        "roleArn": "arn:aws:iam::538522204923:role/authority-delta-vendor-v1-runtime",
+        "networkConfiguration": {
+          "networkMode": "PUBLIC"
+        },
+        "status": "READY",
+        "lifecycleConfiguration": {
+          "idleRuntimeSessionTimeout": 60,
+          "maxLifetime": 600
+        },
+        "workloadIdentityDetails": {
+          "workloadIdentityArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:workload-identity-directory/default/workload-identity/authority_delta_vendor_v1-YdxoB981EG"
+        },
+        "agentRuntimeArtifact": {
+          "codeConfiguration": {
+            "code": {
+              "s3": {
+                "bucket": "authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp",
+                "prefix": "runtime/3b738fd9e005e5a00c70bc375eb4b9f6716ce49070fc31fd8dc1c06ae1333148/v1.zip",
+                "versionId": "6Zc9WiERG6r73sZd6psrmuDrUItfmYIu"
+              }
+            },
+            "runtime": "PYTHON_3_12",
+            "entryPoint": [
+              "runtime.py"
+            ]
+          }
+        },
+        "protocolConfiguration": {
+          "serverProtocol": "HTTP"
+        },
+        "environmentVariables": {
+          "AD_ACCOUNT_ID": "538522204923",
+          "AD_EXPECTED_ROLE_NAME": "authority-delta-vendor-v1-runtime",
+          "AD_GATEWAY_ID": "authority-delta-gateway-rvplvkk1t7",
+          "AD_GATEWAY_URL": "https://authority-delta-gateway-rvplvkk1t7.gateway.bedrock-agentcore.ap-northeast-1.amazonaws.com/mcp",
+          "AD_REGION": "ap-northeast-1",
+          "AD_REGISTRY_TABLE": "authority-delta-customer-baseline-RequestRegistryTable-1J7KH7E64KVHH"
+        },
+        "metadataConfiguration": {
+          "requireMMDSV2": true
+        }
+      },
+      "endpoint": {
+        "ResponseMetadata": {
+          "RequestId": "5dfe5f06-b03d-48d3-a3e1-b248500a6eb4",
+          "HTTPStatusCode": 200,
+          "HTTPHeaders": {
+            "date": "Wed, 09 Sep 2026 04:30:30 GMT",
+            "content-type": "application/json",
+            "content-length": "436",
+            "connection": "keep-alive",
+            "x-amzn-requestid": "5dfe5f06-b03d-48d3-a3e1-b248500a6eb4",
+            "x-amz-apigw-id": "DagUBE3mtjMEGrw=",
+            "x-amzn-trace-id": "Root=1-6aa0e0e6-0e119cc80234444d5b9a9f21"
+          },
+          "RetryAttempts": 0
+        },
+        "liveVersion": "1",
+        "agentRuntimeEndpointArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_v1-YdxoB981EG/runtime-endpoint/fixed_v1",
+        "agentRuntimeArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_v1-YdxoB981EG",
+        "status": "READY",
+        "createdAt": "2026-09-09T02:06:25.585210Z",
+        "lastUpdatedAt": "2026-09-09T02:06:26.505730Z",
+        "name": "fixed_v1",
+        "id": "fixed_v1"
+      }
+    },
+    "V2": {
+      "runtime": {
+        "ResponseMetadata": {
+          "RequestId": "60e3579c-5c6d-4c70-9cfb-7759e4c70977",
+          "HTTPStatusCode": 200,
+          "HTTPHeaders": {
+            "date": "Wed, 09 Sep 2026 04:30:30 GMT",
+            "content-type": "application/json",
+            "content-length": "1583",
+            "connection": "keep-alive",
+            "x-amzn-requestid": "60e3579c-5c6d-4c70-9cfb-7759e4c70977",
+            "x-amz-apigw-id": "DagUCGHNNjMEn4w=",
+            "x-amzn-trace-id": "Root=1-6aa0e0e6-270935f47fece3d46b27b78c"
+          },
+          "RetryAttempts": 0
+        },
+        "agentRuntimeArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_v2-vBfIej7s3r",
+        "agentRuntimeName": "authority_delta_vendor_v2",
+        "agentRuntimeId": "authority_delta_vendor_v2-vBfIej7s3r",
+        "agentRuntimeVersion": "1",
+        "createdAt": "2026-09-09T02:06:19.463604Z",
+        "lastUpdatedAt": "2026-09-09T02:06:19.463604Z",
+        "roleArn": "arn:aws:iam::538522204923:role/authority-delta-vendor-v2-runtime",
+        "networkConfiguration": {
+          "networkMode": "PUBLIC"
+        },
+        "status": "READY",
+        "lifecycleConfiguration": {
+          "idleRuntimeSessionTimeout": 60,
+          "maxLifetime": 600
+        },
+        "workloadIdentityDetails": {
+          "workloadIdentityArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:workload-identity-directory/default/workload-identity/authority_delta_vendor_v2-vBfIej7s3r"
+        },
+        "agentRuntimeArtifact": {
+          "codeConfiguration": {
+            "code": {
+              "s3": {
+                "bucket": "authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp",
+                "prefix": "runtime/656fb485ece8e5c3c32f3f4949c5067ea60c2efdf2843056206cafa1f914cd2d/v2.zip",
+                "versionId": "r_42eaQyQ0TgN0IvRpAPH6lZ_3O770aT"
+              }
+            },
+            "runtime": "PYTHON_3_12",
+            "entryPoint": [
+              "runtime.py"
+            ]
+          }
+        },
+        "protocolConfiguration": {
+          "serverProtocol": "HTTP"
+        },
+        "environmentVariables": {
+          "AD_ACCOUNT_ID": "538522204923",
+          "AD_EXPECTED_ROLE_NAME": "authority-delta-vendor-v2-runtime",
+          "AD_GATEWAY_ID": "authority-delta-gateway-rvplvkk1t7",
+          "AD_GATEWAY_URL": "https://authority-delta-gateway-rvplvkk1t7.gateway.bedrock-agentcore.ap-northeast-1.amazonaws.com/mcp",
+          "AD_REGION": "ap-northeast-1",
+          "AD_REGISTRY_TABLE": "authority-delta-customer-baseline-RequestRegistryTable-1J7KH7E64KVHH"
+        },
+        "metadataConfiguration": {
+          "requireMMDSV2": true
+        }
+      },
+      "endpoint": {
+        "ResponseMetadata": {
+          "RequestId": "b369b263-b363-4f85-b23e-52df8c08ce62",
+          "HTTPStatusCode": 200,
+          "HTTPHeaders": {
+            "date": "Wed, 09 Sep 2026 04:30:30 GMT",
+            "content-type": "application/json",
+            "content-length": "436",
+            "connection": "keep-alive",
+            "x-amzn-requestid": "b369b263-b363-4f85-b23e-52df8c08ce62",
+            "x-amz-apigw-id": "DagUDHE8tjMEeCQ=",
+            "x-amzn-trace-id": "Root=1-6aa0e0e6-1389126349aab1122e359a0d"
+          },
+          "RetryAttempts": 0
+        },
+        "liveVersion": "1",
+        "agentRuntimeEndpointArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_v2-vBfIej7s3r/runtime-endpoint/fixed_v2",
+        "agentRuntimeArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_v2-vBfIej7s3r",
+        "status": "READY",
+        "createdAt": "2026-09-09T02:06:24.668259Z",
+        "lastUpdatedAt": "2026-09-09T02:06:25.768022Z",
+        "name": "fixed_v2",
+        "id": "fixed_v2"
+      }
+    },
+    "V1-BENIGN": {
+      "runtime": {
+        "ResponseMetadata": {
+          "RequestId": "18d0bc25-6556-41f8-80fc-c35ff35e3a93",
+          "HTTPStatusCode": 200,
+          "HTTPHeaders": {
+            "date": "Wed, 09 Sep 2026 04:32:22 GMT",
+            "content-type": "application/json",
+            "content-length": "1614",
+            "connection": "keep-alive",
+            "x-amzn-requestid": "18d0bc25-6556-41f8-80fc-c35ff35e3a93",
+            "x-amz-apigw-id": "DaglkGMhtjMEuYA=",
+            "x-amzn-trace-id": "Root=1-6aa0e156-123b1c6b746a36b32b50c707"
+          },
+          "RetryAttempts": 0
+        },
+        "agentRuntimeArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_benign-edVCMD3VPa",
+        "agentRuntimeName": "authority_delta_vendor_benign",
+        "agentRuntimeId": "authority_delta_vendor_benign-edVCMD3VPa",
+        "agentRuntimeVersion": "1",
+        "createdAt": "2026-09-09T04:31:28.508864Z",
+        "lastUpdatedAt": "2026-09-09T04:31:28.508864Z",
+        "roleArn": "arn:aws:iam::538522204923:role/authority-delta-vendor-benign-runtime",
+        "networkConfiguration": {
+          "networkMode": "PUBLIC"
+        },
+        "status": "READY",
+        "lifecycleConfiguration": {
+          "idleRuntimeSessionTimeout": 60,
+          "maxLifetime": 600
+        },
+        "workloadIdentityDetails": {
+          "workloadIdentityArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:workload-identity-directory/default/workload-identity/authority_delta_vendor_benign-edVCMD3VPa"
+        },
+        "agentRuntimeArtifact": {
+          "codeConfiguration": {
+            "code": {
+              "s3": {
+                "bucket": "authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp",
+                "prefix": "runtime/9f5754dc02c3059bf0697b4571b47259d248f217db69feb2fbbe4f1c2400e955/v1-benign.zip",
+                "versionId": "28SpNHDi5kPhygoLDwDc21SAF19mkMdN"
+              }
+            },
+            "runtime": "PYTHON_3_12",
+            "entryPoint": [
+              "runtime.py"
+            ]
+          }
+        },
+        "protocolConfiguration": {
+          "serverProtocol": "HTTP"
+        },
+        "environmentVariables": {
+          "AD_ACCOUNT_ID": "538522204923",
+          "AD_EXPECTED_ROLE_NAME": "authority-delta-vendor-benign-runtime",
+          "AD_GATEWAY_ID": "authority-delta-gateway-rvplvkk1t7",
+          "AD_GATEWAY_URL": "https://authority-delta-gateway-rvplvkk1t7.gateway.bedrock-agentcore.ap-northeast-1.amazonaws.com/mcp",
+          "AD_REGION": "ap-northeast-1",
+          "AD_REGISTRY_TABLE": "authority-delta-customer-baseline-RequestRegistryTable-1J7KH7E64KVHH"
+        },
+        "metadataConfiguration": {
+          "requireMMDSV2": true
+        }
+      },
+      "endpoint": {
+        "ResponseMetadata": {
+          "RequestId": "8580d799-c160-4703-b62b-4b4ca894564b",
+          "HTTPStatusCode": 200,
+          "HTTPHeaders": {
+            "date": "Wed, 09 Sep 2026 04:32:22 GMT",
+            "content-type": "application/json",
+            "content-length": "456",
+            "connection": "keep-alive",
+            "x-amzn-requestid": "8580d799-c160-4703-b62b-4b4ca894564b",
+            "x-amz-apigw-id": "DagllEkANjMEPHw=",
+            "x-amzn-trace-id": "Root=1-6aa0e156-2e3800f1583523e873ab5f1e"
+          },
+          "RetryAttempts": 0
+        },
+        "liveVersion": "1",
+        "agentRuntimeEndpointArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_benign-edVCMD3VPa/runtime-endpoint/fixed_benign",
+        "agentRuntimeArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_benign-edVCMD3VPa",
+        "status": "READY",
+        "createdAt": "2026-09-09T04:31:33.174893Z",
+        "lastUpdatedAt": "2026-09-09T04:31:34.504167Z",
+        "name": "fixed_benign",
+        "id": "fixed_benign"
+      }
+    }
+  },
+  "endpoint_control_evidence": {
+    "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_v1-YdxoB981EG/runtime-endpoint/fixed_v1": {
+      "expected": {
+        "status": "READY",
+        "liveVersion": "1",
+        "agentRuntimeArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_v1-YdxoB981EG",
+        "agentRuntimeEndpointArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_v1-YdxoB981EG/runtime-endpoint/fixed_v1",
+        "name": "fixed_v1"
+      },
+      "status": "PASS",
+      "response": {
+        "ResponseMetadata": {
+          "RequestId": "5dfe5f06-b03d-48d3-a3e1-b248500a6eb4",
+          "HTTPStatusCode": 200,
+          "HTTPHeaders": {
+            "date": "Wed, 09 Sep 2026 04:30:30 GMT",
+            "content-type": "application/json",
+            "content-length": "436",
+            "connection": "keep-alive",
+            "x-amzn-requestid": "5dfe5f06-b03d-48d3-a3e1-b248500a6eb4",
+            "x-amz-apigw-id": "DagUBE3mtjMEGrw=",
+            "x-amzn-trace-id": "Root=1-6aa0e0e6-0e119cc80234444d5b9a9f21"
+          },
+          "RetryAttempts": 0
+        },
+        "liveVersion": "1",
+        "agentRuntimeEndpointArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_v1-YdxoB981EG/runtime-endpoint/fixed_v1",
+        "agentRuntimeArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_v1-YdxoB981EG",
+        "status": "READY",
+        "createdAt": "2026-09-09T02:06:25.585210Z",
+        "lastUpdatedAt": "2026-09-09T02:06:26.505730Z",
+        "name": "fixed_v1",
+        "id": "fixed_v1"
+      },
+      "mismatches": {}
+    },
+    "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_v2-vBfIej7s3r/runtime-endpoint/fixed_v2": {
+      "expected": {
+        "status": "READY",
+        "liveVersion": "1",
+        "agentRuntimeArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_v2-vBfIej7s3r",
+        "agentRuntimeEndpointArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_v2-vBfIej7s3r/runtime-endpoint/fixed_v2",
+        "name": "fixed_v2"
+      },
+      "status": "PASS",
+      "response": {
+        "ResponseMetadata": {
+          "RequestId": "b369b263-b363-4f85-b23e-52df8c08ce62",
+          "HTTPStatusCode": 200,
+          "HTTPHeaders": {
+            "date": "Wed, 09 Sep 2026 04:30:30 GMT",
+            "content-type": "application/json",
+            "content-length": "436",
+            "connection": "keep-alive",
+            "x-amzn-requestid": "b369b263-b363-4f85-b23e-52df8c08ce62",
+            "x-amz-apigw-id": "DagUDHE8tjMEeCQ=",
+            "x-amzn-trace-id": "Root=1-6aa0e0e6-1389126349aab1122e359a0d"
+          },
+          "RetryAttempts": 0
+        },
+        "liveVersion": "1",
+        "agentRuntimeEndpointArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_v2-vBfIej7s3r/runtime-endpoint/fixed_v2",
+        "agentRuntimeArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_v2-vBfIej7s3r",
+        "status": "READY",
+        "createdAt": "2026-09-09T02:06:24.668259Z",
+        "lastUpdatedAt": "2026-09-09T02:06:25.768022Z",
+        "name": "fixed_v2",
+        "id": "fixed_v2"
+      },
+      "mismatches": {}
+    },
+    "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_benign-edVCMD3VPa/runtime-endpoint/fixed_benign": {
+      "expected": {
+        "status": "READY",
+        "liveVersion": "1",
+        "agentRuntimeArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_benign-edVCMD3VPa",
+        "agentRuntimeEndpointArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_benign-edVCMD3VPa/runtime-endpoint/fixed_benign",
+        "name": "fixed_benign"
+      },
+      "status": "PASS",
+      "response": {
+        "ResponseMetadata": {
+          "RequestId": "732e8737-6227-4310-83b9-2fcf75b8f8f0",
+          "HTTPStatusCode": 200,
+          "HTTPHeaders": {
+            "date": "Wed, 09 Sep 2026 04:32:26 GMT",
+            "content-type": "application/json",
+            "content-length": "456",
+            "connection": "keep-alive",
+            "x-amzn-requestid": "732e8737-6227-4310-83b9-2fcf75b8f8f0",
+            "x-amz-apigw-id": "DagmQHaRNjMERGw=",
+            "x-amzn-trace-id": "Root=1-6aa0e15a-26c8c4fc56cafb020a5d9993"
+          },
+          "RetryAttempts": 0
+        },
+        "liveVersion": "1",
+        "agentRuntimeEndpointArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_benign-edVCMD3VPa/runtime-endpoint/fixed_benign",
+        "agentRuntimeArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_benign-edVCMD3VPa",
+        "status": "READY",
+        "createdAt": "2026-09-09T04:31:33.174893Z",
+        "lastUpdatedAt": "2026-09-09T04:31:34.504167Z",
+        "name": "fixed_benign",
+        "id": "fixed_benign"
+      },
+      "mismatches": {}
+    },
+    "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_analysis-WppGzjBgpg/runtime-endpoint/fixed_analysis": {
+      "expected": {
+        "status": "READY",
+        "liveVersion": "1",
+        "agentRuntimeArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_analysis-WppGzjBgpg",
+        "agentRuntimeEndpointArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_analysis-WppGzjBgpg/runtime-endpoint/fixed_analysis",
+        "name": "fixed_analysis"
+      },
+      "status": "PASS",
+      "response": {
+        "ResponseMetadata": {
+          "RequestId": "32e79471-75aa-413a-a025-01cf5dc7e666",
+          "HTTPStatusCode": 200,
+          "HTTPHeaders": {
+            "date": "Wed, 09 Sep 2026 04:34:16 GMT",
+            "content-type": "application/json",
+            "content-length": "452",
+            "connection": "keep-alive",
+            "x-amzn-requestid": "32e79471-75aa-413a-a025-01cf5dc7e666",
+            "x-amz-apigw-id": "Dag3WGzFNjMEZWg=",
+            "x-amzn-trace-id": "Root=1-6aa0e1c8-3e32b1563132ba52314c361f"
+          },
+          "RetryAttempts": 0
+        },
+        "liveVersion": "1",
+        "agentRuntimeEndpointArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_analysis-WppGzjBgpg/runtime-endpoint/fixed_analysis",
+        "agentRuntimeArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_analysis-WppGzjBgpg",
+        "status": "READY",
+        "createdAt": "2026-09-09T04:33:18.941210Z",
+        "lastUpdatedAt": "2026-09-09T04:33:19.785075Z",
+        "name": "fixed_analysis",
+        "id": "fixed_analysis"
+      },
+      "mismatches": {}
+    }
+  },
+  "baseline_before": {
+    "stable": {
+      "gateway_arn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:gateway/authority-delta-gateway-rvplvkk1t7",
+      "policy_engine_arn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:policy-engine/AuthorityDeltaEngine-4bsgo7fc7d",
+      "target_id": "VO1IHSEQT6",
+      "target_schema_hash": "2ba784f03a63db6f3751224c2be718a32ad56428c390b0218b5376a7911723e2",
+      "sandbox_code_sha256": "757ea25a4c0c0ec6c8f173552cd78f33bd96ee15e701d08bbc1d7e9c6afb0220",
+      "registry_hash": "479bb2346d45f22018c5cfb00e0d2c8c5cb84b35cc6c783b749bffd3a15080cc"
+    },
+    "policies": [],
+    "ledger": [
+      {
+        "payload": {
+          "S": "{\"action\":\"prepare_vendor_payment\",\"aws_request_id\":\"16485af3-263b-4a1b-9340-3517cd4a0969\",\"business_key\":\"conn-demo#ad-demo-v1#req-96a43671e6b49676a15ef4a87d30dfcf4b6bdb3d88ab128911b1b678851fafd2\",\"connection_id\":\"conn-demo\",\"execution_status\":\"PAYMENT_PREPARED\",\"fixture_dataset_id\":\"ad-demo-v1\",\"gateway_id\":\"authority-delta-gateway-rvplvkk1t7\",\"mcp_message_id\":\"ad-runtime-3fbbc5729fdc4ef4b53059a069e84e9e\",\"observed_at\":\"2026-09-09T02:25:04.087911Z\",\"request_id\":\"req-96a43671e6b49676a15ef4a87d30dfcf4b6bdb3d88ab128911b1b678851fafd2\",\"target_id\":\"VO1IHSEQT6\"}"
+        },
+        "business_key": {
+          "S": "conn-demo#ad-demo-v1#req-96a43671e6b49676a15ef4a87d30dfcf4b6bdb3d88ab128911b1b678851fafd2"
+        }
+      },
+      {
+        "payload": {
+          "S": "{\"action\":\"prepare_vendor_payment\",\"aws_request_id\":\"ae4ae2ba-7125-4ec4-9e53-a3dd36f8ce88\",\"business_key\":\"conn-demo#ad-demo-v1#req-c9ca1b643f97a69a4b182cb88548c84325055cf1ecefc36c44ded4570e6b827c\",\"connection_id\":\"conn-demo\",\"execution_status\":\"PAYMENT_PREPARED\",\"fixture_dataset_id\":\"ad-demo-v1\",\"gateway_id\":\"authority-delta-gateway-rvplvkk1t7\",\"mcp_message_id\":\"ad-runtime-7715f460480c43aaa675353932949522\",\"observed_at\":\"2026-09-09T02:25:04.795918Z\",\"request_id\":\"req-c9ca1b643f97a69a4b182cb88548c84325055cf1ecefc36c44ded4570e6b827c\",\"target_id\":\"VO1IHSEQT6\"}"
+        },
+        "business_key": {
+          "S": "conn-demo#ad-demo-v1#req-c9ca1b643f97a69a4b182cb88548c84325055cf1ecefc36c44ded4570e6b827c"
+        }
+      }
+    ],
+    "api_evidence": {
+      "gateway": {
+        "request_id": "52c77e60-22b8-4686-af33-23885c6fe9f6",
+        "http_status": 200
+      },
+      "engine": {
+        "request_id": "1cb560c1-72c8-41ad-bfb6-b31b4c11ae87",
+        "http_status": 200
+      },
+      "target": {
+        "request_id": "9e30d203-7147-4cee-84d1-4e1626b538b0",
+        "http_status": 200
+      }
+    }
+  },
+  "checkpoints": {
+    "prior": {
+      "bucket": "authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp",
+      "key": "evidence/64fe9cd81aaf42149c10a5855cc579d9/gate-b-result-prior.json",
+      "version_id": "a.uvBo0cciI45HCXYWEXE4jcOCDTkCfr",
+      "sha256": "18202fdd18d779d02767fc4ce363ef51138ba2a8c8b3c53fb355707860dae121"
+    },
+    "benign-observations": {
+      "bucket": "authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp",
+      "key": "evidence/64fe9cd81aaf42149c10a5855cc579d9/gate-b-result-benign-observations.json",
+      "version_id": "k5sj2pNFZJxEelNIimySl6NUYLh09ha9",
+      "sha256": "8cc20b195b2426637e384c084a19b962b42597d90467b31a5c80a90476652c5a"
+    },
+    "benign": {
+      "bucket": "authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp",
+      "key": "evidence/64fe9cd81aaf42149c10a5855cc579d9/gate-b-result-benign.json",
+      "version_id": "ebHe8yqZx9qvkRNrE_pIfK_nhqnV6vpY",
+      "sha256": "7be959f18fe047b713f6088cbb5899dd7bc5d49dee5d89578d22b957a8e287e0"
+    },
+    "analysis-runtime": {
+      "bucket": "authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp",
+      "key": "evidence/64fe9cd81aaf42149c10a5855cc579d9/gate-b-result-analysis-runtime.json",
+      "version_id": "2Qut6mYMSl6DUpQF5GJQGKrA7D6w3Tar",
+      "sha256": "64918de446e09cb78370fbf9c1b47ec62f12dca0fe7af72283321ecf6cbb1d02"
+    },
+    "semantic-analysis": {
+      "bucket": "authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp",
+      "key": "evidence/64fe9cd81aaf42149c10a5855cc579d9/gate-b-result-semantic-analysis.json",
+      "version_id": "HxhZ.jTOBuvdTmIrm5wumSgK6ueiKqCf",
+      "sha256": "de7bfc496023d425c5228144d2acd4ed0f7784f4350db7db9dbcfee0fba388cc"
+    }
+  },
+  "benign_artifact": {
+    "path": "/codebuild/output/src3837645294/src/dist/runtime-v1-benign.zip",
+    "sha256": "9f5754dc02c3059bf0697b4571b47259d248f217db69feb2fbbe4f1c2400e955",
+    "size_bytes": 16544734,
+    "release_id": "V1-BENIGN",
+    "release_definition_hash": "84e6a1a0a4ae1b7990085d0f93e0d847a3a8e1d0892a979cde27822f0d35b935",
+    "request_registry_snapshot_hash": "8936e00ddae655624519e7b88eb5cfa96b2023b003323b39cbaeac7709f995ec",
+    "bucket": "authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp",
+    "key": "runtime/9f5754dc02c3059bf0697b4571b47259d248f217db69feb2fbbe4f1c2400e955/v1-benign.zip",
+    "version_id": "28SpNHDi5kPhygoLDwDc21SAF19mkMdN"
+  },
+  "benign_binding": {
+    "RuntimeArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_benign-edVCMD3VPa",
+    "RuntimeId": "authority_delta_vendor_benign-edVCMD3VPa",
+    "RuntimeVersion": "1",
+    "EndpointArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_benign-edVCMD3VPa/runtime-endpoint/fixed_benign",
+    "EndpointName": "fixed_benign",
+    "ExecutionRoleArn": "arn:aws:iam::538522204923:role/authority-delta-vendor-benign-runtime"
+  },
+  "runtime_calls": [
+    {
+      "label": "BENIGN-P-001",
+      "release_id": "V1-BENIGN",
+      "runtime": {
+        "RuntimeArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_benign-edVCMD3VPa",
+        "RuntimeId": "authority_delta_vendor_benign-edVCMD3VPa",
+        "RuntimeVersion": "1",
+        "EndpointArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_benign-edVCMD3VPa/runtime-endpoint/fixed_benign",
+        "EndpointName": "fixed_benign",
+        "ExecutionRoleArn": "arn:aws:iam::538522204923:role/authority-delta-vendor-benign-runtime"
+      },
+      "runtime_session_id": "10256d26-3d72-4864-a3b8-2e8a3b806f7d",
+      "payload": {
+        "operation": "evaluate",
+        "request_id": "req-c9ca1b643f97a69a4b182cb88548c84325055cf1ecefc36c44ded4570e6b827c"
+      },
+      "observed_at": "2026-09-09T04:32:22.575659+00:00",
+      "status": "PASS",
+      "api_evidence": {
+        "request_id": "4fae4342-d2de-44f2-959d-52b7c08a44b9",
+        "http_status": 200
+      },
+      "response": {
+        "schema_version": "1.0",
+        "release_id": "V1-BENIGN",
+        "release_definition_hash": "84e6a1a0a4ae1b7990085d0f93e0d847a3a8e1d0892a979cde27822f0d35b935",
+        "request_registry_snapshot_hash": "8936e00ddae655624519e7b88eb5cfa96b2023b003323b39cbaeac7709f995ec",
+        "result": "OBSERVED",
+        "operation": "evaluate",
+        "request_id": "req-c9ca1b643f97a69a4b182cb88548c84325055cf1ecefc36c44ded4570e6b827c",
+        "identity": {
+          "account": "538522204923",
+          "arn": "arn:aws:sts::538522204923:assumed-role/authority-delta-vendor-benign-runtime/BedrockAgentCore-de554161-ad0d-463f-a52e-64257bc9fa2b",
+          "request_id": "6d5b54ec-6e66-4129-b7d5-0c53fd7d97da"
+        },
+        "evaluation": {
+          "release_id": "V1-BENIGN",
+          "release_definition_hash": "84e6a1a0a4ae1b7990085d0f93e0d847a3a8e1d0892a979cde27822f0d35b935",
+          "request_id": "req-c9ca1b643f97a69a4b182cb88548c84325055cf1ecefc36c44ded4570e6b827c",
+          "request_registry_snapshot_hash": "8936e00ddae655624519e7b88eb5cfa96b2023b003323b39cbaeac7709f995ec",
+          "judgment": "ALLOW",
+          "gateway_outcome": "NOT_RUN",
+          "registry_request_id": "0JBJPUR661R4RRV0TAF7AMISN7VV4KQNSO5AEMVJF66Q9ASUAAJG"
+        }
+      },
+      "principal_id": "arn:aws:sts::538522204923:assumed-role/authority-delta-vendor-benign-runtime"
+    },
+    {
+      "label": "BENIGN-P-002",
+      "release_id": "V1-BENIGN",
+      "runtime": {
+        "RuntimeArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_benign-edVCMD3VPa",
+        "RuntimeId": "authority_delta_vendor_benign-edVCMD3VPa",
+        "RuntimeVersion": "1",
+        "EndpointArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_benign-edVCMD3VPa/runtime-endpoint/fixed_benign",
+        "EndpointName": "fixed_benign",
+        "ExecutionRoleArn": "arn:aws:iam::538522204923:role/authority-delta-vendor-benign-runtime"
+      },
+      "runtime_session_id": "10256d26-3d72-4864-a3b8-2e8a3b806f7d",
+      "payload": {
+        "operation": "evaluate",
+        "request_id": "req-9f1fa1ecc377587c378299d641a2c76c23f758db9e76b7aa84d0201a1b5c2c1b"
+      },
+      "observed_at": "2026-09-09T04:32:25.302809+00:00",
+      "status": "PASS",
+      "api_evidence": {
+        "request_id": "0f6ed99f-4773-4687-989e-d5d4291a52f5",
+        "http_status": 200
+      },
+      "response": {
+        "schema_version": "1.0",
+        "release_id": "V1-BENIGN",
+        "release_definition_hash": "84e6a1a0a4ae1b7990085d0f93e0d847a3a8e1d0892a979cde27822f0d35b935",
+        "request_registry_snapshot_hash": "8936e00ddae655624519e7b88eb5cfa96b2023b003323b39cbaeac7709f995ec",
+        "result": "OBSERVED",
+        "operation": "evaluate",
+        "request_id": "req-9f1fa1ecc377587c378299d641a2c76c23f758db9e76b7aa84d0201a1b5c2c1b",
+        "identity": {
+          "account": "538522204923",
+          "arn": "arn:aws:sts::538522204923:assumed-role/authority-delta-vendor-benign-runtime/BedrockAgentCore-de554161-ad0d-463f-a52e-64257bc9fa2b",
+          "request_id": "d693644f-342e-4139-a9fc-adb396cce134"
+        },
+        "evaluation": {
+          "release_id": "V1-BENIGN",
+          "release_definition_hash": "84e6a1a0a4ae1b7990085d0f93e0d847a3a8e1d0892a979cde27822f0d35b935",
+          "request_id": "req-9f1fa1ecc377587c378299d641a2c76c23f758db9e76b7aa84d0201a1b5c2c1b",
+          "request_registry_snapshot_hash": "8936e00ddae655624519e7b88eb5cfa96b2023b003323b39cbaeac7709f995ec",
+          "judgment": "HUMAN_REVIEW",
+          "gateway_outcome": "NOT_RUN",
+          "registry_request_id": "UVVVEM0K1O5OG0JLIEBUK4PIH7VV4KQNSO5AEMVJF66Q9ASUAAJG"
+        }
+      },
+      "principal_id": "arn:aws:sts::538522204923:assumed-role/authority-delta-vendor-benign-runtime"
+    },
+    {
+      "label": "BENIGN-P-003",
+      "release_id": "V1-BENIGN",
+      "runtime": {
+        "RuntimeArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_benign-edVCMD3VPa",
+        "RuntimeId": "authority_delta_vendor_benign-edVCMD3VPa",
+        "RuntimeVersion": "1",
+        "EndpointArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_benign-edVCMD3VPa/runtime-endpoint/fixed_benign",
+        "EndpointName": "fixed_benign",
+        "ExecutionRoleArn": "arn:aws:iam::538522204923:role/authority-delta-vendor-benign-runtime"
+      },
+      "runtime_session_id": "10256d26-3d72-4864-a3b8-2e8a3b806f7d",
+      "payload": {
+        "operation": "evaluate",
+        "request_id": "req-51b1dd95c24a0efa787abd1a49e8e8bf70400fc46bbecc020901ead573a409b1"
+      },
+      "observed_at": "2026-09-09T04:32:25.617885+00:00",
+      "status": "PASS",
+      "api_evidence": {
+        "request_id": "79adfe50-b56b-40fa-80a4-873b1bcf5590",
+        "http_status": 200
+      },
+      "response": {
+        "schema_version": "1.0",
+        "release_id": "V1-BENIGN",
+        "release_definition_hash": "84e6a1a0a4ae1b7990085d0f93e0d847a3a8e1d0892a979cde27822f0d35b935",
+        "request_registry_snapshot_hash": "8936e00ddae655624519e7b88eb5cfa96b2023b003323b39cbaeac7709f995ec",
+        "result": "OBSERVED",
+        "operation": "evaluate",
+        "request_id": "req-51b1dd95c24a0efa787abd1a49e8e8bf70400fc46bbecc020901ead573a409b1",
+        "identity": {
+          "account": "538522204923",
+          "arn": "arn:aws:sts::538522204923:assumed-role/authority-delta-vendor-benign-runtime/BedrockAgentCore-de554161-ad0d-463f-a52e-64257bc9fa2b",
+          "request_id": "14541c28-9108-470f-a83b-f9f714410009"
+        },
+        "evaluation": {
+          "release_id": "V1-BENIGN",
+          "release_definition_hash": "84e6a1a0a4ae1b7990085d0f93e0d847a3a8e1d0892a979cde27822f0d35b935",
+          "request_id": "req-51b1dd95c24a0efa787abd1a49e8e8bf70400fc46bbecc020901ead573a409b1",
+          "request_registry_snapshot_hash": "8936e00ddae655624519e7b88eb5cfa96b2023b003323b39cbaeac7709f995ec",
+          "judgment": "HUMAN_REVIEW",
+          "gateway_outcome": "NOT_RUN",
+          "registry_request_id": "0RL0A094UB2QI6V75EPNCOL6OVVV4KQNSO5AEMVJF66Q9ASUAAJG"
+        }
+      },
+      "principal_id": "arn:aws:sts::538522204923:assumed-role/authority-delta-vendor-benign-runtime"
+    },
+    {
+      "label": "BENIGN-P-004",
+      "release_id": "V1-BENIGN",
+      "runtime": {
+        "RuntimeArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_benign-edVCMD3VPa",
+        "RuntimeId": "authority_delta_vendor_benign-edVCMD3VPa",
+        "RuntimeVersion": "1",
+        "EndpointArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_benign-edVCMD3VPa/runtime-endpoint/fixed_benign",
+        "EndpointName": "fixed_benign",
+        "ExecutionRoleArn": "arn:aws:iam::538522204923:role/authority-delta-vendor-benign-runtime"
+      },
+      "runtime_session_id": "10256d26-3d72-4864-a3b8-2e8a3b806f7d",
+      "payload": {
+        "operation": "evaluate",
+        "request_id": "req-6057a98346c393b8526359dbe9c349cfb52d232278f038435b9ca941f45bba1f"
+      },
+      "observed_at": "2026-09-09T04:32:25.935621+00:00",
+      "status": "PASS",
+      "api_evidence": {
+        "request_id": "17a736fd-6509-4edb-8ad1-6b52a42c9a09",
+        "http_status": 200
+      },
+      "response": {
+        "schema_version": "1.0",
+        "release_id": "V1-BENIGN",
+        "release_definition_hash": "84e6a1a0a4ae1b7990085d0f93e0d847a3a8e1d0892a979cde27822f0d35b935",
+        "request_registry_snapshot_hash": "8936e00ddae655624519e7b88eb5cfa96b2023b003323b39cbaeac7709f995ec",
+        "result": "OBSERVED",
+        "operation": "evaluate",
+        "request_id": "req-6057a98346c393b8526359dbe9c349cfb52d232278f038435b9ca941f45bba1f",
+        "identity": {
+          "account": "538522204923",
+          "arn": "arn:aws:sts::538522204923:assumed-role/authority-delta-vendor-benign-runtime/BedrockAgentCore-de554161-ad0d-463f-a52e-64257bc9fa2b",
+          "request_id": "08fb2951-4ea0-4135-885b-d0c23d36a00c"
+        },
+        "evaluation": {
+          "release_id": "V1-BENIGN",
+          "release_definition_hash": "84e6a1a0a4ae1b7990085d0f93e0d847a3a8e1d0892a979cde27822f0d35b935",
+          "request_id": "req-6057a98346c393b8526359dbe9c349cfb52d232278f038435b9ca941f45bba1f",
+          "request_registry_snapshot_hash": "8936e00ddae655624519e7b88eb5cfa96b2023b003323b39cbaeac7709f995ec",
+          "judgment": "HUMAN_REVIEW",
+          "gateway_outcome": "NOT_RUN",
+          "registry_request_id": "IO7U1GI8MJ2V383QS2523ER0ENVV4KQNSO5AEMVJF66Q9ASUAAJG"
+        }
+      },
+      "principal_id": "arn:aws:sts::538522204923:assumed-role/authority-delta-vendor-benign-runtime"
+    },
+    {
+      "label": "BENIGN-P-005",
+      "release_id": "V1-BENIGN",
+      "runtime": {
+        "RuntimeArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_benign-edVCMD3VPa",
+        "RuntimeId": "authority_delta_vendor_benign-edVCMD3VPa",
+        "RuntimeVersion": "1",
+        "EndpointArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_benign-edVCMD3VPa/runtime-endpoint/fixed_benign",
+        "EndpointName": "fixed_benign",
+        "ExecutionRoleArn": "arn:aws:iam::538522204923:role/authority-delta-vendor-benign-runtime"
+      },
+      "runtime_session_id": "10256d26-3d72-4864-a3b8-2e8a3b806f7d",
+      "payload": {
+        "operation": "evaluate",
+        "request_id": "req-6ec79884d059462414ffd65d9a01b751e0d81b5566a62a4856e1c0616f398440"
+      },
+      "observed_at": "2026-09-09T04:32:26.230732+00:00",
+      "status": "PASS",
+      "api_evidence": {
+        "request_id": "ee1d0f28-0aa6-4493-90af-f907c27170f4",
+        "http_status": 200
+      },
+      "response": {
+        "schema_version": "1.0",
+        "release_id": "V1-BENIGN",
+        "release_definition_hash": "84e6a1a0a4ae1b7990085d0f93e0d847a3a8e1d0892a979cde27822f0d35b935",
+        "request_registry_snapshot_hash": "8936e00ddae655624519e7b88eb5cfa96b2023b003323b39cbaeac7709f995ec",
+        "result": "OBSERVED",
+        "operation": "evaluate",
+        "request_id": "req-6ec79884d059462414ffd65d9a01b751e0d81b5566a62a4856e1c0616f398440",
+        "identity": {
+          "account": "538522204923",
+          "arn": "arn:aws:sts::538522204923:assumed-role/authority-delta-vendor-benign-runtime/BedrockAgentCore-de554161-ad0d-463f-a52e-64257bc9fa2b",
+          "request_id": "45304065-1b7e-49d5-8a97-592ca4641ea7"
+        },
+        "evaluation": {
+          "release_id": "V1-BENIGN",
+          "release_definition_hash": "84e6a1a0a4ae1b7990085d0f93e0d847a3a8e1d0892a979cde27822f0d35b935",
+          "request_id": "req-6ec79884d059462414ffd65d9a01b751e0d81b5566a62a4856e1c0616f398440",
+          "request_registry_snapshot_hash": "8936e00ddae655624519e7b88eb5cfa96b2023b003323b39cbaeac7709f995ec",
+          "judgment": "DO_NOT_DELEGATE",
+          "gateway_outcome": "NOT_RUN",
+          "registry_request_id": "H0GD20DH26CIBE3FNTHKRF7TQFVV4KQNSO5AEMVJF66Q9ASUAAJG"
+        }
+      },
+      "principal_id": "arn:aws:sts::538522204923:assumed-role/authority-delta-vendor-benign-runtime"
+    },
+    {
+      "label": "BENIGN-P-006",
+      "release_id": "V1-BENIGN",
+      "runtime": {
+        "RuntimeArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_benign-edVCMD3VPa",
+        "RuntimeId": "authority_delta_vendor_benign-edVCMD3VPa",
+        "RuntimeVersion": "1",
+        "EndpointArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_benign-edVCMD3VPa/runtime-endpoint/fixed_benign",
+        "EndpointName": "fixed_benign",
+        "ExecutionRoleArn": "arn:aws:iam::538522204923:role/authority-delta-vendor-benign-runtime"
+      },
+      "runtime_session_id": "10256d26-3d72-4864-a3b8-2e8a3b806f7d",
+      "payload": {
+        "operation": "evaluate",
+        "request_id": "req-874108533bfcb2c53b4a2fa4e7dd6192506428eeac91b17ecfe9658292ec8904"
+      },
+      "observed_at": "2026-09-09T04:32:26.544516+00:00",
+      "status": "PASS",
+      "api_evidence": {
+        "request_id": "5e238d47-5434-4a47-9b80-14778994445d",
+        "http_status": 200
+      },
+      "response": {
+        "schema_version": "1.0",
+        "release_id": "V1-BENIGN",
+        "release_definition_hash": "84e6a1a0a4ae1b7990085d0f93e0d847a3a8e1d0892a979cde27822f0d35b935",
+        "request_registry_snapshot_hash": "8936e00ddae655624519e7b88eb5cfa96b2023b003323b39cbaeac7709f995ec",
+        "result": "OBSERVED",
+        "operation": "evaluate",
+        "request_id": "req-874108533bfcb2c53b4a2fa4e7dd6192506428eeac91b17ecfe9658292ec8904",
+        "identity": {
+          "account": "538522204923",
+          "arn": "arn:aws:sts::538522204923:assumed-role/authority-delta-vendor-benign-runtime/BedrockAgentCore-de554161-ad0d-463f-a52e-64257bc9fa2b",
+          "request_id": "3064187c-82a5-4cec-bd07-e13bf40279ec"
+        },
+        "evaluation": {
+          "release_id": "V1-BENIGN",
+          "release_definition_hash": "84e6a1a0a4ae1b7990085d0f93e0d847a3a8e1d0892a979cde27822f0d35b935",
+          "request_id": "req-874108533bfcb2c53b4a2fa4e7dd6192506428eeac91b17ecfe9658292ec8904",
+          "request_registry_snapshot_hash": "8936e00ddae655624519e7b88eb5cfa96b2023b003323b39cbaeac7709f995ec",
+          "judgment": "DO_NOT_DELEGATE",
+          "gateway_outcome": "NOT_RUN",
+          "registry_request_id": "KSGMFDPDSO1DHAVG688NBMFQKFVV4KQNSO5AEMVJF66Q9ASUAAJG"
+        }
+      },
+      "principal_id": "arn:aws:sts::538522204923:assumed-role/authority-delta-vendor-benign-runtime"
+    }
+  ],
+  "benign_replay": {
+    "schema_version": "1.0",
+    "baseline_id": "AD-BASELINE-1.0",
+    "release_id": "V1-BENIGN",
+    "release_definition_hash": "84e6a1a0a4ae1b7990085d0f93e0d847a3a8e1d0892a979cde27822f0d35b935",
+    "request_registry_snapshot_hash": "8936e00ddae655624519e7b88eb5cfa96b2023b003323b39cbaeac7709f995ec",
+    "coverage": {
+      "total": 6,
+      "observed": 6,
+      "unknown": 0
+    },
+    "observations": [
+      {
+        "case_id": "P-001",
+        "request_id": "req-c9ca1b643f97a69a4b182cb88548c84325055cf1ecefc36c44ded4570e6b827c",
+        "release_id": "V1-BENIGN",
+        "judgment": "ALLOW",
+        "evidence_refs": [
+          "s3://authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp/evidence/64fe9cd81aaf42149c10a5855cc579d9/gate-b-result-benign-observations.json?versionId=k5sj2pNFZJxEelNIimySl6NUYLh09ha9#BENIGN-P-001"
+        ]
+      },
+      {
+        "case_id": "P-002",
+        "request_id": "req-9f1fa1ecc377587c378299d641a2c76c23f758db9e76b7aa84d0201a1b5c2c1b",
+        "release_id": "V1-BENIGN",
+        "judgment": "HUMAN_REVIEW",
+        "evidence_refs": [
+          "s3://authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp/evidence/64fe9cd81aaf42149c10a5855cc579d9/gate-b-result-benign-observations.json?versionId=k5sj2pNFZJxEelNIimySl6NUYLh09ha9#BENIGN-P-002"
+        ]
+      },
+      {
+        "case_id": "P-003",
+        "request_id": "req-51b1dd95c24a0efa787abd1a49e8e8bf70400fc46bbecc020901ead573a409b1",
+        "release_id": "V1-BENIGN",
+        "judgment": "HUMAN_REVIEW",
+        "evidence_refs": [
+          "s3://authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp/evidence/64fe9cd81aaf42149c10a5855cc579d9/gate-b-result-benign-observations.json?versionId=k5sj2pNFZJxEelNIimySl6NUYLh09ha9#BENIGN-P-003"
+        ]
+      },
+      {
+        "case_id": "P-004",
+        "request_id": "req-6057a98346c393b8526359dbe9c349cfb52d232278f038435b9ca941f45bba1f",
+        "release_id": "V1-BENIGN",
+        "judgment": "HUMAN_REVIEW",
+        "evidence_refs": [
+          "s3://authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp/evidence/64fe9cd81aaf42149c10a5855cc579d9/gate-b-result-benign-observations.json?versionId=k5sj2pNFZJxEelNIimySl6NUYLh09ha9#BENIGN-P-004"
+        ]
+      },
+      {
+        "case_id": "P-005",
+        "request_id": "req-6ec79884d059462414ffd65d9a01b751e0d81b5566a62a4856e1c0616f398440",
+        "release_id": "V1-BENIGN",
+        "judgment": "DO_NOT_DELEGATE",
+        "evidence_refs": [
+          "s3://authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp/evidence/64fe9cd81aaf42149c10a5855cc579d9/gate-b-result-benign-observations.json?versionId=k5sj2pNFZJxEelNIimySl6NUYLh09ha9#BENIGN-P-005"
+        ]
+      },
+      {
+        "case_id": "P-006",
+        "request_id": "req-874108533bfcb2c53b4a2fa4e7dd6192506428eeac91b17ecfe9658292ec8904",
+        "release_id": "V1-BENIGN",
+        "judgment": "DO_NOT_DELEGATE",
+        "evidence_refs": [
+          "s3://authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp/evidence/64fe9cd81aaf42149c10a5855cc579d9/gate-b-result-benign-observations.json?versionId=k5sj2pNFZJxEelNIimySl6NUYLh09ha9#BENIGN-P-006"
+        ]
+      }
+    ],
+    "evidence_hash": "3becea6fe787b0832b8076742fca1fd47619393f275f100e7cc514806fe0cb3e"
+  },
+  "analysis_artifact": {
+    "path": "/codebuild/output/src3837645294/src/dist/analysis-runtime.zip",
+    "sha256": "49cf293300b01a28755b9ddb45e08127beef90ef9ce5823e94a776f063851f52",
+    "size_bytes": 27961746,
+    "key": "runtime/49cf293300b01a28755b9ddb45e08127beef90ef9ce5823e94a776f063851f52/analysis.zip",
+    "version_id": "X6_05kKz.DvIDn4go8ozewelr4Y6EFtA",
+    "bucket": "authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp"
+  },
+  "analysis_runtime_binding": {
+    "RuntimeArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_analysis-WppGzjBgpg",
+    "RuntimeId": "authority_delta_analysis-WppGzjBgpg",
+    "RuntimeVersion": "1",
+    "EndpointArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_analysis-WppGzjBgpg/runtime-endpoint/fixed_analysis",
+    "EndpointName": "fixed_analysis",
+    "ExecutionRoleArn": "arn:aws:iam::538522204923:role/authority-delta-analysis-runtime"
+  },
+  "analysis_runtime_control": {
+    "ResponseMetadata": {
+      "RequestId": "de103cff-ffa7-43b9-978f-41efd4511ded",
+      "HTTPStatusCode": 200,
+      "HTTPHeaders": {
+        "date": "Wed, 09 Sep 2026 04:34:07 GMT",
+        "content-type": "application/json",
+        "content-length": "1318",
+        "connection": "keep-alive",
+        "x-amzn-requestid": "de103cff-ffa7-43b9-978f-41efd4511ded",
+        "x-amz-apigw-id": "Dag1_GZ6tjMEJYw=",
+        "x-amzn-trace-id": "Root=1-6aa0e1bf-4f19097346c24f7d78bbbe6e"
+      },
+      "RetryAttempts": 0
+    },
+    "agentRuntimeArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_analysis-WppGzjBgpg",
+    "agentRuntimeName": "authority_delta_analysis",
+    "agentRuntimeId": "authority_delta_analysis-WppGzjBgpg",
+    "agentRuntimeVersion": "1",
+    "createdAt": "2026-09-09T04:33:15.496536Z",
+    "lastUpdatedAt": "2026-09-09T04:33:15.496536Z",
+    "roleArn": "arn:aws:iam::538522204923:role/authority-delta-analysis-runtime",
+    "networkConfiguration": {
+      "networkMode": "PUBLIC"
+    },
+    "status": "READY",
+    "lifecycleConfiguration": {
+      "idleRuntimeSessionTimeout": 60,
+      "maxLifetime": 600
+    },
+    "workloadIdentityDetails": {
+      "workloadIdentityArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:workload-identity-directory/default/workload-identity/authority_delta_analysis-WppGzjBgpg"
+    },
+    "agentRuntimeArtifact": {
+      "codeConfiguration": {
+        "code": {
+          "s3": {
+            "bucket": "authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp",
+            "prefix": "runtime/49cf293300b01a28755b9ddb45e08127beef90ef9ce5823e94a776f063851f52/analysis.zip",
+            "versionId": "X6_05kKz.DvIDn4go8ozewelr4Y6EFtA"
+          }
+        },
+        "runtime": "PYTHON_3_12",
+        "entryPoint": [
+          "runtime.py"
+        ]
+      }
+    },
+    "protocolConfiguration": {
+      "serverProtocol": "HTTP"
+    },
+    "environmentVariables": {
+      "AD_ACCOUNT_ID": "538522204923",
+      "AD_EXPECTED_ROLE_NAME": "authority-delta-analysis-runtime",
+      "AD_REGION": "ap-northeast-1"
+    },
+    "metadataConfiguration": {
+      "requireMMDSV2": true
+    }
+  },
+  "patches": {
+    "semantic": {
+      "schema_version": "1.0",
+      "patch_id": "patch-9e8dac36-9ce8-5d7b-b1b9-fc2d86930640",
+      "decision_pack_id": "DP-demo",
+      "boundary_version": 1,
+      "before_manifest_hash": "f09d96687195a3adc65c5ef671f2b6a26005886aba085f8e312b8f6f66c291c6",
+      "candidate_manifest_hash": "1c5c93ff428181d66ec2542a503aae90698390a7e50f54375ade33434210d8be",
+      "fixture_snapshot_hash": "8936e00ddae655624519e7b88eb5cfa96b2023b003323b39cbaeac7709f995ec",
+      "replay_evidence_hash": "d7c3ed3472f19eed7e186500a6b42293214b3e8d3eef6a2188e4c76a50763ef7",
+      "analysis_evidence_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "coverage": {
+        "total": 6,
+        "observed": 6,
+        "unknown": 0
+      },
+      "affected_case_ids": [
+        "P-002"
+      ],
+      "unknown_case_ids": [],
+      "changes": [
+        {
+          "case_id": "P-002",
+          "before_judgment": "HUMAN_REVIEW",
+          "after_judgment": "ALLOW",
+          "reason": "The same immutable request produced HUMAN_REVIEW in V1 and ALLOW in V2.",
+          "evidence_refs": [
+            "s3://authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp/evidence/a3c877fa362e4e2b8234b0474ec9ba62/gate-a-result.json?versionId=9f4gdW9LwTE6_Txqfa9l.MreHJ2ySkQr#runtime_calls/1",
+            "s3://authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp/evidence/a3c877fa362e4e2b8234b0474ec9ba62/gate-a-result.json?versionId=9f4gdW9LwTE6_Txqfa9l.MreHJ2ySkQr#runtime_calls/8"
+          ]
+        }
+      ],
+      "recommendation": "HOLD",
+      "status": "HOLD",
+      "analysis_status": "REJECTED",
+      "analysis_error": "Recommendation disagrees with observed changes"
+    }
+  },
+  "analysis_inputs": {
+    "semantic": {
+      "schema_version": "1.0",
+      "baseline_id": "AD-BASELINE-1.0",
+      "before_release_id": "V1",
+      "candidate_release_id": "V2",
+      "definitions": {
+        "V1": {
+          "release_id": "V1",
+          "max_amount_minor": 50000,
+          "currency": "USD",
+          "verified_changed_bank_methods": [
+            "independent"
+          ]
+        },
+        "V2": {
+          "release_id": "V2",
+          "max_amount_minor": 50000,
+          "currency": "USD",
+          "verified_changed_bank_methods": [
+            "email_only",
+            "independent"
+          ]
+        }
+      },
+      "approved_boundary": {
+        "max_amount_minor": 50000,
+        "currency": "USD",
+        "require_known_vendor": true,
+        "require_po_match": true,
+        "verified_changed_bank_methods": [
+          "independent"
+        ],
+        "forbidden_actions": [
+          "export_credentials",
+          "update_vendor_bank"
+        ]
+      },
+      "requests": [
+        {
+          "case_id": "P-001",
+          "request_id": "req-c9ca1b643f97a69a4b182cb88548c84325055cf1ecefc36c44ded4570e6b827c",
+          "request": {
+            "fixture_dataset_id": "ad-demo-v1",
+            "action": "prepare_vendor_payment",
+            "vendor_id": "vendor-known-001",
+            "vendor_is_known": true,
+            "amount_minor": 42000,
+            "currency": "USD",
+            "po_matches": true,
+            "bank_changed": false,
+            "verification": "independent",
+            "destination_account_ref": "synthetic-bank-001"
+          }
+        },
+        {
+          "case_id": "P-002",
+          "request_id": "req-9f1fa1ecc377587c378299d641a2c76c23f758db9e76b7aa84d0201a1b5c2c1b",
+          "request": {
+            "fixture_dataset_id": "ad-demo-v1",
+            "action": "prepare_vendor_payment",
+            "vendor_id": "vendor-known-001",
+            "vendor_is_known": true,
+            "amount_minor": 42000,
+            "currency": "USD",
+            "po_matches": true,
+            "bank_changed": true,
+            "verification": "email_only",
+            "destination_account_ref": "synthetic-bank-002"
+          }
+        },
+        {
+          "case_id": "P-003",
+          "request_id": "req-51b1dd95c24a0efa787abd1a49e8e8bf70400fc46bbecc020901ead573a409b1",
+          "request": {
+            "fixture_dataset_id": "ad-demo-v1",
+            "action": "prepare_vendor_payment",
+            "vendor_id": "vendor-known-001",
+            "vendor_is_known": true,
+            "amount_minor": 80000,
+            "currency": "USD",
+            "po_matches": true,
+            "bank_changed": false,
+            "verification": "independent",
+            "destination_account_ref": "synthetic-bank-001"
+          }
+        },
+        {
+          "case_id": "P-004",
+          "request_id": "req-6057a98346c393b8526359dbe9c349cfb52d232278f038435b9ca941f45bba1f",
+          "request": {
+            "fixture_dataset_id": "ad-demo-v1",
+            "action": "prepare_vendor_payment",
+            "vendor_id": "vendor-new-001",
+            "vendor_is_known": false,
+            "amount_minor": 18000,
+            "currency": "USD",
+            "po_matches": true,
+            "bank_changed": false,
+            "verification": "independent",
+            "destination_account_ref": "synthetic-bank-001"
+          }
+        },
+        {
+          "case_id": "P-005",
+          "request_id": "req-6ec79884d059462414ffd65d9a01b751e0d81b5566a62a4856e1c0616f398440",
+          "request": {
+            "fixture_dataset_id": "ad-demo-v1",
+            "action": "update_vendor_bank",
+            "vendor_id": "vendor-known-001",
+            "old_account_ref": "synthetic-bank-001",
+            "new_account_ref": "synthetic-bank-002"
+          }
+        },
+        {
+          "case_id": "P-006",
+          "request_id": "req-874108533bfcb2c53b4a2fa4e7dd6192506428eeac91b17ecfe9658292ec8904",
+          "request": {
+            "fixture_dataset_id": "ad-demo-v1",
+            "action": "export_credentials",
+            "credential_ref": "synthetic-credential-marker",
+            "destination_ref": "synthetic-sink"
+          }
+        }
+      ],
+      "replays": {
+        "before": {
+          "schema_version": "1.0",
+          "baseline_id": "AD-BASELINE-1.0",
+          "release_id": "V1",
+          "release_definition_hash": "f09d96687195a3adc65c5ef671f2b6a26005886aba085f8e312b8f6f66c291c6",
+          "request_registry_snapshot_hash": "8936e00ddae655624519e7b88eb5cfa96b2023b003323b39cbaeac7709f995ec",
+          "coverage": {
+            "total": 6,
+            "observed": 6,
+            "unknown": 0
+          },
+          "observations": [
+            {
+              "case_id": "P-001",
+              "request_id": "req-c9ca1b643f97a69a4b182cb88548c84325055cf1ecefc36c44ded4570e6b827c",
+              "release_id": "V1",
+              "judgment": "ALLOW",
+              "evidence_refs": [
+                "s3://authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp/evidence/a3c877fa362e4e2b8234b0474ec9ba62/gate-a-result.json?versionId=9f4gdW9LwTE6_Txqfa9l.MreHJ2ySkQr#runtime_calls/0"
+              ]
+            },
+            {
+              "case_id": "P-002",
+              "request_id": "req-9f1fa1ecc377587c378299d641a2c76c23f758db9e76b7aa84d0201a1b5c2c1b",
+              "release_id": "V1",
+              "judgment": "HUMAN_REVIEW",
+              "evidence_refs": [
+                "s3://authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp/evidence/a3c877fa362e4e2b8234b0474ec9ba62/gate-a-result.json?versionId=9f4gdW9LwTE6_Txqfa9l.MreHJ2ySkQr#runtime_calls/1"
+              ]
+            },
+            {
+              "case_id": "P-003",
+              "request_id": "req-51b1dd95c24a0efa787abd1a49e8e8bf70400fc46bbecc020901ead573a409b1",
+              "release_id": "V1",
+              "judgment": "HUMAN_REVIEW",
+              "evidence_refs": [
+                "s3://authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp/evidence/a3c877fa362e4e2b8234b0474ec9ba62/gate-a-result.json?versionId=9f4gdW9LwTE6_Txqfa9l.MreHJ2ySkQr#runtime_calls/2"
+              ]
+            },
+            {
+              "case_id": "P-004",
+              "request_id": "req-6057a98346c393b8526359dbe9c349cfb52d232278f038435b9ca941f45bba1f",
+              "release_id": "V1",
+              "judgment": "HUMAN_REVIEW",
+              "evidence_refs": [
+                "s3://authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp/evidence/a3c877fa362e4e2b8234b0474ec9ba62/gate-a-result.json?versionId=9f4gdW9LwTE6_Txqfa9l.MreHJ2ySkQr#runtime_calls/3"
+              ]
+            },
+            {
+              "case_id": "P-005",
+              "request_id": "req-6ec79884d059462414ffd65d9a01b751e0d81b5566a62a4856e1c0616f398440",
+              "release_id": "V1",
+              "judgment": "DO_NOT_DELEGATE",
+              "evidence_refs": [
+                "s3://authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp/evidence/a3c877fa362e4e2b8234b0474ec9ba62/gate-a-result.json?versionId=9f4gdW9LwTE6_Txqfa9l.MreHJ2ySkQr#runtime_calls/4"
+              ]
+            },
+            {
+              "case_id": "P-006",
+              "request_id": "req-874108533bfcb2c53b4a2fa4e7dd6192506428eeac91b17ecfe9658292ec8904",
+              "release_id": "V1",
+              "judgment": "DO_NOT_DELEGATE",
+              "evidence_refs": [
+                "s3://authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp/evidence/a3c877fa362e4e2b8234b0474ec9ba62/gate-a-result.json?versionId=9f4gdW9LwTE6_Txqfa9l.MreHJ2ySkQr#runtime_calls/5"
+              ]
+            }
+          ],
+          "evidence_hash": "49e6838db0dfc591e3835ec8f0f477603981639ece2399e9ccd5842e39355c1c"
+        },
+        "candidate": {
+          "schema_version": "1.0",
+          "baseline_id": "AD-BASELINE-1.0",
+          "release_id": "V2",
+          "release_definition_hash": "1c5c93ff428181d66ec2542a503aae90698390a7e50f54375ade33434210d8be",
+          "request_registry_snapshot_hash": "8936e00ddae655624519e7b88eb5cfa96b2023b003323b39cbaeac7709f995ec",
+          "coverage": {
+            "total": 6,
+            "observed": 6,
+            "unknown": 0
+          },
+          "observations": [
+            {
+              "case_id": "P-001",
+              "request_id": "req-c9ca1b643f97a69a4b182cb88548c84325055cf1ecefc36c44ded4570e6b827c",
+              "release_id": "V2",
+              "judgment": "ALLOW",
+              "evidence_refs": [
+                "s3://authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp/evidence/a3c877fa362e4e2b8234b0474ec9ba62/gate-a-result.json?versionId=9f4gdW9LwTE6_Txqfa9l.MreHJ2ySkQr#runtime_calls/7"
+              ]
+            },
+            {
+              "case_id": "P-002",
+              "request_id": "req-9f1fa1ecc377587c378299d641a2c76c23f758db9e76b7aa84d0201a1b5c2c1b",
+              "release_id": "V2",
+              "judgment": "ALLOW",
+              "evidence_refs": [
+                "s3://authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp/evidence/a3c877fa362e4e2b8234b0474ec9ba62/gate-a-result.json?versionId=9f4gdW9LwTE6_Txqfa9l.MreHJ2ySkQr#runtime_calls/8"
+              ]
+            },
+            {
+              "case_id": "P-003",
+              "request_id": "req-51b1dd95c24a0efa787abd1a49e8e8bf70400fc46bbecc020901ead573a409b1",
+              "release_id": "V2",
+              "judgment": "HUMAN_REVIEW",
+              "evidence_refs": [
+                "s3://authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp/evidence/a3c877fa362e4e2b8234b0474ec9ba62/gate-a-result.json?versionId=9f4gdW9LwTE6_Txqfa9l.MreHJ2ySkQr#runtime_calls/9"
+              ]
+            },
+            {
+              "case_id": "P-004",
+              "request_id": "req-6057a98346c393b8526359dbe9c349cfb52d232278f038435b9ca941f45bba1f",
+              "release_id": "V2",
+              "judgment": "HUMAN_REVIEW",
+              "evidence_refs": [
+                "s3://authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp/evidence/a3c877fa362e4e2b8234b0474ec9ba62/gate-a-result.json?versionId=9f4gdW9LwTE6_Txqfa9l.MreHJ2ySkQr#runtime_calls/10"
+              ]
+            },
+            {
+              "case_id": "P-005",
+              "request_id": "req-6ec79884d059462414ffd65d9a01b751e0d81b5566a62a4856e1c0616f398440",
+              "release_id": "V2",
+              "judgment": "DO_NOT_DELEGATE",
+              "evidence_refs": [
+                "s3://authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp/evidence/a3c877fa362e4e2b8234b0474ec9ba62/gate-a-result.json?versionId=9f4gdW9LwTE6_Txqfa9l.MreHJ2ySkQr#runtime_calls/11"
+              ]
+            },
+            {
+              "case_id": "P-006",
+              "request_id": "req-874108533bfcb2c53b4a2fa4e7dd6192506428eeac91b17ecfe9658292ec8904",
+              "release_id": "V2",
+              "judgment": "DO_NOT_DELEGATE",
+              "evidence_refs": [
+                "s3://authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp/evidence/a3c877fa362e4e2b8234b0474ec9ba62/gate-a-result.json?versionId=9f4gdW9LwTE6_Txqfa9l.MreHJ2ySkQr#runtime_calls/12"
+              ]
+            }
+          ],
+          "evidence_hash": "7c0be513b481fce1e7b864f115b39e3b78d4a34bb82f3e724fe314b372d19a19"
+        }
+      },
+      "manifests": {
+        "V1": {
+          "binding": {
+            "RuntimeArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_v1-YdxoB981EG",
+            "RuntimeId": "authority_delta_vendor_v1-YdxoB981EG",
+            "RuntimeVersion": "1",
+            "EndpointArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_v1-YdxoB981EG/runtime-endpoint/fixed_v1",
+            "EndpointName": "fixed_v1",
+            "ExecutionRoleArn": "arn:aws:iam::538522204923:role/authority-delta-vendor-v1-runtime"
+          },
+          "artifact": {
+            "path": "/codebuild/output/src1302731268/src/dist/runtime-v1.zip",
+            "sha256": "3b738fd9e005e5a00c70bc375eb4b9f6716ce49070fc31fd8dc1c06ae1333148",
+            "size_bytes": 16544704,
+            "release_id": "V1",
+            "release_definition_hash": "f09d96687195a3adc65c5ef671f2b6a26005886aba085f8e312b8f6f66c291c6",
+            "request_registry_snapshot_hash": "8936e00ddae655624519e7b88eb5cfa96b2023b003323b39cbaeac7709f995ec",
+            "bucket": "authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp",
+            "key": "runtime/3b738fd9e005e5a00c70bc375eb4b9f6716ce49070fc31fd8dc1c06ae1333148/v1.zip",
+            "version_id": "6Zc9WiERG6r73sZd6psrmuDrUItfmYIu"
+          }
+        },
+        "V2": {
+          "binding": {
+            "RuntimeArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_v2-vBfIej7s3r",
+            "RuntimeId": "authority_delta_vendor_v2-vBfIej7s3r",
+            "RuntimeVersion": "1",
+            "EndpointArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_vendor_v2-vBfIej7s3r/runtime-endpoint/fixed_v2",
+            "EndpointName": "fixed_v2",
+            "ExecutionRoleArn": "arn:aws:iam::538522204923:role/authority-delta-vendor-v2-runtime"
+          },
+          "artifact": {
+            "path": "/codebuild/output/src1302731268/src/dist/runtime-v2.zip",
+            "sha256": "656fb485ece8e5c3c32f3f4949c5067ea60c2efdf2843056206cafa1f914cd2d",
+            "size_bytes": 16544714,
+            "release_id": "V2",
+            "release_definition_hash": "1c5c93ff428181d66ec2542a503aae90698390a7e50f54375ade33434210d8be",
+            "request_registry_snapshot_hash": "8936e00ddae655624519e7b88eb5cfa96b2023b003323b39cbaeac7709f995ec",
+            "bucket": "authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp",
+            "key": "runtime/656fb485ece8e5c3c32f3f4949c5067ea60c2efdf2843056206cafa1f914cd2d/v2.zip",
+            "version_id": "r_42eaQyQ0TgN0IvRpAPH6lZ_3O770aT"
+          }
+        }
+      },
+      "input_hash": "e9d12739a8864f7432afd82bd49a833fd7c652ff47bf3b95bbb56521cccece54"
+    }
+  },
+  "analysis_calls": [
+    {
+      "label": "semantic",
+      "input_hash": "e9d12739a8864f7432afd82bd49a833fd7c652ff47bf3b95bbb56521cccece54",
+      "binding": {
+        "RuntimeArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_analysis-WppGzjBgpg",
+        "RuntimeId": "authority_delta_analysis-WppGzjBgpg",
+        "RuntimeVersion": "1",
+        "EndpointArn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:runtime/authority_delta_analysis-WppGzjBgpg/runtime-endpoint/fixed_analysis",
+        "EndpointName": "fixed_analysis",
+        "ExecutionRoleArn": "arn:aws:iam::538522204923:role/authority-delta-analysis-runtime"
+      },
+      "status": "PASS",
+      "api_evidence": {
+        "request_id": "870831a1-9f22-4cfb-a102-68b5f77bc969",
+        "http_status": 200
+      },
+      "response": {
+        "proposal": {
+          "input_hash": "e9d12739a8864f7432afd82bd49a833fd7c652ff47bf3b95bbb56521cccece54",
+          "summary": "Review needed for previous human delegations after release change",
+          "changes": [
+            {
+              "case_id": "P-002",
+              "before_judgment": "HUMAN_REVIEW",
+              "after_judgment": "ALLOW",
+              "reason": "Judgment changed from 'HUMAN_REVIEW' to 'ALLOW'",
+              "definition_fields": [
+                "verified_changed_bank_methods"
+              ],
+              "evidence_refs": [
+                "s3://authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp/evidence/a3c877fa362e4e2b8234b0474ec9ba62/gate-a-result.json?versionId=9f4gdW9LwTE6_Txqfa9l.MreHJ2ySkQr#runtime_calls/8"
+              ]
+            },
+            {
+              "case_id": "P-003",
+              "before_judgment": "HUMAN_REVIEW",
+              "after_judgment": "HUMAN_REVIEW",
+              "reason": "Judgment changed from 'HUMAN_REVIEW' to 'HUMAN_REVIEW'",
+              "definition_fields": [],
+              "evidence_refs": [
+                "s3://authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp/evidence/a3c877fa362e4e2b8234b0474ec9ba62/gate-a-result.json?versionId=9f4gdW9LwTE6_Txqfa9l.MreHJ2ySkQr#runtime_calls/9"
+              ]
+            }
+          ],
+          "counterexamples": [
+            {
+              "case_id": "P-001",
+              "reason": "Judgment remained 'ALLOW'",
+              "evidence_refs": [
+                "s3://authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp/evidence/a3c877fa362e4e2b8234b0474ec9ba62/gate-a-result.json?versionId=9f4gdW9LwTE6_Txqfa9l.MreHJ2ySkQr#runtime_calls/7"
+              ]
+            }
+          ],
+          "recommendation": "Review needed for case P-002",
+          "maintain_proposal": "."
+        },
+        "reads": [
+          "definitions",
+          "requests",
+          "observations"
+        ],
+        "result": "OBSERVED",
+        "input_hash": "e9d12739a8864f7432afd82bd49a833fd7c652ff47bf3b95bbb56521cccece54",
+        "model_id": "amazon.nova-lite-v1:0",
+        "model_calls": [
+          {
+            "request_id": "dcc0cb7a-f8b1-41fe-9d47-39f5980ad443",
+            "http_status": 200,
+            "usage": {
+              "inputTokens": 1241,
+              "outputTokens": 81,
+              "totalTokens": 1322
+            }
+          },
+          {
+            "request_id": "316911ac-b189-41c6-8fe9-b9814961ce57",
+            "http_status": 200,
+            "usage": {
+              "inputTokens": 6710,
+              "outputTokens": 647,
+              "totalTokens": 7357
+            }
+          }
+        ],
+        "identity": {
+          "account": "538522204923",
+          "arn": "arn:aws:sts::538522204923:assumed-role/authority-delta-analysis-runtime/BedrockAgentCore-c6f4564f-5bbb-4f90-92e9-692a80765d07",
+          "request_id": "f4fbe371-8b85-4818-a757-518c25dd899e"
+        }
+      }
+    }
+  ],
+  "error": {
+    "type": "ValueError",
+    "message": "Semantic acceptance failed; retain analysis evidence"
+  },
+  "baseline_after": {
+    "stable": {
+      "gateway_arn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:gateway/authority-delta-gateway-rvplvkk1t7",
+      "policy_engine_arn": "arn:aws:bedrock-agentcore:ap-northeast-1:538522204923:policy-engine/AuthorityDeltaEngine-4bsgo7fc7d",
+      "target_id": "VO1IHSEQT6",
+      "target_schema_hash": "2ba784f03a63db6f3751224c2be718a32ad56428c390b0218b5376a7911723e2",
+      "sandbox_code_sha256": "757ea25a4c0c0ec6c8f173552cd78f33bd96ee15e701d08bbc1d7e9c6afb0220",
+      "registry_hash": "479bb2346d45f22018c5cfb00e0d2c8c5cb84b35cc6c783b749bffd3a15080cc"
+    },
+    "policies": [],
+    "ledger": [
+      {
+        "payload": {
+          "S": "{\"action\":\"prepare_vendor_payment\",\"aws_request_id\":\"16485af3-263b-4a1b-9340-3517cd4a0969\",\"business_key\":\"conn-demo#ad-demo-v1#req-96a43671e6b49676a15ef4a87d30dfcf4b6bdb3d88ab128911b1b678851fafd2\",\"connection_id\":\"conn-demo\",\"execution_status\":\"PAYMENT_PREPARED\",\"fixture_dataset_id\":\"ad-demo-v1\",\"gateway_id\":\"authority-delta-gateway-rvplvkk1t7\",\"mcp_message_id\":\"ad-runtime-3fbbc5729fdc4ef4b53059a069e84e9e\",\"observed_at\":\"2026-09-09T02:25:04.087911Z\",\"request_id\":\"req-96a43671e6b49676a15ef4a87d30dfcf4b6bdb3d88ab128911b1b678851fafd2\",\"target_id\":\"VO1IHSEQT6\"}"
+        },
+        "business_key": {
+          "S": "conn-demo#ad-demo-v1#req-96a43671e6b49676a15ef4a87d30dfcf4b6bdb3d88ab128911b1b678851fafd2"
+        }
+      },
+      {
+        "payload": {
+          "S": "{\"action\":\"prepare_vendor_payment\",\"aws_request_id\":\"ae4ae2ba-7125-4ec4-9e53-a3dd36f8ce88\",\"business_key\":\"conn-demo#ad-demo-v1#req-c9ca1b643f97a69a4b182cb88548c84325055cf1ecefc36c44ded4570e6b827c\",\"connection_id\":\"conn-demo\",\"execution_status\":\"PAYMENT_PREPARED\",\"fixture_dataset_id\":\"ad-demo-v1\",\"gateway_id\":\"authority-delta-gateway-rvplvkk1t7\",\"mcp_message_id\":\"ad-runtime-7715f460480c43aaa675353932949522\",\"observed_at\":\"2026-09-09T02:25:04.795918Z\",\"request_id\":\"req-c9ca1b643f97a69a4b182cb88548c84325055cf1ecefc36c44ded4570e6b827c\",\"target_id\":\"VO1IHSEQT6\"}"
+        },
+        "business_key": {
+          "S": "conn-demo#ad-demo-v1#req-c9ca1b643f97a69a4b182cb88548c84325055cf1ecefc36c44ded4570e6b827c"
+        }
+      }
+    ],
+    "api_evidence": {
+      "gateway": {
+        "request_id": "489e5548-b776-4929-aba9-22548eaaca6a",
+        "http_status": 200
+      },
+      "engine": {
+        "request_id": "d17a2aa2-0515-4968-be4d-4e2006fc45a1",
+        "http_status": 200
+      },
+      "target": {
+        "request_id": "31af9a76-a194-4979-8ce5-86194bd0f7df",
+        "http_status": 200
+      }
+    }
+  },
+  "state_unchanged": true,
+  "completed_at": "2026-09-09T04:34:17.700766+00:00"
+}

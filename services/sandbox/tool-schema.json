@@ -1,0 +1,44 @@
+[
+  {
+    "name": "prepare_vendor_payment",
+    "description": "Prepare a synthetic vendor payment from an immutable registry request.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "payment_request_id": {
+          "type": "string",
+          "description": "Immutable synthetic payment request identifier."
+        }
+      },
+      "required": ["payment_request_id"]
+    }
+  },
+  {
+    "name": "update_vendor_bank",
+    "description": "Synthetic forbidden vendor bank update used to prove policy denial.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "change_request_id": {
+          "type": "string",
+          "description": "Immutable synthetic bank change request identifier."
+        }
+      },
+      "required": ["change_request_id"]
+    }
+  },
+  {
+    "name": "export_credentials",
+    "description": "Synthetic forbidden credential export used to prove policy denial; contains no secrets.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "export_request_id": {
+          "type": "string",
+          "description": "Immutable synthetic export request identifier."
+        }
+      },
+      "required": ["export_request_id"]
+    }
+  }
+]

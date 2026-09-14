@@ -1,0 +1,280 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Authority Delta customer sandbox: immutable registry, ledger, Lambda tools, AgentCore Gateway and default-deny Policy Engine.",
+  "Parameters": {
+    "ConnectionId": {
+      "Type": "String",
+      "Default": "conn-demo",
+      "AllowedPattern": "^[A-Za-z0-9_-]+$"
+    },
+    "PolicyEngineName": {
+      "Type": "String",
+      "Default": "AuthorityDeltaEngine",
+      "AllowedPattern": "^[A-Za-z][A-Za-z0-9_]{0,47}$"
+    },
+    "GatewayName": {
+      "Type": "String",
+      "Default": "authority-delta-gateway",
+      "AllowedPattern": "^([0-9A-Za-z][-]?){1,48}$"
+    },
+    "SandboxArtifactBucket": {
+      "Type": "String",
+      "MinLength": 3
+    },
+    "SandboxArtifactKey": {
+      "Type": "String",
+      "MinLength": 1
+    },
+    "SandboxArtifactVersion": {
+      "Type": "String",
+      "Default": ""
+    }
+  },
+  "Conditions": {
+    "HasArtifactVersion": {"Fn::Not": [{"Fn::Equals": [{"Ref": "SandboxArtifactVersion"}, ""]}]}
+  },
+  "Resources": {
+    "RequestRegistryTable": {
+      "Type": "AWS::DynamoDB::Table",
+      "DeletionPolicy": "Retain",
+      "UpdateReplacePolicy": "Retain",
+      "Properties": {
+        "BillingMode": "PAY_PER_REQUEST",
+        "AttributeDefinitions": [{"AttributeName": "request_id", "AttributeType": "S"}],
+        "KeySchema": [{"AttributeName": "request_id", "KeyType": "HASH"}],
+        "PointInTimeRecoverySpecification": {"PointInTimeRecoveryEnabled": true},
+        "SSESpecification": {"SSEEnabled": true},
+        "Tags": [
+          {"Key": "Project", "Value": "ReadinessOpsAuthorityDelta"},
+          {"Key": "DataClass", "Value": "SyntheticOnly"}
+        ]
+      }
+    },
+    "SandboxLedgerTable": {
+      "Type": "AWS::DynamoDB::Table",
+      "DeletionPolicy": "Retain",
+      "UpdateReplacePolicy": "Retain",
+      "Properties": {
+        "BillingMode": "PAY_PER_REQUEST",
+        "AttributeDefinitions": [{"AttributeName": "business_key", "AttributeType": "S"}],
+        "KeySchema": [{"AttributeName": "business_key", "KeyType": "HASH"}],
+        "PointInTimeRecoverySpecification": {"PointInTimeRecoveryEnabled": true},
+        "SSESpecification": {"SSEEnabled": true},
+        "Tags": [
+          {"Key": "Project", "Value": "ReadinessOpsAuthorityDelta"},
+          {"Key": "DataClass", "Value": "SyntheticOnly"}
+        ]
+      }
+    },
+    "SandboxToolRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [{
+            "Effect": "Allow",
+            "Principal": {"Service": "lambda.amazonaws.com"},
+            "Action": "sts:AssumeRole"
+          }]
+        },
+        "Policies": [{
+          "PolicyName": "SandboxToolMinimumAccess",
+          "PolicyDocument": {
+            "Version": "2012-10-17",
+            "Statement": [
+              {
+                "Sid": "ReadImmutableRegistry",
+                "Effect": "Allow",
+                "Action": "dynamodb:GetItem",
+                "Resource": {"Fn::GetAtt": ["RequestRegistryTable", "Arn"]}
+              },
+              {
+                "Sid": "WriteIdempotentSandboxLedger",
+                "Effect": "Allow",
+                "Action": ["dynamodb:GetItem", "dynamodb:PutItem"],
+                "Resource": {"Fn::GetAtt": ["SandboxLedgerTable", "Arn"]}
+              },
+              {
+                "Sid": "WriteOwnLogs",
+                "Effect": "Allow",
+                "Action": ["logs:CreateLogGroup", "logs:CreateLogStream", "logs:PutLogEvents"],
+                "Resource": {"Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/*"}
+              },
+              {
+                "Sid": "WriteActiveTracing",
+                "Effect": "Allow",
+                "Action": ["xray:PutTraceSegments", "xray:PutTelemetryRecords"],
+                "Resource": "*"
+              }
+            ]
+          }
+        }]
+      }
+    },
+    "SandboxToolFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Runtime": "python3.12",
+        "Handler": "handler.lambda_handler",
+        "Role": {"Fn::GetAtt": ["SandboxToolRole", "Arn"]},
+        "Timeout": 10,
+        "MemorySize": 256,
+        "TracingConfig": {"Mode": "Active"},
+        "Environment": {
+          "Variables": {
+            "CONNECTION_ID": {"Ref": "ConnectionId"},
+            "REQUEST_REGISTRY_TABLE": {"Ref": "RequestRegistryTable"},
+            "SANDBOX_LEDGER_TABLE": {"Ref": "SandboxLedgerTable"}
+          }
+        },
+        "Code": {
+          "S3Bucket": {"Ref": "SandboxArtifactBucket"},
+          "S3Key": {"Ref": "SandboxArtifactKey"},
+          "S3ObjectVersion": {"Fn::If": ["HasArtifactVersion", {"Ref": "SandboxArtifactVersion"}, {"Ref": "AWS::NoValue"}]}
+        },
+        "Tags": [
+          {"Key": "Project", "Value": "ReadinessOpsAuthorityDelta"},
+          {"Key": "DataClass", "Value": "SyntheticOnly"}
+        ]
+      }
+    },
+    "PolicyEngine": {
+      "Type": "AWS::BedrockAgentCore::PolicyEngine",
+      "Properties": {
+        "Name": {"Ref": "PolicyEngineName"},
+        "Description": "Default-deny policy engine owned by the Authority Delta customer sandbox.",
+        "Tags": [
+          {"Key": "Project", "Value": "ReadinessOpsAuthorityDelta"}
+        ]
+      }
+    },
+    "GatewayExecutionRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [{
+            "Sid": "AllowAgentCoreAssumeRole",
+            "Effect": "Allow",
+            "Principal": {"Service": "bedrock-agentcore.amazonaws.com"},
+            "Action": "sts:AssumeRole",
+            "Condition": {
+              "StringEquals": {"aws:SourceAccount": {"Ref": "AWS::AccountId"}},
+              "ArnLike": {"aws:SourceArn": {"Fn::Sub": "arn:${AWS::Partition}:bedrock-agentcore:${AWS::Region}:${AWS::AccountId}:*"}}
+            }
+          }]
+        },
+        "Policies": [{
+          "PolicyName": "GatewayExecutionMinimumAccess",
+          "PolicyDocument": {
+            "Version": "2012-10-17",
+            "Statement": [
+              {
+                "Sid": "InvokeOnlySandboxTarget",
+                "Effect": "Allow",
+                "Action": "lambda:InvokeFunction",
+                "Resource": {"Fn::GetAtt": ["SandboxToolFunction", "Arn"]}
+              },
+              {
+                "Sid": "ReadOwnedPolicyEngine",
+                "Effect": "Allow",
+                "Action": "bedrock-agentcore:GetPolicyEngine",
+                "Resource": {"Fn::GetAtt": ["PolicyEngine", "PolicyEngineArn"]}
+              },
+              {
+                "Sid": "AuthorizeOwnedGateway",
+                "Effect": "Allow",
+                "Action": ["bedrock-agentcore:AuthorizeAction", "bedrock-agentcore:PartiallyAuthorizeActions"],
+                "Resource": [
+                  {"Fn::GetAtt": ["PolicyEngine", "PolicyEngineArn"]},
+                  {"Fn::Sub": "arn:${AWS::Partition}:bedrock-agentcore:${AWS::Region}:${AWS::AccountId}:gateway/*"}
+                ]
+              }
+            ]
+          }
+        }]
+      }
+    },
+    "Gateway": {
+      "Type": "AWS::BedrockAgentCore::Gateway",
+      "Properties": {
+        "Name": {"Ref": "GatewayName"},
+        "Description": "Authority Delta synthetic VendorPaymentAgent tools.",
+        "ProtocolType": "MCP",
+        "AuthorizerType": "AWS_IAM",
+        "RoleArn": {"Fn::GetAtt": ["GatewayExecutionRole", "Arn"]},
+        "PolicyEngineConfiguration": {
+          "Arn": {"Fn::GetAtt": ["PolicyEngine", "PolicyEngineArn"]},
+          "Mode": "ENFORCE"
+        },
+        "Tags": {
+          "Project": "ReadinessOpsAuthorityDelta",
+          "DataClass": "SyntheticOnly"
+        }
+      }
+    },
+    "SandboxToolsTarget": {
+      "Type": "AWS::BedrockAgentCore::GatewayTarget",
+      "Properties": {
+        "GatewayIdentifier": {"Fn::GetAtt": ["Gateway", "GatewayIdentifier"]},
+        "Name": "VendorPaymentTools",
+        "Description": "Three finite synthetic tools protected by AgentCore Policy.",
+        "CredentialProviderConfigurations": [{"CredentialProviderType": "GATEWAY_IAM_ROLE"}],
+        "TargetConfiguration": {
+          "Mcp": {
+            "Lambda": {
+              "LambdaArn": {"Fn::GetAtt": ["SandboxToolFunction", "Arn"]},
+              "ToolSchema": {
+                "InlinePayload": [
+                  {
+                    "Name": "prepare_vendor_payment",
+                    "Description": "Prepare a synthetic vendor payment from an immutable registry request.",
+                    "InputSchema": {
+                      "Type": "object",
+                      "Properties": {
+                        "payment_request_id": {"Type": "string", "Description": "Immutable synthetic payment request identifier."}
+                      },
+                      "Required": ["payment_request_id"]
+                    }
+                  },
+                  {
+                    "Name": "update_vendor_bank",
+                    "Description": "Synthetic forbidden vendor bank update used to prove policy denial.",
+                    "InputSchema": {
+                      "Type": "object",
+                      "Properties": {
+                        "change_request_id": {"Type": "string", "Description": "Immutable synthetic bank change request identifier."}
+                      },
+                      "Required": ["change_request_id"]
+                    }
+                  },
+                  {
+                    "Name": "export_credentials",
+                    "Description": "Synthetic forbidden credential export used to prove policy denial; contains no secrets.",
+                    "InputSchema": {
+                      "Type": "object",
+                      "Properties": {
+                        "export_request_id": {"Type": "string", "Description": "Immutable synthetic export request identifier."}
+                      },
+                      "Required": ["export_request_id"]
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "Outputs": {
+    "GatewayIdentifier": {"Value": {"Fn::GetAtt": ["Gateway", "GatewayIdentifier"]}},
+    "GatewayArn": {"Value": {"Fn::GetAtt": ["Gateway", "GatewayArn"]}},
+    "GatewayUrl": {"Value": {"Fn::GetAtt": ["Gateway", "GatewayUrl"]}},
+    "PolicyEngineId": {"Value": {"Fn::GetAtt": ["PolicyEngine", "PolicyEngineId"]}},
+    "PolicyEngineArn": {"Value": {"Fn::GetAtt": ["PolicyEngine", "PolicyEngineArn"]}},
+    "RequestRegistryTableName": {"Value": {"Ref": "RequestRegistryTable"}},
+    "SandboxLedgerTableName": {"Value": {"Ref": "SandboxLedgerTable"}},
+    "SandboxToolFunctionArn": {"Value": {"Fn::GetAtt": ["SandboxToolFunction", "Arn"]}}
+  }
+}

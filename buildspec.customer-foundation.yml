@@ -1,0 +1,11 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      python: 3.12
+    commands:
+      - python3 -m venv /tmp/readinessops-customer-foundation-env
+      - /tmp/readinessops-customer-foundation-env/bin/python -m pip install --no-index --find-links vendor/analysis/x86_64 --require-hashes -r requirements-analysis-x86_64.lock
+  build:
+    commands:
+      - PYTHONPATH=src:scripts /tmp/readinessops-customer-foundation-env/bin/python scripts/deploy_customer_foundation.py

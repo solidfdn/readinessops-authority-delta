@@ -1,0 +1,146 @@
+{
+  "scope": "LOCAL_WIRING_ASSESSMENT_RECOVERY_NOT_LIVE_ACCEPTANCE",
+  "result": "PASS",
+  "observed_at": "2026-09-12T12:00:07.209120+00:00",
+  "implementation_commits": [
+    "6d50b53818667a2cd334a2ab03fc552c89f9c764",
+    "79ccdb8f13e2bdf8c4ec859290a09249999b4721"
+  ],
+  "fresh_clone_full_regression": {
+    "source_commit": "6d50b53818667a2cd334a2ab03fc552c89f9c764",
+    "count": 326,
+    "seconds": 164.204,
+    "exit_code": 0,
+    "result": "PASS",
+    "command": "PYTHONPATH=src:scripts:tests:. /workspace/scratch/915753951def/budget-test-env/bin/python -m unittest discover -s tests -q",
+    "log_sha256": "e28e42409dc6953307dd495718cb78482d0c7bca90120442c4d3c9231a3902b0"
+  },
+  "final_code_delta": {
+    "source_commit": "79ccdb8f13e2bdf8c4ec859290a09249999b4721",
+    "scope": "Unknown model property names removed from displayable errors; raw rejected proposal unchanged; retry wording clarified",
+    "focused_repair_tests": 10,
+    "result": "PASS",
+    "full_suite_repeated_after_this_delta": false,
+    "reason": "Bounded diagnostic-only difference is covered by the real SDK repair tests and final bundle checker; full regression at the preceding implementation commit retained."
+  },
+  "independent_review": {
+    "validator_differential_cases": 13,
+    "acceptance_outcomes": "UNCHANGED",
+    "actual_fixed_sdk_boundary": "PASS_SCRIPTED_MODEL",
+    "composed_missing_finalizer_mutation_detected": true,
+    "last_finding": "Arbitrary extra-field names redacted from displayed validation feedback; new SDK regression PASS"
+  },
+  "candidate_bundle_qualification": {
+    "scope": "LOCAL_ASSESSMENT_RECOVERY_INCREMENTAL_DELIVERY_NO_LIVE_AWS",
+    "result": "PASS",
+    "observed_at": "2026-09-12T11:55:17.340273+00:00",
+    "aws_execution": "NOT_RUN",
+    "live_model_execution": "NOT_RUN",
+    "arm_runtime_execution": "NOT_RUN",
+    "test_python": "/workspace/scratch/915753951def/budget-test-env/bin/python",
+    "checks": [
+      {
+        "name": "fresh_clone_incremental_fast_forward_matches_commit_and_tree",
+        "status": "PASS",
+        "base_commit": "90d03bd899a6e7f2d31a531ca27af0b45cc9a7bd",
+        "source_commit": "6d50b53818667a2cd334a2ab03fc552c89f9c764",
+        "tree": "a310b05f3880d7021ff4045b108b4cf185035772"
+      },
+      {
+        "name": "focused_recovery_composition_launcher_and_aws_contract_regressions",
+        "status": "PASS",
+        "modules": [
+          "test_business_assessment_repair",
+          "test_wiring_composed_delivery",
+          "test_customer_wiring_launcher",
+          "test_customer_wiring_operator",
+          "test_cors_exposure",
+          "test_runtime_policy_order",
+          "test_customer_connector_launcher",
+          "test_business_aws_contracts"
+        ],
+        "output": "exception=<RuntimeError> | event loop cycle failed\nexception=<RuntimeError> | event loop cycle failed\nexception=<RuntimeError> | event loop cycle failed\nexception=<RuntimeError> | event loop cycle failed\nexception=<RuntimeError> | event loop cycle failed\nexception=<RuntimeError> | event loop cycle failed\nexception=<RuntimeError> | event loop cycle failed\n----------------------------------------------------------------------\nRan 41 tests in 64.932s\n\nOK",
+        "interpreter": "Python 3.12.14"
+      },
+      {
+        "name": "delivered_launcher_missing_aws_cli_stops_cleanly",
+        "status": "PASS",
+        "exit_status": 1
+      },
+      {
+        "name": "actual_offline_locked_business_archives_match_repair_sources",
+        "status": "PASS",
+        "artifacts": {
+          "lambda": {
+            "sha256": "06a017a82916bc200a2dc926b39ac5f7d440ddb704055fa077b5f66b9ae8b729",
+            "size_bytes": 28530406,
+            "architecture": "x86_64"
+          },
+          "runtime": {
+            "sha256": "099e9fe8b1eabf24d272c01e88d92b042f694003e80dde4cbc4ef6f2de65f764",
+            "size_bytes": 28371869,
+            "architecture": "aarch64"
+          }
+        },
+        "inspected_members": [
+          "authority_delta/business/contracts.py",
+          "packages/contracts/business.openapi.json",
+          "services/business/requests.schema.json",
+          "services/business_analysis/agent.py"
+        ]
+      },
+      {
+        "name": "extracted_x86_artifact_imports_its_own_fixed_dependencies",
+        "status": "PASS",
+        "modules": [
+          "services.business_analysis.agent",
+          "authority_delta.business.contracts",
+          "pydantic",
+          "strands"
+        ],
+        "scope": "LOCAL_X86_ARCHIVE_IMPORT_ONLY"
+      },
+      {
+        "name": "actual_codebuild_source_entries_and_worker_imports_match",
+        "status": "PASS",
+        "source_zip_sha256": "3fa864fe037d9c570f880f301e5fbddad1be0284afcef098a200622fa7f19ec3",
+        "inspected_members": [
+          "scripts/deploy_customer_wiring.py",
+          "scripts/deploy_business.py",
+          "scripts/launch_customer_wiring.py",
+          "services/business_analysis/agent.py",
+          "src/authority_delta/business/contracts.py",
+          "buildspec.customer-wiring.yml",
+          "requirements-analysis-x86_64.lock",
+          "requirements-analysis-aarch64.lock"
+        ],
+        "imports": {
+          "modules": [
+            "deploy_customer_wiring",
+            "deploy_business",
+            "services.business_analysis.agent"
+          ],
+          "scope": "SUPPLIED_TEST_INTERPRETER_NO_LIVE_AWS"
+        }
+      }
+    ],
+    "limitations": [
+      "AWS APIs and model responses in tests are local doubles or captured outputs.",
+      "Fresh x86 archive imports do not prove the AWS CodeBuild image or ARM execution.",
+      "Full regressions and live connected acceptance are separate gates."
+    ],
+    "base_bundle_sha256": "3b8ee4288325f780971894a3fe07e23fa5b61eb12a5a1478cbf6a4b743aff5db",
+    "update_bundle_sha256": "de1596a9e51aeae7c75f14dfb5dc5dab350d2c5c6c016126c5d5ec9793505a2c",
+    "delivered_source_commit": "6d50b53818667a2cd334a2ab03fc552c89f9c764",
+    "delivered_tree": "a310b05f3880d7021ff4045b108b4cf185035772",
+    "elapsed_seconds": 93.394
+  },
+  "final_bundle_evidence": "ReadinessOps_Wiring_Recovery_Verification.json is generated after final bundle creation and binds its exact SHA256 and commit. It is delivered alongside the bundle; this in-repo record cannot contain its own bundle hash.",
+  "aws_calls": 0,
+  "live_corrected_nova": "NOT_RUN",
+  "live_cors_readback": "NOT_RUN",
+  "live_wiring": "NOT_RUN",
+  "human_approval_or_publication": "NOT_RUN",
+  "policy_write": "NOT_RUN",
+  "gates_promoted": false
+}

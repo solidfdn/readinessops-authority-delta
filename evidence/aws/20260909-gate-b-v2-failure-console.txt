@@ -1,0 +1,165 @@
+~ $ python3 ~/Authority_Delta_Gate_B_V2.py
+Authority Delta Gate B prepared. Source: 53358d0fe44174490fcca09b9d68bf52d9fdeaf1
+Prepared directory: /tmp/authority-delta-gate-b-a0mfk9_5
+If the connection is interrupted, use the resume command printed by the launcher. Keep this prepared directory.
+Authority Delta Gate B 20260909-gate-b-v2
+[Gate B] Read existing deployment bindings
+[Gate B] Upload source and start the existing deployment service
+Build ID: authority-delta-deploy:dec0c5aa-7b7c-44cb-a98b-5784c5266466
+Resume this build: python3 /tmp/authority-delta-gate-b-a0mfk9_5/scripts/launch_gate_b.py --resume /tmp/authority-delta-gate-b-a0mfk9_5/evidence/aws/170bd0c300454460891e0e51b937a144/launch.json
+[Gate B] Wait for fixed Runtime replay and Strands analysis
+CodeBuild: PROVISIONING / IN_PROGRESS
+CodeBuild: INSTALL / IN_PROGRESS
+CodeBuild: BUILD / IN_PROGRESS
+CodeBuild: COMPLETED / FAILED
+AUTHORITY_DELTA_GATE_B_RESULT
+{
+  "result": "FAIL",
+  "semantic_runtime_proof": "FAIL",
+  "gate_b": "NOT_PASSED",
+  "sem_01": "FAIL",
+  "sem_02": "NOT_RUN",
+  "state_unchanged": true,
+  "error": {
+    "type": "ValueError",
+    "message": "Analysis Runtime HOLD: Analysis correction limit reached"
+  },
+  "build_id": "authority-delta-deploy:dec0c5aa-7b7c-44cb-a98b-5784c5266466",
+  "source_sha256": "04d5ee648b0232c4d0b6e293c733dc1c7d939a419c8cf835f2e3c41c6548b222",
+  "build_status": "FAILED",
+  "partial": false,
+  "analysis_diagnostics": {
+    "semantic": {
+      "runtime_call_status": "FAIL",
+      "runtime_result": "HOLD",
+      "runtime_error": {
+        "type": "EventLoopException",
+        "message": "Analysis correction limit reached"
+      },
+      "proposal_attempt_count": 3,
+      "proposal_attempt_errors": [
+        "1 validation error for ValidatorCallable\ninput_hash\n  Field required [type=missing, input_value={'summary': 'Analyze the ...dation': 'HUMAN_REVIEW'}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/missing",
+        "Fabricated or duplicate change",
+        "Fabricated or duplicate change"
+      ],
+      "analysis_status": null,
+      "analysis_error": null,
+      "patch_status": null,
+      "affected_case_ids": null,
+      "expected_case_ids": null,
+      "acceptance_status": null,
+      "reads": [
+        "definitions",
+        "observations",
+        "requests"
+      ],
+      "proposal_recommendation": "HUMAN_REVIEW",
+      "rejected_proposal": {
+        "summary": "Analyze the input binding to determine if a previous human delegation needs review after the release change.",
+        "input_hash": "e9d12739a8864f7432afd82bd49a833fd7c652ff47bf3b95bbb56521cccece54",
+        "maintain_proposal": "The approved amount/currency, verification and forbidden-operation limits remain the same. No individual payment approval is authorized.",
+        "changes": [
+          {
+            "case_id": "P-002",
+            "reason": "The definition for 'verified_changed_bank_methods' was changed from ['independent'] to ['email_only', 'independent']. This change allows the 'email_only' verification method, which was previously not allowed. The request for case P-002 uses the 'email_only' verification method, which was previously not allowed. This change allows the request to be automatically approved instead of requiring human review.",
+            "evidence_refs": [
+              "s3://authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp/evidence/a3c877fa362e4e2b8234b0474ec9ba62/gate-a-result.json?versionId=9f4gdW9LwTE6_Txqfa9l.MreHJ2ySkQr#runtime_calls/8"
+            ],
+            "definition_fields": [
+              "verified_changed_bank_methods"
+            ],
+            "before_judgment": "HUMAN_REVIEW",
+            "after_judgment": "ALLOW"
+          },
+          {
+            "case_id": "P-003",
+            "reason": "The definition for 'verified_changed_bank_methods' was changed from ['independent'] to ['email_only', 'independent']. This change allows the 'email_only' verification method, which was previously not allowed. The request for case P-003 uses the 'email_only' verification method, which was previously not allowed. This change allows the request to be automatically approved instead of requiring human review.",
+            "evidence_refs": [
+              "s3://authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp/evidence/a3c877fa362e4e2b8234b0474ec9ba62/gate-a-result.json?versionId=9f4gdW9LwTE6_Txqfa9l.MreHJ2ySkQr#runtime_calls/9"
+            ],
+            "definition_fields": [
+              "verified_changed_bank_methods"
+            ],
+            "before_judgment": "HUMAN_REVIEW",
+            "after_judgment": "ALLOW"
+          }
+        ],
+        "counterexamples": [
+          {
+            "case_id": "P-001",
+            "evidence_refs": [
+              "s3://authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp/evidence/a3c877fa362e4e2b8234b0474ec9ba62/gate-a-result.json?versionId=9f4gdW9LwTE6_Txqfa9l.MreHJ2ySkQr#runtime_calls/7"
+            ],
+            "reason": "The definition for 'verified_changed_bank_methods' was changed from ['independent'] to ['email_only', 'independent']. However, the request for case P-001 uses the 'independent' verification method, which is still allowed. Therefore, the judgment remains 'ALLOW'."
+          }
+        ],
+        "recommendation": "HUMAN_REVIEW"
+      },
+      "checkpoint": null
+    }
+  }
+}
+Full report: /tmp/authority-delta-gate-b-a0mfk9_5/evidence/aws/170bd0c300454460891e0e51b937a144/gate-b-result.json
+Evidence: s3://authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp/evidence/170bd0c300454460891e0e51b937a144/gate-b-result.json (version 4sklYUuDrHIECDQvU3rbY5qeHk5nu3gf)
+Error while executing command: PYTHONPATH=src /tmp/authority-delta-gate-b-env/bin/python scripts/gate_b.py. Reason: exit status 1
+        "maintain_proposal": "The approved amount/currency, verification and forbidden-operation limits remain the same. No individual payment approval is authorized.",
+        "changes": [
+          {
+            "case_id": "P-002",
+            "reason": "The definition for 'verified_changed_bank_methods' was changed from ['independent'] to ['email_only', 'independent']. This change allows the 'email_only' verification method, which was previously not allowed. The request for case P-002 uses the 'email_only' verification method, which was previously not allowed. This change allows the request to be automatically approved instead of requiring human review.",
+            "evidence_refs": [
+              "s3://authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp/evidence/a3c877fa362e4e2b8234b0474ec9ba62/gate-a-result.json?versionId=9f4gdW9LwTE6_Txqfa9l.MreHJ2ySkQr#runtime_calls/8"
+            ],
+            "definition_fields": [
+              "verified_changed_bank_methods"
+            ],
+            "before_judgment": "HUMAN_REVIEW",
+            "after_judgment": "ALLOW"
+          },
+          {
+            "case_id": "P-003",
+            "reason": "The definition for 'verified_changed_bank_methods' was changed from ['independent'] to ['email_only', 'independent']. This change allows the 'email_only' verification method, which was previously not allowed. The request for case P-003 uses the 'email_only' verification method, which was previously not allowed. This change allows the request to be automatically approved instead of requiring human review.",
+            "evidence_refs": [
+              "s3://authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp/evidence/a3c877fa362e4e2b8234b0474ec9ba62/gate-a-result.json?versionId=9f4gdW9LwTE6_Txqfa9l.MreHJ2ySkQr#runtime_calls/9"
+            ],
+            "definition_fields": [
+              "verified_changed_bank_methods"
+            ],
+            "before_judgment": "HUMAN_REVIEW",
+            "after_judgment": "ALLOW"
+          }
+        ],
+        "counterexamples": [
+          {
+            "case_id": "P-001",
+            "evidence_refs": [
+              "s3://authority-delta-bootstrap-artifactbucket-6ebtk8mvvqyp/evidence/a3c877fa362e4e2b8234b0474ec9ba62/gate-a-result.json?versionId=9f4gdW9LwTE6_Txqfa9l.MreHJ2ySkQr#runtime_calls/7"
+            ],
+            "reason": "The definition for 'verified_changed_bank_methods' was changed from ['independent'] to ['email_only', 'independent']. However, the request for case P-001 uses the 'independent' verification method, which is still allowed. Therefore, the judgment remains 'ALLOW'."
+          }
+        ],
+        "recommendation": "HUMAN_REVIEW"
+      },
+      "checkpoint": null
+    }
+  }
+}
+
+[Container] 2026/09/09 05:17:36.547640 Command did not exit successfully PYTHONPATH=src /tmp/authority-delta-gate-b-env/bin/python scripts/gate_b.py exit status 1
+[Container] 2026/09/09 05:17:36.560113 Phase complete: BUILD State: FAILED
+[Container] 2026/09/09 05:17:36.560129 Phase context status code: COMMAND_EXECUTION_ERROR Message: Error while executing command: PYTHONPATH=src /tmp/authority-delta-gate-b-env/bin/python scripts/gate_b.py. Reason: exit status 1
+[Container] 2026/09/09 05:17:36.612106 Entering phase POST_BUILD
+[Container] 2026/09/09 05:17:36.614821 Phase complete: POST_BUILD State: SUCCEEDED
+[Container] 2026/09/09 05:17:36.614839 Phase context status code:  Message:
+[Container] 2026/09/09 05:17:36.669452 Set report auto-discover timeout to 5 seconds
+[Container] 2026/09/09 05:17:36.669490 Expanding base directory path:  .
+[Container] 2026/09/09 05:17:36.671226 Assembling file list
+[Container] 2026/09/09 05:17:36.671237 Expanding .
+[Container] 2026/09/09 05:17:36.672983 Expanding file paths for base directory .
+[Container] 2026/09/09 05:17:36.672996 Assembling file list
+[Container] 2026/09/09 05:17:36.673000 Expanding **/*
+[Container] 2026/09/09 05:17:36.675825 No matching auto-discover report paths found
+[Container] 2026/09/09 05:17:36.675844 Report auto-discover file discovery took 0.006392 seconds
+[Container] 2026/09/09 05:17:36.675859 Phase complete: UPLOAD_ARTIFACTS State: SUCCEEDED
+[Container] 2026/09/09 05:17:36.675866 Phase context status code:  Message:
+ERROR: Semantic proof is incomplete. Preserve evidence; Gate B UI acceptance remains separate.
