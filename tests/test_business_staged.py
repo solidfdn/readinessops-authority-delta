@@ -41,6 +41,14 @@ class StagedAssessment(unittest.TestCase):
         result = assess(self.source, model=model)
         self.assertEqual(result['status'], 'VALIDATED', result)
         self.assertEqual(len(model.calls), 7)
+        rejected = [x for x in result['section_attempts'] if x['status'] == 'REJECTED']
+        self.assertEqual(len(rejected), 1)
+        self.assertIn('impact_citation_ids', rejected[0]['error'])
+        payload = json.loads(model.calls[3][0]['content'][0]['text'])
+        self.assertNotIn('snapshot', payload)
+        self.assertEqual(payload['evidence'], self.source['evidence'])
+        self.assertIn('prior_item', payload)
+        self.assertIn('unknowns', payload['required_output_fields'])
         self.assertEqual(len(result['stages']), 5)
 
     def test_invalid_citations_unknown_or_authority_fields_never_accept(self):
