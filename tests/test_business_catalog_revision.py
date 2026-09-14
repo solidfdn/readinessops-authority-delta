@@ -5,7 +5,7 @@ import unittest
 from test_business_prior import PriorPublicationInput
 from test_business_field_revision import RecordingModel
 from support.business import proposal
-from services.business_analysis.agent import assess
+from services.business_analysis.agent import _assess_combined as assess
 
 
 class CatalogRevision(unittest.TestCase):

@@ -153,7 +153,8 @@ class PriorPublicationInput(unittest.TestCase):
         source = self.start(eid)
         draft = proposal(source)
         draft.pop('input_hash')
-        model = existing.ScriptedBusinessModel([draft])
+        from support.staged_model import StagedModel, responses
+        model = StagedModel(responses(source))
         result = assess(source, model=model)
         self.assertEqual(result["status"], "VALIDATED")
         self.assertEqual(result["reads"], ["context", "evidence"])
